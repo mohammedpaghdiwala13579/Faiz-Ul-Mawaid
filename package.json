@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "build": "echo 'No build step required'"
+    "build": "node -e \"const fs = require('fs'); if(!fs.existsSync('public')) fs.mkdirSync('public'); ['index.html','manifest.json','sw.js'].forEach(f => fs.copyFileSync(f, 'public/' + f));\""
   },
   "dependencies": {
     "express": "^4.19.2"
