@@ -1,0 +1,2638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#f4ede5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Chattogram Tiffin">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="https://i.ibb.co.com/qLsxHhDf/logo-color.png">
+  <title>Chattogram • Daily Tiffin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Naskh+Arabic:wght@500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: #f4ede5;
+      font-family: 'Inter', sans-serif;
+      color: #2b231c;
+      min-height: 100vh;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px 8px;
+    }
+
+    /* Accessibility focus ring */
+    :focus-visible {
+      outline: 2px solid #a57139;
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+
+    .app-wrapper {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      background: transparent;
+      position: relative;
+    }
+
+    .loading-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(145deg, #f8f2e9 0%, #efe3d6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.4s;
+    }
+
+    .loading-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-card {
+      background: rgba(255, 252, 245, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 56px;
+      padding: 2rem 2rem 2.2rem;
+      width: 86%;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 25px 45px -12px rgba(45,30,20,0.25), 0 0 0 1px rgba(235,210,175,0.4) inset;
+      animation: gentleFloat 2.2s infinite ease-in-out;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-5px); }
+    }
+
+    .loading-logo {
+      width: 80px; height: 80px;
+      margin: 0 auto 1.2rem;
+      background: #fff1e2;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-logo img { width: 60px; height: 60px; object-fit: contain; }
+
+    .loading-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #3b2c1d;
+      margin-bottom: 0.25rem;
+    }
+
+    .loading-sub {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.85rem;
+      color: #b47c44;
+      margin-bottom: 1.5rem;
+      border-top: 1px dashed #eedbc8;
+      display: inline-block;
+      padding-top: 6px;
+    }
+
+    .spinner-elegant {
+      margin: 1rem 0 0.9rem;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 11px; height: 11px;
+      background: #c98f4b;
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce 1.2s infinite ease-in-out both;
+    }
+    .dot:nth-child(1) { animation-delay: -0.32s; background: #a57139; }
+    .dot:nth-child(2) { animation-delay: -0.16s; background: #c68c46; }
+    .dot:nth-child(3) { background: #e2a458; animation-delay: 0s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40%            { transform: scale(1.1); opacity: 1; }
+    }
+
+    .loading-message {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #7c6043;
+      background: #fff7ed;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 60px;
+      margin-top: 12px;
+    }
+
+    .loading-quote {
+      font-size: 0.65rem;
+      color: #b4946e;
+      margin-top: 1.2rem;
+      font-style: italic;
+      border-top: 1px solid #eedbc8;
+      padding-top: 12px;
+      display: inline-block;
+    }
+
+    .one-page-box {
+      width: 100%;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .one-page-box.visible { opacity: 1; }
+
+    .micro-header {
+      background: #e8dfd3;
+      border-radius: 36px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid #dbcbb8;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      background-image: url('https://i.ibb.co.com/7d5GwH85/Chat-GPT-Image-Jun-9-2026-01-24-33-PM.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .micro-header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(232, 223, 211, 0.2);
+      backdrop-filter: blur(1px);
+      z-index: 0;
+      border-radius: 36px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-micro {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      object-fit: contain;
+      background: rgba(255,251,245,0.9);
+      padding: 4px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      flex-shrink: 0;
+    }
+
+    .title-micro {
+      text-align: left;
+      line-height: 1.2;
+      position: relative;
+      z-index: 2;
+      min-width: 0;
+    }
+
+    .chatt-micro {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1e140c;
+      text-shadow: 0 2px 5px rgba(255,250,240,0.9);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arabic-micro {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3d2b18;
+      text-shadow: 0 1px 4px rgba(255,245,230,0.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .install-btn {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      position: relative;
+      z-index: 5;
+      backdrop-filter: blur(4px);
+      background: rgba(107,78,49,0.92);
+      border: 1px solid rgba(255,255,200,0.3);
+    }
+
+    .install-btn:hover  { background: #a57139; transform: scale(1.02); }
+    .install-btn:active { transform: scale(0.98); }
+
+    /* ── UTILITY STRIP ── */
+    .utility-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 2px 4px;
+    }
+
+    .utility-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cache-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: #fff5e6;
+      color: #8b5e34;
+      padding: 5px 11px;
+      border-radius: 30px;
+      border: 1px solid #ebd2b6;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .a11y-btn {
+      background: #efe5d8;
+      border: 1px solid #dbcbb8;
+      border-radius: 30px;
+      padding: 4px 10px;
+      cursor: pointer;
+      color: #5a422d;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .a11y-btn:hover { background: #e0d1be; }
+
+    .quick-search-wrap {
+      flex: 1;
+      max-width: 220px;
+    }
+
+    .quick-search-input {
+      width: 100%;
+      background: #fffdf9;
+      border: 1px solid #dfceb6;
+      border-radius: 30px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      color: #2b231c;
+      transition: all 0.2s ease;
+    }
+    .quick-search-input:focus {
+      background: #ffffff;
+      border-color: #a57139;
+      box-shadow: 0 0 0 2px rgba(165,113,57,0.15);
+    }
+
+    /* ── NAVIGATION TABS BAR ── */
+    .nav-tabs-bar {
+      background: #e8dfd3;
+      border: 1px solid #dbcbb8;
+      border-radius: 28px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(43,35,28,0.04);
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+    }
+    .nav-tabs-bar::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 1 0 auto;
+      min-width: max-content;
+      border: none;
+      background: transparent;
+      padding: 8px 14px;
+      border-radius: 22px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #5a422d;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.4, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      scroll-snap-align: center;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255,255,255,0.4);
+      color: #3b2a19;
+    }
+
+    .tab-btn.active {
+      background: #6b4e31;
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(107,78,49,0.25);
+    }
+
+    .tab-icon {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    /* ── TAB PANELS ── */
+    .tab-panel {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tab-panel.active {
+      display: flex;
+      animation: fadeSlideUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+    }
+
+    /* ── FOOTER ── */
+    .tiffin-footer {
+      background: #e8dfd3;
+      border-radius: 26px;
+      padding: 10px 14px;
+      border: 1px solid #dbcbb8;
+      margin-top: 2px;
+      position: relative;
+      overflow: hidden;
+      background-image: url('https://i.ibb.co.com/xqxmh07B/Chat-GPT-Image-Jun-9-2026-01-24-44-PM.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .tiffin-footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(232,223,211,0.2);
+      backdrop-filter: blur(0.6px);
+      z-index: 0;
+      border-radius: 26px;
+    }
+
+    .rules-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #2f2418;
+      text-align: left;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 1px 4px rgba(255,250,240,0.9);
+      letter-spacing: 0.3px;
+    }
+
+    .rules-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      gap: 6px 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .rule {
+      background: rgba(253,247,239,0.85);
+      backdrop-filter: blur(3px);
+      padding: 4px 11px;
+      border-radius: 40px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #3b2a19;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,250,235,0.8);
+      text-shadow: 0 1px 2px white;
+    }
+
+    .rule strong { font-weight: 700; color: #8b5e34; }
+
+    /* ── GRID LAYOUT ── */
+    .grid-2x3 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .flip-card {
+      background: transparent;
+      perspective: 1000px;
+      cursor: pointer;
+      min-height: 140px;
+      height: auto;
+      position: relative;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform 0.35s ease;
+      transform-style: preserve-3d;
+      border-radius: 18px;
+      min-height: 140px;
+    }
+
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 18px;
+      padding: 7px 8px 6px 8px;
+      display: flex;
+      flex-direction: column;
+      background: #fffffffb;
+      border: 1px solid #dfceb6;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #fefaf4;
+    }
+
+    .menu-text {
+      font-size: 0.88rem;
+      line-height: 1.35;
+      font-weight: 700;
+      color: #33271e;
+      white-space: pre-line;
+      word-break: break-word;
+      flex: 1;
+      margin: 4px 0 3px 0;
+      overflow-y: auto;
+      max-height: 100%;
+      scrollbar-width: thin;
+      padding-right: 2px;
+    }
+    .menu-text::-webkit-scrollbar { width: 3px; }
+    .menu-text::-webkit-scrollbar-track { background: #f0e2d2; border-radius: 6px; }
+    .menu-text::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 6px; }
+
+    .extra-detail {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      background: #fffaf2;
+      padding: 5px 6px;
+      border-radius: 14px;
+      border: 1px solid #f0e2d2;
+      flex: 1;
+      overflow-y: auto;
+      font-weight: 500;
+      color: #4f3926;
+      white-space: pre-line;
+      scrollbar-width: thin;
+    }
+    .extra-detail::-webkit-scrollbar { width: 3px; }
+    .extra-detail::-webkit-scrollbar-track { background: #f0e2d2; border-radius: 6px; }
+    .extra-detail::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 6px; }
+
+    .day-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0e2d2;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .day-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #b07d48;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .date-chip-wrap {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .date-chip {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #f0e6db;
+      padding: 2px 6px;
+      border-radius: 30px;
+      color: #7a5b3c;
+      white-space: nowrap;
+    }
+
+    .fav-star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #ccc;
+      line-height: 1;
+      padding: 0 2px;
+      transition: color 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fav-star-btn.is-fav {
+      color: #d97706;
+      transform: scale(1.15);
+    }
+
+    .extra-head {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #9b6e42;
+      border-left: 2px solid #dbbc9a;
+      padding-left: 6px;
+      margin-bottom: 5px;
+      flex-shrink: 0;
+    }
+
+    .tap-hint, .back-hint {
+      font-size: 0.45rem;
+      color: #c7ab89;
+      text-align: right;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .menu-line {
+      display: block;
+      border-radius: 5px;
+      padding: 0 3px;
+      margin: 1px 0;
+      line-height: 1.4;
+    }
+
+    .menu-line.has-color {
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 6px;
+    }
+
+    .card-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .speak-btn {
+      background: none;
+      border: 1px solid #e2ccb0;
+      border-radius: 30px;
+      padding: 3px 9px 3px 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.48rem;
+      font-weight: 600;
+      color: #9b7048;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.18s, border-color 0.18s, transform 0.1s;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .speak-btn:active { transform: scale(0.93); }
+    .speak-btn:hover  { background: #fdf3e7; border-color: #c9a060; }
+    .speak-btn svg    { width: 10px; height: 10px; flex-shrink: 0; }
+
+    .speak-btn.speaking { background: #fff4e0; border-color: #c9a060; color: #7a5020; }
+    .speak-btn.speaking .speak-icon { display: none; }
+    .speak-btn.loading  .speak-icon { display: none; }
+    .speak-btn .speak-wave { display: none; }
+    .speak-btn.speaking .speak-wave,
+    .speak-btn.loading  .speak-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 10px;
+    }
+
+    .speak-wave span {
+      display: block;
+      width: 2.5px;
+      border-radius: 2px;
+      background: #c9a060;
+      animation: waveBar 0.7s ease-in-out infinite alternate;
+    }
+    .speak-wave span:nth-child(1) { height: 4px;  animation-delay: 0s; }
+    .speak-wave span:nth-child(2) { height: 8px;  animation-delay: 0.12s; }
+    .speak-wave span:nth-child(3) { height: 6px;  animation-delay: 0.24s; }
+    .speak-wave span:nth-child(4) { height: 10px; animation-delay: 0.36s; }
+    .speak-wave span:nth-child(5) { height: 5px;  animation-delay: 0.18s; }
+
+    @keyframes waveBar {
+      from { transform: scaleY(0.4); opacity: 0.6; }
+      to   { transform: scaleY(1);   opacity: 1; }
+    }
+
+    .flip-card.speaking .card-front {
+      box-shadow: 0 0 0 2px #c9a060, 0 4px 18px rgba(180,124,68,0.22);
+    }
+
+    /* ── SPOTLIGHT / TODAY'S TAB CARDS ── */
+    .spotlight-card, .dua-card, .checklist-card, .feedback-card, .favorites-card {
+      background: #fffffffb;
+      border: 1px solid #dfceb6;
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(43,35,28,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spotlight-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0e2d2;
+      padding-bottom: 10px;
+    }
+
+    .spotlight-day {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #2b1e10;
+    }
+
+    .spotlight-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #fdf3e5;
+      color: #a57139;
+      border: 1px solid #ebd2b6;
+    }
+
+    .countdown-box {
+      background: linear-gradient(135deg, #fffaf3 0%, #fef5e8 100%);
+      border: 1px solid #f0e2d2;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .countdown-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #8b5e34;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .countdown-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #3b2c1d;
+    }
+
+    .portion-calc {
+      background: #fdf9f3;
+      border: 1px solid #eee2d3;
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .portion-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #5a422d;
+      margin-bottom: 8px;
+    }
+
+    .portion-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .portion-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid #dbcbb8;
+      background: #ffffff;
+      font-weight: 800;
+      color: #5a422d;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portion-val {
+      font-weight: 800;
+      font-size: 1rem;
+      color: #3b2c1d;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .portion-results {
+      font-size: 0.78rem;
+      color: #6b523b;
+      line-height: 1.5;
+      background: #ffffff;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #f0e6da;
+    }
+
+    /* ── DUA & CHECKLIST ── */
+    .dua-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      border-bottom: 1px solid #f0e2d2;
+      padding-bottom: 10px;
+    }
+
+    .dua-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #2b1e10;
+      text-align: center;
+    }
+
+    .dua-sub {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.82rem;
+      color: #b47c44;
+      text-align: center;
+    }
+
+    .dua-arabic {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 1.3rem;
+      text-align: center;
+      color: #3b2a19;
+      line-height: 2;
+      background: #fffaf3;
+      padding: 16px 14px;
+      border-radius: 14px;
+      border: 1px solid #f2e4d3;
+      white-space: pre-line;
+      direction: rtl;
+    }
+
+    .dua-trans {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: #8b5e34;
+      text-align: center;
+    }
+
+    .dua-english {
+      font-size: 0.78rem;
+      color: #4f3926;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .checklist-title, .feedback-title, .fav-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #2b1e10;
+      margin-bottom: 4px;
+    }
+
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #3b2a19;
+      cursor: pointer;
+      user-select: none;
+      background: #fdf9f3;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid #f0e2d2;
+    }
+
+    .custom-chk {
+      width: 16px; height: 16px;
+      accent-color: #6b4e31;
+      cursor: pointer;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      margin: 4px 0;
+    }
+
+    .star-btn {
+      font-size: 1.4rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .star-btn.selected {
+      color: #d97706;
+    }
+
+    .feedback-input {
+      width: 100%;
+      background: #fdf9f3;
+      border: 1px solid #f0e2d2;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-family: 'Inter', sans-serif;
+      color: #2b231c;
+      resize: vertical;
+    }
+
+    .primary-pill-btn {
+      background: #6b4e31;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .primary-pill-btn:hover { background: #8b5e34; }
+
+    .feedback-msg {
+      font-size: 0.72rem;
+      color: #2e7d32;
+      font-weight: 600;
+      min-height: 1rem;
+    }
+
+    /* ── FAVORITES TAB ── */
+    .favorites-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0e2d2;
+      padding-bottom: 8px;
+    }
+
+    .fav-count {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #f0e6db;
+      padding: 2px 8px;
+      border-radius: 20px;
+      color: #7a5b3c;
+    }
+
+    .fav-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 120px;
+    }
+
+    .fav-item-card {
+      background: #fdf9f3;
+      border: 1px solid #f0e2d2;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .fav-item-info {
+      flex: 1;
+    }
+
+    .fav-item-day {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #8b5e34;
+    }
+
+    .fav-item-menu {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #2b1e10;
+      margin-top: 2px;
+    }
+
+    .fav-remove-btn {
+      background: none;
+      border: none;
+      color: #c98f4b;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* Large text mode for accessibility */
+    body.large-text-mode .menu-text { font-size: 1.05rem; }
+    body.large-text-mode .day-name { font-size: 0.85rem; }
+    body.large-text-mode .date-chip { font-size: 0.88rem; }
+    body.large-text-mode .extra-detail { font-size: 0.95rem; }
+
+    /* ── EXPAND MODAL ── */
+    .expand-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(40, 26, 14, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .expand-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .expand-modal {
+      background: #fffdf9;
+      border-radius: 28px;
+      border: 1px solid #dfceb6;
+      box-shadow: 0 30px 60px -10px rgba(45,28,14,0.38);
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.88) translateY(20px);
+      transition: transform 0.32s cubic-bezier(0.34, 1.46, 0.64, 1);
+    }
+
+    .expand-overlay.open .expand-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .expand-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid #f0e2d2;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #fffaf3 0%, #fdf3e5 100%);
+    }
+
+    .expand-day-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .expand-day-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #2b1e10;
+      line-height: 1;
+    }
+
+    .expand-date-chip {
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #f0e6db;
+      padding: 3px 10px;
+      border-radius: 30px;
+      color: #7a5b3c;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .expand-close-btn {
+      background: #f4ede5;
+      border: 1px solid #e2ccb0;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #7a5b3c;
+      transition: background 0.18s, transform 0.1s;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .expand-close-btn:hover  { background: #eedbc8; }
+
+    .expand-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #c9a87c #f0e2d2;
+    }
+
+    .expand-section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #9b6e42;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-left: 3px solid #dbbc9a;
+      padding-left: 8px;
+      margin-bottom: 6px;
+    }
+
+    .expand-menu-text {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      font-weight: 700;
+      color: #2b1e10;
+      white-space: pre-line;
+      word-break: break-word;
+    }
+
+    .expand-extra-box {
+      background: #fffaf2;
+      border: 1px solid #f0e2d2;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      font-weight: 500;
+      color: #4f3926;
+      white-space: pre-line;
+    }
+
+    .expand-footer {
+      padding: 10px 20px 14px;
+      flex-shrink: 0;
+      border-top: 1px solid #f0e2d2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fffdf9;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 8px 6px; }
+      .flip-card   { min-height: 142px; }
+      .menu-text   { font-size: 0.82rem; }
+      .extra-detail{ font-size: 0.72rem; }
+      .install-btn { padding: 6px 12px; font-size: 0.75rem; }
+      .chatt-micro { font-size: 1.3rem; }
+      .arabic-micro{ font-size: 0.7rem; }
+      .logo-micro  { width: 44px; height: 44px; border-radius: 12px; }
+      .micro-header{ padding: 10px 12px; border-radius: 22px; }
+      .tiffin-footer { padding: 8px 12px; border-radius: 20px; }
+      .rules-title { font-size: 0.88rem; }
+      .rule { font-size: 0.62rem; padding: 3px 8px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-tabs-bar { padding: 4px; gap: 4px; border-radius: 24px; }
+      .tab-btn { padding: 8px 12px; font-size: 0.76rem; gap: 4px; border-radius: 20px; }
+      .tab-icon { font-size: 0.85rem; }
+      .day-name { font-size: 0.68rem; }
+      .date-chip { font-size: 0.66rem; padding: 1px 5px; }
+      .rule { font-size: 0.6rem; padding: 3px 8px; }
+      .spotlight-day { font-size: 1.2rem; }
+      .countdown-time { font-size: 1.05rem; }
+    }
+
+    @media (max-width: 350px) {
+      .tab-btn { padding: 7px 10px; font-size: 0.72rem; gap: 3px; }
+      .tab-icon { font-size: 0.8rem; }
+      .grid-2x3 { gap: 4px; }
+      .chatt-micro { font-size: 1.1rem; }
+      .logo-micro { width: 38px; height: 38px; }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Weather Widget Condition Themes & Transitions */
+    #todayWeatherWidget {
+      background: linear-gradient(135deg, #fffcf8 0%, #f7eee2 100%);
+      transition: background 1.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 1.2s ease, box-shadow 1.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #weatherIcon {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-block;
+    }
+
+    #todayWeatherWidget:hover #weatherIcon {
+      transform: scale(1.22) rotate(8deg);
+    }
+
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .weather-icon-animated {
+      animation: floatSoft 3s ease-in-out infinite;
+    }
+
+    @keyframes sunnyPulse {
+      0%, 100% { box-shadow: 0 2px 10px rgba(245, 158, 11, 0.12); }
+      50% { box-shadow: 0 4px 18px rgba(245, 158, 11, 0.28); }
+    }
+
+    @keyframes rainShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes stormPulse {
+      0%, 100% { border-color: #cbd5e1; }
+      50% { border-color: #94a3b8; }
+    }
+
+    /* Sunny / Clear Sky Theme */
+    .weather-theme-sunny {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%) !important;
+      border-color: #fcd34d !important;
+      animation: sunnyPulse 4s ease-in-out infinite;
+    }
+    .weather-theme-sunny #weatherTemp { color: #92400e !important; }
+    .weather-theme-sunny #weatherCondition { color: #b45309 !important; }
+    .weather-theme-sunny #weatherMeta { color: #d97706 !important; }
+
+    /* Clear / Mostly Sunny Theme */
+    .weather-theme-clear {
+      background: linear-gradient(135deg, #fffcf5 0%, #fef3c7 60%, #e0f2fe 100%) !important;
+      border-color: #fde68a !important;
+    }
+
+    /* Cloudy / Overcast Theme */
+    .weather-theme-cloudy {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%) !important;
+      border-color: #cbd5e1 !important;
+    }
+    .weather-theme-cloudy #weatherTemp { color: #334155 !important; }
+    .weather-theme-cloudy #weatherCondition { color: #475569 !important; }
+
+    /* Rainy / Drizzle Theme */
+    .weather-theme-rainy {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%) !important;
+      background-size: 200% 200% !important;
+      border-color: #7dd3fc !important;
+      animation: rainShimmer 6s ease infinite;
+    }
+    .weather-theme-rainy #weatherTemp { color: #0369a1 !important; }
+    .weather-theme-rainy #weatherCondition { color: #0284c7 !important; }
+    .weather-theme-rainy #weatherMeta { color: #0369a1 !important; }
+
+    /* Thunderstorm Theme */
+    .weather-theme-thunderstorm {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%) !important;
+      border-color: #94a3b8 !important;
+      animation: stormPulse 3s infinite ease-in-out;
+    }
+    .weather-theme-thunderstorm #weatherTemp { color: #1e293b !important; }
+    .weather-theme-thunderstorm #weatherCondition { color: #334155 !important; }
+
+    /* Foggy Theme */
+    .weather-theme-foggy {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+      border-color: #e2e8f0 !important;
+    }
+
+    /* Snowy Theme */
+    .weather-theme-snowy {
+      background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%) !important;
+      border-color: #bbf7d0 !important;
+    }
+  </style>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- Screen reader announcer -->
+  <div id="a11yAnnouncer" class="sr-only" aria-live="polite" style="position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); border:0;"></div>
+
+  <!-- Loading overlay -->
+  <div id="beautifulLoading" class="loading-screen">
+    <div class="loading-card">
+      <div class="loading-logo">
+        <img src="https://i.ibb.co.com/qLsxHhDf/logo-color.png" alt="logo"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23d9c7b0%22 width=%2260%22 height=%2260%22 rx=%2218%22/%3E%3Ctext x=%2230%22 y=%2238%22 text-anchor=%22middle%22 fill=%22%234a3728%22 font-size=%2222%22%3EC%3C/text%3E%3C/svg%3E'">
+      </div>
+      <div class="loading-title">Chattogram</div>
+      <div class="loading-sub">الحمد لله والشكر لوليه</div>
+      <div class="spinner-elegant">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="loading-message" id="loadingStatusMsg">Fetching today's tiffin...</div>
+      <div class="loading-quote">✨ From our kitchen to your table ✨</div>
+    </div>
+  </div>
+
+  <!-- Main One Page App Container -->
+  <div class="one-page-box" id="mainContent">
+    <header class="micro-header">
+      <div class="header-left">
+        <img src="https://i.ibb.co.com/qLsxHhDf/logo-color.png" alt="logo" class="logo-micro"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2238%22 height=%2238%22%3E%3Crect fill=%22%23d4c3af%22 width=%2238%22 height=%2238%22 rx=%2212%22/%3E%3Ctext x=%2219%22 y=%2224%22 text-anchor=%22middle%22 fill=%22%234a3728%22 font-size=%2212%22%3EC%3C/text%3E%3C/svg%3E'">
+        <div class="title-micro">
+          <div class="chatt-micro">Chattogram</div>
+          <div class="arabic-micro">الحمد لله والشكر لوليه</div>
+        </div>
+      </div>
+      <button id="installAppBtn" class="install-btn" aria-label="Install App" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px; margin-right:4px;">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Install</span>
+      </button>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="nav-tabs-bar" role="tablist" aria-label="Navigation Features">
+      <button class="tab-btn active" id="tab-btn-today" role="tab" aria-selected="true" aria-controls="panel-today">
+        <span class="tab-icon">🌟</span>
+        <span>Today</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-weekly" role="tab" aria-selected="false" aria-controls="panel-weekly">
+        <span class="tab-icon">🍲</span>
+        <span>Menu</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-rules" role="tab" aria-selected="false" aria-controls="panel-rules">
+        <span class="tab-icon">🤲</span>
+        <span>Dua &amp; Feedback</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-favorites" role="tab" aria-selected="false" aria-controls="panel-favorites">
+        <span class="tab-icon">⭐</span>
+        <span>Favorites</span>
+      </button>
+    </nav>
+
+    <!-- TAB PANELS -->
+
+    <!-- Panel 1: Today's Tiffin Spotlight -->
+    <main class="tab-panel active" id="panel-today" role="tabpanel" aria-labelledby="tab-btn-today">
+      <div class="spotlight-card" id="todaySpotlightCard">
+        <!-- Header -->
+        <div class="spotlight-header" style="margin-bottom:12px;">
+          <div>
+            <div class="spotlight-day" id="spotlightDayName">Today's Tiffin</div>
+            <div style="font-size:0.78rem; color:#8b5e34; font-weight:700;" id="spotlightDate">Loading...</div>
+          </div>
+          <button id="todayShareBtn" class="speak-btn" type="button" style="font-size:0.65rem; padding:5px 12px; background:#fff7ed; border-color:#d97706; color:#92400e;">
+            Share
+          </button>
+        </div>
+
+        <!-- 1. Today's Dishes Grid (At Top) -->
+        <div style="margin-bottom:14px;">
+          <div style="font-family:'Playfair Display', serif; font-size:0.95rem; font-weight:700; color:#5a422d; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+            <span>🍲</span> <span>Today's Dishes</span>
+          </div>
+          <div class="expand-menu-text" id="spotlightMenuText" style="font-size:0.95rem; background:#fffaf3; padding:12px; border-radius:14px; border:1px solid #f2e4d3; line-height:1.6;"></div>
+        </div>
+
+        <!-- 2. Info Grid (Below Dishes) -->
+        <div style="margin-bottom:14px;">
+          <div class="extra-head" style="font-size:0.85rem; margin-bottom:6px;">Info</div>
+          <div class="extra-detail" id="spotlightExtraText" style="font-size:0.85rem; background:#fff9f0; padding:12px; border-radius:14px; border:1px solid #eadbc8; color:#4a3728; line-height:1.5;">Prepared with authentic ingredients according to Mawaid guidelines.</div>
+        </div>
+
+        <!-- 3. Minimalist Live Weather Widget (At Bottom) -->
+        <div id="todayWeatherWidget" style="margin-top:0; padding:10px 14px; border-radius:14px; border:1px solid #ebd9c5; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div id="weatherIcon" style="font-size:1.6rem; line-height:1;">🌤️</div>
+            <div>
+              <div style="display:flex; align-items:baseline; gap:6px;">
+                <span id="weatherTemp" style="font-size:1.15rem; font-weight:700; color:#4a3525; font-family:'Playfair Display', serif;">--°C</span>
+                <span id="weatherCondition" style="font-size:0.78rem; font-weight:600; color:#8b5e34;">Loading weather...</span>
+              </div>
+              <div style="font-size:0.7rem; color:#987250; margin-top:1px;" id="weatherMeta">Chattogram • H: --° L: --°</div>
+            </div>
+          </div>
+          <div style="text-align:right; font-size:0.68rem; color:#8b5e34; border-left:1px solid #ebd9c5; padding-left:10px; min-width:65px;">
+            <div style="display:flex; align-items:center; justify-content:flex-end; gap:3px;"><span>💧</span> <span id="humidityVal">--%</span></div>
+            <div style="display:flex; align-items:center; justify-content:flex-end; gap:3px; margin-top:2px;"><span>💨</span> <span id="windVal">-- km/h</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Panel 2: Weekly Grid Menu -->
+    <section class="tab-panel" id="panel-weekly" role="tabpanel" aria-labelledby="tab-btn-weekly">
+      <div class="grid-2x3" id="compactFlipGrid">
+        <div style="grid-column:span 2; background:#fff9f0; text-align:center; padding:20px; border-radius:18px; border:1px solid #dfceb6;">
+          <span style="font-size:0.75rem; color:#8b5e34;">Loading menu...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 3: Niyyat Dua & Feedback -->
+    <section class="tab-panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-btn-rules">
+      <!-- Mawaid Dua -->
+      <div class="dua-card" style="text-align:center; align-items:center;">
+        <div class="dua-header">
+          <div class="dua-title">Dua</div>
+          <button class="speak-btn" id="playDuaBtn" type="button" aria-label="Recite Dua aloud">
+            <span class="speak-icon">
+              <svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;">
+                <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#c9a060"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span>Recite Dua</span>
+          </button>
+          <audio id="duaAudioPlayer" src="https://cdn.imageurlgenerator.com/uploads/75002bda-fb86-4c31-9160-24605219e34b.mp3" preload="none"></audio>
+        </div>
+        <div class="dua-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ
+
+الْحَمْدُ للهِ رَبِّ الْعَالَمِينَ ۞ بَارَكَ اللهُ لِصَاحِبِ هٰذَا الطَّعَامِ وَكَثَّرَ خَيْرَاتِهِ ۞ وَضَاعَفَ حَسَنَاتِهِ ۞ بِحَقِّ سَيِّدِنَا مُحَمَّدٍ وَّآلِهِ الطَّاهِرِينَ صَلَوَاتُ اللهِ عَلَيْهِمْ اَجْمَعِينَ ۞</div>
+      </div>
+
+      <!-- Daily Feedback Card -->
+      <div class="feedback-card" style="border:1.5px solid #7c4dff; background:linear-gradient(180deg, #ffffff 0%, #f7f2ff 100%); position:relative; box-shadow:0 4px 14px rgba(103,58,183,0.08);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg style="width:24px; height:24px; flex-shrink:0;" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="#673AB7"/>
+              <path d="M7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z" fill="#FFFFFF"/>
+            </svg>
+            <div>
+              <div class="feedback-title" style="color:#4a148c; margin:0; font-size:1.05rem; font-family:'Playfair Display', serif;">Feedback</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attached Menu Display -->
+        <div id="feedbackAttachedMenu" style="font-size:0.75rem; background:#f3e5f5; padding:8px 12px; border-radius:12px; border:1px solid #d1c4e9; color:#4a148c; font-weight:600; margin-bottom:10px;">
+          <span style="font-size:0.65rem; color:#7b1fa2; text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:2px; font-weight:800;">📋 Attached Menu of the Day</span>
+          <span id="feedbackMenuTextVal" style="color:#2a0845; font-weight:700; font-size:0.85rem;">Loading today's menu...</span>
+        </div>
+
+        <!-- Optional Name Field -->
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Your Name (Optional)</label>
+          <input type="text" id="feedbackNameInput" class="feedback-input" placeholder="Your Name (Optional)" style="border-color:#d1c4e9; background:#ffffff;" aria-label="Your Name (Optional)">
+        </div>
+
+        <!-- Star Rating -->
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Rating for Today's Tiffin</label>
+          <div class="star-rating" id="starRating" style="justify-content:flex-start;">
+            <span class="star-btn" data-star="1">★</span>
+            <span class="star-btn" data-star="2">★</span>
+            <span class="star-btn" data-star="3">★</span>
+            <span class="star-btn" data-star="4">★</span>
+            <span class="star-btn" data-star="5">★</span>
+          </div>
+        </div>
+
+        <!-- Feedback Textarea -->
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Review / Notes</label>
+          <textarea id="feedbackText" class="feedback-input" rows="2" placeholder="Write your review, taste notes or suggestions..." style="border-color:#d1c4e9; background:#ffffff;"></textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <button id="saveFeedbackBtn" class="primary-pill-btn" style="background:#673ab7; border-color:#512da8; color:#ffffff; display:inline-flex; align-items:center; gap:6px; width:100%; justify-content:center; padding:10px 16px; font-size:0.85rem; font-weight:700;">
+            <span>Submit</span>
+          </button>
+        </div>
+
+        <!-- Invisible Google Form Target Frame & Form -->
+        <iframe name="gform_hidden_iframe" id="gform_hidden_iframe" style="display:none;"></iframe>
+        <form id="gform_element" action="https://docs.google.com/forms/d/e/1FAIpQLSczGXMlU0i_muPhHGX_ojsJY6IlElf8SKdRjq2piv_IKlrEPw/formResponse" method="POST" target="gform_hidden_iframe" style="display:none;"></form>
+
+        <div id="feedbackStatus" class="feedback-msg" style="margin-top:8px;"></div>
+      </div>
+    </section>
+
+    <!-- Panel 4: Favorites -->
+    <section class="tab-panel" id="panel-favorites" role="tabpanel" aria-labelledby="tab-btn-favorites">
+      <div class="favorites-card">
+        <div class="favorites-header">
+          <div class="fav-title">⭐ Saved Favorite Dishes</div>
+          <div class="fav-count" id="favCount">0 items</div>
+        </div>
+        <div id="favoritesList" class="fav-list-container">
+          <div style="text-align:center; padding:20px; font-size:0.8rem; color:#8b5e34;">
+            No favorite dishes saved yet.<br>Tap the ⭐ star on any card to bookmark a dish!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="tiffin-footer">
+      <div class="rules-title">Tiffin Guidelines</div>
+      <div class="rules-wrap">
+        <span class="rule">🧼 Wash &amp; dry</span>
+        <span class="rule">🔥 <strong>Do NOT heat</strong></span>
+        <span class="rule">💳 FMB Card</span>
+        <span class="rule">⏰ Before 10:00 AM</span>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- EXPAND MODAL -->
+<div id="expandOverlay" class="expand-overlay" role="dialog" aria-modal="true" aria-label="Menu details">
+  <div class="expand-modal" id="expandModal">
+    <div class="expand-modal-header">
+      <div class="expand-day-block">
+        <div class="expand-day-name" id="expandDayName">Saturday</div>
+        <div class="expand-date-chip" id="expandDateChip">—</div>
+      </div>
+      <button class="expand-close-btn" id="expandCloseBtn" aria-label="Close">✕</button>
+    </div>
+    <div class="expand-body">
+      <div>
+        <div class="expand-section-label">Today's Menu</div>
+        <div class="expand-menu-text" id="expandMenuText"></div>
+      </div>
+      <div>
+        <div class="expand-section-label">Info</div>
+        <div class="expand-extra-box" id="expandExtraBox"></div>
+      </div>
+    </div>
+    <div class="expand-footer" style="display:flex; justify-content:space-between; align-items:center;">
+      <button class="speak-btn" id="expandSpeakBtn" type="button" aria-label="Read menu aloud" style="font-size:0.6rem; padding:5px 12px 5px 9px;">
+        <span class="speak-icon">
+          <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px;">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#c9a060"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="speak-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+        </span>
+        Read aloud
+      </button>
+      <button class="speak-btn" id="expandShareBtn" type="button" aria-label="Share menu" style="font-size:0.6rem; padding:5px 12px; background:#fff7ed; border-color:#d97706; color:#92400e;">
+        📲 Share Menu
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA INSTALL INSTRUCTIONS MODAL -->
+<div id="pwaInstallModal" class="expand-overlay" role="dialog" aria-modal="true" aria-label="Install App Guide">
+  <div class="expand-modal" style="max-width:380px;">
+    <div class="expand-modal-header" style="border-bottom:1px solid #ebd9c5; padding-bottom:12px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src="https://i.ibb.co.com/qLsxHhDf/logo-color.png" style="width:38px; height:38px; border-radius:12px; border:1px solid #dfceb6; object-fit:contain; background:#fffaf3; padding:2px;" alt="logo"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2238%22 height=%2238%22%3E%3Crect fill=%22%23d4c3af%22 width=%2238%22 height=%2238%22 rx=%2212%22/%3E%3Ctext x=%2219%22 y=%2224%22 text-anchor=%22middle%22 fill=%22%234a3728%22 font-size=%2212%22%3EC%3C/text%3E%3C/svg%3E'">
+        <div>
+          <div style="font-family:'Playfair Display', serif; font-weight:700; font-size:1.05rem; color:#4a3728;" id="pwaModalTitle">Install Chattogram App</div>
+          <div style="font-size:0.72rem; color:#8b5e34;" id="pwaModalSub">Fast 1-click home screen access</div>
+        </div>
+      </div>
+      <button class="expand-close-btn" id="pwaModalCloseBtn" aria-label="Close">✕</button>
+    </div>
+
+    <div class="expand-body" style="padding:16px 0;" id="pwaModalContent">
+      <!-- Dynamically filled per platform -->
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:8px;">
+      <button id="pwaDoneBtn" style="flex:1; padding:10px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer;">
+        I've Installed It
+      </button>
+      <button id="pwaCloseGotItBtn" style="padding:10px 16px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:600; font-size:0.82rem; cursor:pointer;">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── CACHE KEYS & STATE ────────────────────────────────────
+  const MENU_CACHE_KEY = 'chattogram_tiffin_menu_v2';
+  const FAV_CACHE_KEY  = 'chattogram_tiffin_favs_v1';
+  const CHK_CACHE_KEY  = 'chattogram_tiffin_chks_v1';
+  let globalMenuData   = [];
+  let favoriteDishes   = JSON.parse(localStorage.getItem(FAV_CACHE_KEY) || '[]');
+
+  // ── ADVANCED CROSS-PLATFORM PWA INSTALL SYSTEM ────────────
+  let deferredPrompt  = null;
+  const installBtn    = document.getElementById('installAppBtn');
+  const pwaModal      = document.getElementById('pwaInstallModal');
+  const pwaCloseBtn   = document.getElementById('pwaModalCloseBtn');
+  const pwaDoneBtn    = document.getElementById('pwaDoneBtn');
+  const pwaCloseGotIt = document.getElementById('pwaCloseGotItBtn');
+  const pwaContent    = document.getElementById('pwaModalContent');
+
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true ||
+           document.referrer.includes('android-app://') ||
+           localStorage.getItem('pwa_installed') === 'true';
+  }
+
+  function updateInstallBtnVisibility() {
+    if (!installBtn) return;
+    if (isStandalone()) {
+      installBtn.style.display = 'none';
+    } else {
+      installBtn.style.display = 'inline-flex';
+    }
+  }
+
+  // Initial check on load
+  updateInstallBtnVisibility();
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!isStandalone() && installBtn) {
+      installBtn.style.display = 'inline-flex';
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    localStorage.setItem('pwa_installed', 'true');
+    deferredPrompt = null;
+    if (installBtn) installBtn.style.display = 'none';
+    closePwaModal();
+  });
+
+  function detectPlatform() {
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    return { isIOS, isAndroid };
+  }
+
+  function showPwaInstructions() {
+    if (!pwaModal || !pwaContent) return;
+    const { isIOS } = detectPlatform();
+
+    if (isIOS) {
+      pwaContent.innerHTML = `
+        <div style="font-size:0.85rem; color:#4a3728; line-height:1.6;">
+          <p style="margin-bottom:12px; font-weight:600;">To install Chattogram on your iPhone or iPad:</p>
+          <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; background:#fffaf3; padding:10px; border-radius:12px; border:1px solid #f2e4d3;">
+            <div style="background:#f3e8d8; padding:4px 10px; border-radius:8px; font-size:1rem; font-weight:700; color:#5a422d;">1</div>
+            <div>Tap the <strong>Share</strong> icon <span style="font-size:1.1rem; color:#007aff;">⎋</span> or <span style="font-size:1rem; color:#007aff;">[↑]</span> at the bottom/top of Safari.</div>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; background:#fffaf3; padding:10px; border-radius:12px; border:1px solid #f2e4d3;">
+            <div style="background:#f3e8d8; padding:4px 10px; border-radius:8px; font-size:1rem; font-weight:700; color:#5a422d;">2</div>
+            <div>Scroll down and select <strong>"Add to Home Screen"</strong> <span style="font-size:1.1rem;">➕</span>.</div>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; background:#fffaf3; padding:10px; border-radius:12px; border:1px solid #f2e4d3;">
+            <div style="background:#f3e8d8; padding:4px 10px; border-radius:8px; font-size:1rem; font-weight:700; color:#5a422d;">3</div>
+            <div>Tap <strong>"Add"</strong> at the top right to complete installation.</div>
+          </div>
+        </div>
+      `;
+    } else {
+      pwaContent.innerHTML = `
+        <div style="font-size:0.85rem; color:#4a3728; line-height:1.6;">
+          <p style="margin-bottom:12px; font-weight:600;">To install Chattogram on your browser:</p>
+          <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; background:#fffaf3; padding:10px; border-radius:12px; border:1px solid #f2e4d3;">
+            <div style="background:#f3e8d8; padding:4px 10px; border-radius:8px; font-size:1rem; font-weight:700; color:#5a422d;">1</div>
+            <div>Look for the <strong>Install App</strong> icon <span style="font-size:1.1rem;">⊕</span> or <span style="font-size:1rem;">⬇️</span> in your browser address bar.</div>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; background:#fffaf3; padding:10px; border-radius:12px; border:1px solid #f2e4d3;">
+            <div style="background:#f3e8d8; padding:4px 10px; border-radius:8px; font-size:1rem; font-weight:700; color:#5a422d;">2</div>
+            <div>Or open browser menu <span style="font-size:1.1rem;">⋮</span> and select <strong>"Install Chattogram"</strong> or <strong>"Add to Home Screen"</strong>.</div>
+          </div>
+        </div>
+      `;
+    }
+
+    pwaModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePwaModal() {
+    if (pwaModal) pwaModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          localStorage.setItem('pwa_installed', 'true');
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      } else {
+        showPwaInstructions();
+      }
+    });
+  }
+
+  if (pwaCloseBtn) pwaCloseBtn.addEventListener('click', closePwaModal);
+  if (pwaCloseGotIt) pwaCloseGotIt.addEventListener('click', closePwaModal);
+  if (pwaDoneBtn) {
+    pwaDoneBtn.addEventListener('click', () => {
+      localStorage.setItem('pwa_installed', 'true');
+      if (installBtn) installBtn.style.display = 'none';
+      closePwaModal();
+    });
+  }
+  if (pwaModal) {
+    pwaModal.addEventListener('click', (e) => {
+      if (e.target === pwaModal) closePwaModal();
+    });
+  }
+
+  // ── SERVICE WORKER ───────────────────────────────────────
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js?v=BUILD_HASH', { updateViaCache: 'none' })
+        .then(reg => {
+          reg.update();
+          reg.addEventListener('updatefound', () => {
+            const nw = reg.installing;
+            nw.addEventListener('statechange', () => {
+              if (nw.state === 'activated') window.location.reload();
+            });
+          });
+        }).catch(err => console.log('SW failed:', err));
+
+      navigator.serviceWorker.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'SW_ACTIVATED') window.location.reload();
+      });
+    });
+  }
+
+  // ── ACCESSIBILITY & TEXT SIZE TOGGLE ──────────────────────
+  const textSizeBtn = document.getElementById('textSizeToggleBtn');
+  let isLargeText = localStorage.getItem('chattogram_a11y_text') === 'true';
+
+  function applyTextSize() {
+    if (isLargeText) {
+      document.body.classList.add('large-text-mode');
+    } else {
+      document.body.classList.remove('large-text-mode');
+    }
+    localStorage.setItem('chattogram_a11y_text', isLargeText);
+  }
+  applyTextSize();
+
+  if (textSizeBtn) {
+    textSizeBtn.addEventListener('click', () => {
+      isLargeText = !isLargeText;
+      applyTextSize();
+      announceA11y(isLargeText ? 'Large text enabled' : 'Standard text enabled');
+    });
+  }
+
+  function announceA11y(msg) {
+    const el = document.getElementById('a11yAnnouncer');
+    if (el) el.textContent = msg;
+  }
+
+  // ── MENU API & INSTANT CACHE ──────────────────────────────
+  const MENU_API = "https://script.google.com/macros/s/AKfycbwBXxL2sH1IY0eO4z50bhE547cBnuy7wwF46G0z2_fpumhTTVJTvh0XRsjDlz8PGUI/exec";
+
+  function escapeText(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function escapeWithBreaks(str) {
+    if (!str) return '';
+    return escapeText(str).replace(/\n/g, '<br>');
+  }
+
+  async function fetchMenuData(statusCb) {
+    statusCb('Connecting to kitchen...');
+    const ctrl = new AbortController();
+    const tid  = setTimeout(() => ctrl.abort(), 6000);
+    const resp = await fetch(MENU_API, { signal: ctrl.signal });
+    clearTimeout(tid);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    statusCb('Unfolding recipes...');
+    const json = await resp.json();
+    if (json && json.error) throw new Error(json.message);
+    if (!Array.isArray(json) || !json.length) return [];
+    
+    const parsed = json.map(row => ({
+      day        : row.day   || '',
+      month      : row.month || '',
+      date       : row.date  || '',
+      menu       : row.menu  || '',
+      extra      : row.extra || '',
+      menuColors : Array.isArray(row.menuColors) ? row.menuColors : []
+    }));
+
+    // Cache locally for instant next load
+    try {
+      localStorage.setItem(MENU_CACHE_KEY, JSON.stringify({
+        data: parsed,
+        timestamp: Date.now()
+      }));
+    } catch (e) {}
+
+    statusCb('✨ Menu ready! ✨');
+    return parsed;
+  }
+
+  // ── SPEAK SYSTEM ─────────────────────────────────────────
+  const speakCache = {};
+  let currentUtterance = null;
+  let currentSpeakBtn = null;
+  let currentFlipCard = null;
+
+  function resetDuaBtn() {
+    const playDuaBtn = document.getElementById('playDuaBtn');
+    if (playDuaBtn) {
+      playDuaBtn.classList.remove('speaking', 'loading');
+      const textSpan = playDuaBtn.querySelector('span:last-child');
+      if (textSpan) textSpan.textContent = 'Recite Dua';
+    }
+  }
+
+  function stopSpeaking() {
+    try { speechSynthesis.cancel(); } catch (e) {}
+    const duaAudio = document.getElementById('duaAudioPlayer');
+    if (duaAudio && !duaAudio.paused) {
+      duaAudio.pause();
+      duaAudio.currentTime = 0;
+      resetDuaBtn();
+    }
+    if (currentSpeakBtn) currentSpeakBtn.classList.remove('speaking', 'loading');
+    if (currentFlipCard) currentFlipCard.classList.remove('speaking');
+    currentUtterance = null;
+    currentSpeakBtn = null;
+    currentFlipCard = null;
+  }
+
+  function doSpeak(text, btn, card) {
+    speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.92;
+    utter.pitch = 1;
+
+    currentUtterance = utter;
+    currentSpeakBtn = btn;
+    currentFlipCard = card;
+
+    if (btn) {
+      btn.classList.remove('loading');
+      btn.classList.add('speaking');
+    }
+    if (card) card.classList.add('speaking');
+
+    utter.onend = () => stopSpeaking();
+    utter.onerror = () => stopSpeaking();
+
+    speechSynthesis.speak(utter);
+  }
+
+  async function handleSpeakTap(idx, day, date, menuRaw, btn, card) {
+    if (card && card.classList.contains('speaking')) {
+      stopSpeaking();
+      return;
+    }
+    if (btn && btn.classList.contains('speaking')) {
+      stopSpeaking();
+      return;
+    }
+
+    stopSpeaking();
+    if (btn) btn.classList.add('loading');
+
+    const cleanText = `On ${day} ${date}, the menu includes: ` + menuRaw.replace(/\n/g, ', ');
+    doSpeak(cleanText, btn, card);
+  }
+
+  // ── TAB NAVIGATION SYSTEM ─────────────────────────
+  const tabBtns   = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  function switchTab(targetId) {
+    tabBtns.forEach(btn => {
+      const isTarget = btn.getAttribute('aria-controls') === targetId;
+      btn.classList.toggle('active', isTarget);
+      btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      if (isTarget) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    });
+
+    tabPanels.forEach(panel => {
+      const isTarget = panel.id === targetId;
+      panel.classList.toggle('active', isTarget);
+    });
+
+    announceA11y(`Switched to ${targetId.replace('panel-', '')} view`);
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('aria-controls');
+      switchTab(targetId);
+    });
+  });
+
+  // Keyboard navigation for tabs
+  const tabList = document.querySelector('.nav-tabs-bar');
+  if (tabList) {
+    tabList.addEventListener('keydown', (e) => {
+      const btns = Array.from(tabBtns);
+      const idx  = btns.indexOf(document.activeElement);
+      if (idx === -1) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = btns[(idx + 1) % btns.length];
+        next.focus();
+        next.click();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = btns[(idx - 1 + btns.length) % btns.length];
+        prev.focus();
+        prev.click();
+      }
+    });
+  }
+
+  // ── FAVORITES SYSTEM ────────────────────────────────────
+  function toggleFavorite(day, menuText) {
+    const key = `${day}_${menuText.substring(0, 20)}`;
+    const idx = favoriteDishes.findIndex(f => f.key === key);
+    
+    if (idx > -1) {
+      favoriteDishes.splice(idx, 1);
+      announceA11y(`Removed ${day} menu from favorites`);
+    } else {
+      favoriteDishes.push({ key, day, menu: menuText, time: Date.now() });
+      announceA11y(`Added ${day} menu to favorites`);
+    }
+
+    try {
+      localStorage.setItem(FAV_CACHE_KEY, JSON.stringify(favoriteDishes));
+    } catch (e) {}
+
+    renderFavoritesList();
+    renderCards(globalMenuData);
+  }
+
+  function renderFavoritesList() {
+    const container = document.getElementById('favoritesList');
+    const countEl   = document.getElementById('favCount');
+    if (!container) return;
+
+    if (countEl) countEl.textContent = `${favoriteDishes.length} items`;
+
+    if (!favoriteDishes.length) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:20px; font-size:0.8rem; color:#8b5e34;">
+          No favorite dishes saved yet.<br>Tap the ⭐ star on any card to bookmark a dish!
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = favoriteDishes.map(fav => `
+      <div class="fav-item-card">
+        <div class="fav-item-info">
+          <div class="fav-item-day">${escapeText(fav.day)}</div>
+          <div class="fav-item-menu">${escapeWithBreaks(fav.menu)}</div>
+        </div>
+        <button class="fav-remove-btn" aria-label="Remove favorite" onclick="removeFav('${fav.key}')">✕</button>
+      </div>
+    `).join('');
+  }
+
+  window.removeFav = function(key) {
+    favoriteDishes = favoriteDishes.filter(f => f.key !== key);
+    localStorage.setItem(FAV_CACHE_KEY, JSON.stringify(favoriteDishes));
+    renderFavoritesList();
+    renderCards(globalMenuData);
+  };
+
+  // ── LIVE MINIMALIST GOOGLE WEATHER WIDGET ──────────────────────
+  let isWeatherFetching = false;
+
+  function setWidgetTheme(themeName) {
+    const widget = document.getElementById('todayWeatherWidget');
+    if (!widget) return;
+    // Remove existing weather theme classes
+    widget.className = widget.className.split(' ').filter(c => !c.startsWith('weather-theme-')).join(' ');
+    widget.classList.add(`weather-theme-${themeName}`);
+
+    const iconEl = document.getElementById('weatherIcon');
+    if (iconEl) {
+      iconEl.classList.add('weather-icon-animated');
+    }
+  }
+
+  async function fetchLiveWeather() {
+    if (isWeatherFetching) return;
+    isWeatherFetching = true;
+
+    const tempEl      = document.getElementById('weatherTemp');
+    const condEl      = document.getElementById('weatherCondition');
+    const metaEl      = document.getElementById('weatherMeta');
+    const iconEl      = document.getElementById('weatherIcon');
+    const humidityEl  = document.getElementById('humidityVal');
+    const windEl      = document.getElementById('windVal');
+
+    if (!tempEl) { isWeatherFetching = false; return; }
+
+    const wmoMap = {
+      0:  { label: "Clear Sky", icon: "☀️", theme: "sunny" },
+      1:  { label: "Mainly Clear", icon: "🌤️", theme: "clear" },
+      2:  { label: "Partly Cloudy", icon: "⛅", theme: "cloudy" },
+      3:  { label: "Overcast", icon: "☁️", theme: "cloudy" },
+      45: { label: "Foggy", icon: "🌫️", theme: "foggy" },
+      48: { label: "Rime Fog", icon: "🌫️", theme: "foggy" },
+      51: { label: "Light Drizzle", icon: "🌦️", theme: "rainy" },
+      53: { label: "Drizzle", icon: "🌦️", theme: "rainy" },
+      55: { label: "Heavy Drizzle", icon: "🌧️", theme: "rainy" },
+      61: { label: "Slight Rain", icon: "🌧️", theme: "rainy" },
+      63: { label: "Moderate Rain", icon: "🌧️", theme: "rainy" },
+      65: { label: "Heavy Rain", icon: "🌧️", theme: "rainy" },
+      71: { label: "Light Snow", icon: "❄️", theme: "snowy" },
+      73: { label: "Moderate Snow", icon: "❄️", theme: "snowy" },
+      75: { label: "Heavy Snow", icon: "❄️", theme: "snowy" },
+      80: { label: "Rain Showers", icon: "🌦️", theme: "rainy" },
+      81: { label: "Heavy Showers", icon: "🌧️", theme: "rainy" },
+      82: { label: "Violent Showers", icon: "⛈️", theme: "thunderstorm" },
+      95: { label: "Thunderstorm", icon: "⛈️", theme: "thunderstorm" },
+      96: { label: "Thunderstorm", icon: "⛈️", theme: "thunderstorm" },
+      99: { label: "Thunderstorm", icon: "⛈️", theme: "thunderstorm" }
+    };
+
+    async function applyWeatherData(lat, lon, locationLabel) {
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=relativehumidity_2m&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Weather request failed");
+        const data = await res.json();
+
+        const current = data.current_weather;
+        if (!current) throw new Error("No current weather payload");
+
+        const temp = Math.round(current.temperature);
+        const code = current.weathercode;
+        const wind = Math.round(current.windspeed);
+
+        const nowHour = new Date().getHours();
+        const humidity = (data.hourly && data.hourly.relativehumidity_2m && data.hourly.relativehumidity_2m[nowHour] !== undefined)
+          ? Math.round(data.hourly.relativehumidity_2m[nowHour])
+          : 70;
+
+        const maxTemp = (data.daily && data.daily.temperature_2m_max) ? Math.round(data.daily.temperature_2m_max[0]) : temp + 2;
+        const minTemp = (data.daily && data.daily.temperature_2m_min) ? Math.round(data.daily.temperature_2m_min[0]) : temp - 3;
+
+        const weatherInfo = wmoMap[code] || { label: "Sunny", icon: "☀️", theme: "sunny" };
+
+        if (tempEl) tempEl.textContent = `${temp}°C`;
+        if (condEl) condEl.textContent = weatherInfo.label;
+        if (iconEl) iconEl.textContent = weatherInfo.icon;
+        if (metaEl) metaEl.textContent = `${locationLabel} • H: ${maxTemp}° L: ${minTemp}°`;
+        if (humidityEl) humidityEl.textContent = `${humidity}%`;
+        if (windEl) windEl.textContent = `${wind} km/h`;
+
+        setWidgetTheme(weatherInfo.theme || 'clear');
+      } catch (e) {
+        if (tempEl) tempEl.textContent = "28°C";
+        if (condEl) condEl.textContent = "Partly Cloudy";
+        if (iconEl) iconEl.textContent = "⛅";
+        if (metaEl) metaEl.textContent = `${locationLabel} • H: 31° L: 25°`;
+        if (humidityEl) humidityEl.textContent = "72%";
+        if (windEl) windEl.textContent = "12 km/h";
+        setWidgetTheme('clear');
+      } finally {
+        isWeatherFetching = false;
+      }
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          applyWeatherData(pos.coords.latitude, pos.coords.longitude, "Local Weather");
+        },
+        () => {
+          applyWeatherData(22.3569, 91.7832, "Chattogram");
+        },
+        { timeout: 3000 }
+      );
+    } else {
+      applyWeatherData(22.3569, 91.7832, "Chattogram");
+    }
+  }
+
+  // ── TODAY'S SPOTLIGHT & ATTACHED MENU ───────────────────
+  let todayAttachedMenuText = '';
+
+  function updateTodaySpotlight(menuItems) {
+    fetchLiveWeather();
+    const todayNameEl   = document.getElementById('spotlightDayName');
+    const todayDateEl   = document.getElementById('spotlightDate');
+    const todayMenuEl   = document.getElementById('spotlightMenuText');
+    const todayExtraEl  = document.getElementById('spotlightExtraText');
+    const statusBadge   = document.getElementById('spotlightStatusBadge');
+    const attachedValEl = document.getElementById('feedbackMenuTextVal');
+
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const now  = new Date();
+    const currentDayName = days[now.getDay()];
+
+    const matching = menuItems.find(item => item && item.day.toLowerCase().trim() === currentDayName.toLowerCase()) || menuItems[0];
+
+    if (matching) {
+      const formattedMenu = (matching.menu || '').replace(/\n/g, ', ');
+      todayAttachedMenuText = `${matching.day} (${matching.month} ${matching.date}): ${formattedMenu}`;
+
+      if (todayNameEl) todayNameEl.textContent = matching.day + " (Today)";
+      if (todayDateEl) todayDateEl.textContent = `${matching.month} ${matching.date}`.trim() || 'Today';
+      if (todayMenuEl) todayMenuEl.innerHTML   = escapeWithBreaks(matching.menu) || 'Menu updating soon';
+      if (todayExtraEl) todayExtraEl.innerHTML = escapeWithBreaks(matching.extra) || 'Prepared with authentic ingredients according to Mawaid guidelines.';
+      if (attachedValEl) attachedValEl.textContent = todayAttachedMenuText;
+    }
+
+    // Live countdown to 10:00 AM
+    const cutoffEl = document.getElementById('cutoffCountdown');
+    function updateClock() {
+      const t = new Date();
+      const cutoff = new Date(t.getFullYear(), t.getMonth(), t.getDate(), 10, 0, 0);
+
+      if (t > cutoff) {
+        if (cutoffEl) cutoffEl.textContent = "Closed";
+        if (statusBadge) {
+          statusBadge.textContent = "Kitchen Closed";
+          statusBadge.style.background = "#e6f4ea";
+          statusBadge.style.color = "#1e7e34";
+        }
+      } else {
+        const diff = cutoff - t;
+        const hrs  = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        if (cutoffEl) {
+          cutoffEl.textContent = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        }
+        if (statusBadge) {
+          statusBadge.textContent = "Before 10 AM Cutoff";
+        }
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  // ── SHARE MENU HANDLERS ───────────────────────────────────
+  function shareFormattedMenu(day, date, menuRaw) {
+    const dishes = menuRaw ? menuRaw.replace(/\n/g, '\n• ') : 'No menu listed';
+    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n• ${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: `Chattogram Tiffin - ${day}`,
+        text: text
+      }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📲 Menu copied to clipboard! You can paste and send it in WhatsApp.');
+      });
+    } else {
+      alert(text);
+    }
+  }
+
+  const todayShareBtn = document.getElementById('todayShareBtn');
+  if (todayShareBtn) {
+    todayShareBtn.addEventListener('click', () => {
+      const day = document.getElementById('spotlightDayName')?.textContent || 'Today';
+      const date = document.getElementById('spotlightDate')?.textContent || '';
+      const menu = document.getElementById('spotlightMenuText')?.innerText || '';
+      shareFormattedMenu(day, date, menu);
+    });
+  }
+
+  // ── DUA RECITITION ───────────────────────────────────────
+  const playDuaBtn = document.getElementById('playDuaBtn');
+  const duaAudio = document.getElementById('duaAudioPlayer');
+
+  if (duaAudio) {
+    duaAudio.addEventListener('ended', resetDuaBtn);
+    duaAudio.addEventListener('pause', () => {
+      if (duaAudio.currentTime === 0 || duaAudio.ended) {
+        resetDuaBtn();
+      }
+    });
+    duaAudio.addEventListener('error', () => {
+      resetDuaBtn();
+    });
+  }
+
+  if (playDuaBtn) {
+    playDuaBtn.addEventListener('click', () => {
+      stopSpeaking();
+      if (!duaAudio) return;
+
+      const textSpan = playDuaBtn.querySelector('span:last-child');
+
+      if (duaAudio.paused) {
+        playDuaBtn.classList.add('loading');
+        if (textSpan) textSpan.textContent = 'Loading...';
+
+        const playPromise = duaAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            playDuaBtn.classList.remove('loading');
+            playDuaBtn.classList.add('speaking');
+            if (textSpan) textSpan.textContent = 'Pause Dua';
+          }).catch(err => {
+            console.error('Audio playback error:', err);
+            resetDuaBtn();
+          });
+        }
+      } else {
+        duaAudio.pause();
+        duaAudio.currentTime = 0;
+        resetDuaBtn();
+      }
+    });
+  }
+
+  // ── GOOGLE FORM FEEDBACK SYSTEM ───────────────────────────
+  let currentRating = 5;
+  const starBtns = document.querySelectorAll('.star-btn');
+  const saveFbBtn = document.getElementById('saveFeedbackBtn');
+  const fbMsg = document.getElementById('feedbackStatus');
+
+  function setStarRating(val) {
+    currentRating = val;
+    starBtns.forEach(btn => {
+      const s = parseInt(btn.dataset.star);
+      btn.classList.toggle('selected', s <= val);
+    });
+  }
+  setStarRating(5);
+
+  starBtns.forEach(btn => {
+    btn.addEventListener('click', () => setStarRating(parseInt(btn.dataset.star)));
+  });
+
+  if (saveFbBtn) {
+    saveFbBtn.addEventListener('click', async () => {
+      const nameVal = (document.getElementById('feedbackNameInput')?.value || '').trim();
+      const txtVal  = (document.getElementById('feedbackText')?.value || '').trim();
+      const menuVal = todayAttachedMenuText || 'Today\'s Menu';
+
+      saveFbBtn.disabled = true;
+      saveFbBtn.innerHTML = '<span>⏳ Submitting...</span>';
+
+      const starsString = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating);
+      const formattedReview = `Rating: ${starsString} (${currentRating}/5 Stars)\nNotes: ${txtVal || 'No additional notes provided'}`;
+
+      const submissionObj = {
+        name: nameVal || 'Anonymous',
+        rating: currentRating,
+        attachedMenu: menuVal,
+        feedback: txtVal,
+        timestamp: new Date().toLocaleString()
+      };
+
+      try {
+        const history = JSON.parse(localStorage.getItem('chattogram_feedback_history') || '[]');
+        history.unshift(submissionObj);
+        localStorage.setItem('chattogram_feedback_history', JSON.stringify(history));
+
+        // Submit directly to Google Form with exact entry IDs
+        const gformEl = document.getElementById('gform_element');
+        if (gformEl) {
+          gformEl.innerHTML = '';
+
+          // Exact entry field IDs extracted from the user's Google Form
+          const fields = {
+            'entry.1960044145': menuVal,                       // 1. Menu of the Day
+            'entry.1978933913': nameVal || 'Anonymous',         // 2. Name
+            'entry.7630620': 'Option 1',                        // 3. Rating (Multiple Choice)
+            'entry.1482373019': formattedReview,               // 4. Review / Notes.
+            'fvv': '1',
+            'pageHistory': '0'
+          };
+
+          Object.keys(fields).forEach(key => {
+            const hiddenInp = document.createElement('input');
+            hiddenInp.type = 'hidden';
+            hiddenInp.name = key;
+            hiddenInp.value = fields[key];
+            gformEl.appendChild(hiddenInp);
+          });
+
+          gformEl.submit();
+        }
+      } catch (err) {}
+
+      setTimeout(() => {
+        saveFbBtn.disabled = false;
+        saveFbBtn.innerHTML = '<span>Submit</span>';
+        if (fbMsg) {
+          fbMsg.style.color = '#2e7d32';
+          fbMsg.innerHTML = '✅ Shukran! Your rating & review for today\'s tiffin have been submitted.';
+          setTimeout(() => { fbMsg.innerHTML = ''; }, 5000);
+        }
+        const txtEl = document.getElementById('feedbackText');
+        if (txtEl) txtEl.value = '';
+      }, 600);
+    });
+  }
+
+  // ── EXPAND MODAL SYSTEM ───────────────────────────────────
+  let expandData = null;
+  const expandOverlay = document.getElementById('expandOverlay');
+  const expandClose   = document.getElementById('expandCloseBtn');
+  const expandSpeakB  = document.getElementById('expandSpeakBtn');
+
+  function openExpandModal(data) {
+    expandData = data;
+    document.getElementById('expandDayName').textContent  = data.day;
+    document.getElementById('expandDateChip').textContent = data.dateDisplay || '—';
+    document.getElementById('expandMenuText').innerHTML   = data.menuHtml;
+    document.getElementById('expandExtraBox').innerHTML   = data.extraHtml;
+    expandOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeExpandModal() {
+    expandOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    stopSpeaking();
+  }
+
+  if (expandClose) expandClose.addEventListener('click', closeExpandModal);
+  if (expandOverlay) {
+    expandOverlay.addEventListener('click', (e) => {
+      if (e.target === expandOverlay) closeExpandModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeExpandModal();
+  });
+
+  if (expandSpeakB) {
+    expandSpeakB.addEventListener('click', function() {
+      if (!expandData) return;
+      handleSpeakTap(
+        'expand_' + expandData.idx,
+        expandData.day,
+        expandData.dateForSpeech,
+        expandData.menuRaw,
+        this,
+        null
+      );
+    });
+  }
+
+  const expandShareB = document.getElementById('expandShareBtn');
+  if (expandShareB) {
+    expandShareB.addEventListener('click', function() {
+      if (!expandData) return;
+      shareFormattedMenu(expandData.day, expandData.dateDisplay, expandData.menuRaw);
+    });
+  }
+
+  // ── LONG PRESS ────────────────────────────────────────────
+  const LONG_PRESS_MS = 480;
+
+  function attachLongPress(card, cardData) {
+    let lpTimer = null;
+    let lpDidFire = false;
+
+    function startLP() {
+      lpDidFire = false;
+      lpTimer = setTimeout(() => {
+        lpDidFire = true;
+        if (navigator.vibrate) navigator.vibrate(25);
+        openExpandModal(cardData);
+      }, LONG_PRESS_MS);
+    }
+
+    function cancelLP() { clearTimeout(lpTimer); }
+
+    card.addEventListener('touchstart', startLP, { passive: true });
+    card.addEventListener('touchmove', cancelLP, { passive: true });
+    card.addEventListener('touchend', cancelLP);
+    card.addEventListener('touchcancel', cancelLP);
+
+    card.addEventListener('mousedown', (e) => {
+      if (e.button === 0) startLP();
+    });
+    card.addEventListener('mouseup', cancelLP);
+    card.addEventListener('mouseleave', cancelLP);
+  }
+
+  // ── RENDER CARDS ─────────────────────────────────────────
+  function renderCards(menuItems) {
+    const container = document.getElementById('compactFlipGrid');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const fallbackDays = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday'];
+    const itemsToRender = menuItems.length ? menuItems : Array(6).fill(null);
+
+    itemsToRender.forEach((src, i) => {
+      const dayVal   = src && src.day.trim()   ? src.day   : fallbackDays[i] || `Day ${i+1}`;
+      const monthVal = src && src.month.trim() ? src.month : '';
+      const dateVal  = src && src.date.trim()  ? src.date  : '';
+      const menuRaw  = src && src.menu.trim()  ? src.menu  : 'Menu update soon';
+      const extraRaw = src && src.extra.trim() ? src.extra : 'Prepared with authentic ingredients.';
+      const colors   = src ? (src.menuColors || []) : [];
+
+      let dateDisplay = '';
+      if (monthVal && dateVal)   dateDisplay = `${escapeText(monthVal)} ${escapeText(dateVal)}`;
+      else if (monthVal)         dateDisplay = escapeText(monthVal);
+      else if (dateVal)          dateDisplay = escapeText(dateVal);
+
+      const menuHtml = menuRaw.split('\n').map((line, li) => {
+        const safe  = escapeText(line);
+        const color = (colors[li] || '').toString().trim().toLowerCase();
+        const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
+
+        if (!isDefault) {
+          return `<span class="menu-line has-color" style="color:${color};">${safe}</span>`;
+        }
+        return `<span class="menu-line">${safe}</span>`;
+      }).join('');
+
+      const extraHtml      = escapeWithBreaks(extraRaw);
+      const safeDay        = escapeText(dayVal);
+      const dateForSpeech  = `${monthVal} ${dateVal}`.trim();
+      const favKey         = `${dayVal}_${menuRaw.substring(0,20)}`;
+      const isFav          = favoriteDishes.some(f => f.key === favKey);
+
+      const card = document.createElement('div');
+      card.className = 'flip-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `${safeDay} menu card`);
+      
+      card.innerHTML = `
+        <div class="flip-card-inner">
+          <div class="card-front">
+            <div class="day-row">
+              <span class="day-name">${safeDay}</span>
+              <div class="date-chip-wrap">
+                <span class="date-chip">${dateDisplay || '—'}</span>
+                <button class="fav-star-btn ${isFav ? 'is-fav' : ''}" aria-label="Favorite dish" type="button">★</button>
+              </div>
+            </div>
+            <div class="menu-text">${menuHtml}</div>
+            <div class="card-bottom-row">
+              <button class="speak-btn" type="button" aria-label="Read menu aloud">
+                <span class="speak-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#c9a060"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span class="speak-wave">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </span>
+                Read 
+              </button>
+              <span class="tap-hint">Tap details</span>
+            </div>
+          </div>
+          <div class="card-back">
+            <div class="extra-head">Info</div>
+            <div class="extra-detail">${extraHtml}</div>
+            <div class="back-hint">↺ tap return</div>
+          </div>
+        </div>
+      `;
+
+      // Favorite button
+      const favBtn = card.querySelector('.fav-star-btn');
+      if (favBtn) {
+        favBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleFavorite(dayVal, menuRaw);
+        });
+      }
+
+      // Speak button
+      const speakBtn = card.querySelector('.speak-btn');
+      speakBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card);
+      });
+
+      // Flip click
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.speak-btn') || e.target.closest('.fav-star-btn')) return;
+        if (!card.classList.contains('flipped')) stopSpeaking();
+        card.classList.toggle('flipped');
+      });
+
+      // Keyboard enter/space to flip
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          if (e.target.closest('.speak-btn') || e.target.closest('.fav-star-btn')) return;
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+
+      const cardData = {
+        idx: i, day: dayVal, dateDisplay, dateForSpeech, menuRaw, menuHtml, extraHtml
+      };
+      attachLongPress(card, cardData);
+
+      container.appendChild(card);
+    });
+  }
+
+  // ── INIT APP WITH INSTANT CACHE ───────────────────────────
+  async function initializeApp() {
+    fetchLiveWeather();
+    const overlay   = document.getElementById('beautifulLoading');
+    const mainUi    = document.getElementById('mainContent');
+    const statusEl  = document.getElementById('loadingStatusMsg');
+    const setStatus = msg => { if (statusEl) statusEl.innerText = msg; };
+
+    renderFavoritesList();
+
+    // 1. Try Instant Local Cache first
+    let hasLoadedCache = false;
+    try {
+      const cachedRaw = localStorage.getItem(MENU_CACHE_KEY);
+      if (cachedRaw) {
+        const cachedObj = JSON.parse(cachedRaw);
+        if (cachedObj && Array.isArray(cachedObj.data) && cachedObj.data.length) {
+          globalMenuData = cachedObj.data;
+          renderCards(globalMenuData);
+          updateTodaySpotlight(globalMenuData);
+          hasLoadedCache = true;
+          
+          // Instantly show UI if cache is available
+          if (overlay) {
+            overlay.classList.add('hide');
+            setTimeout(() => { if (overlay) overlay.style.display = 'none'; }, 200);
+          }
+          if (mainUi) mainUi.classList.add('visible');
+        }
+      }
+    } catch (e) {}
+
+    // 2. Fetch fresh network data
+    try {
+      const freshData = await fetchMenuData(setStatus);
+      if (freshData && freshData.length) {
+        globalMenuData = freshData;
+        renderCards(globalMenuData);
+        updateTodaySpotlight(globalMenuData);
+      }
+    } catch (err) {
+      if (!hasLoadedCache) {
+        setStatus('Using local menu...');
+        renderCards(Array(6).fill(null));
+      }
+    }
+
+    if (overlay && !hasLoadedCache) {
+      overlay.classList.add('hide');
+      setTimeout(() => { if (overlay) overlay.style.display = 'none'; }, 400);
+    }
+    if (mainUi) mainUi.classList.add('visible');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const mainBox = document.getElementById('mainContent');
+    if (mainBox) mainBox.classList.remove('visible');
+    initializeApp();
+  });
+</script>
+</body>
+</html>

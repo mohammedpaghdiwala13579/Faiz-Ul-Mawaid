@@ -1,0 +1,32 @@
+name: Deploy with cache busting
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inject build hash into sw.js and index.html
+        run: |
+          # Generate a unique hash from the current git commit SHA
+          HASH=$(git rev-parse --short HEAD)
+          echo "Build hash: $HASH"
+
+          # Replace the CACHE_NAME in sw.js with the new hash
+          sed -i "s/const CACHE_NAME = .*/const CACHE_NAME = 'chattogram-${HASH}';/" sw.js
+
+          # Replace the sw.js registration URL in index.html with the new hash
+          sed -i "s|sw\.js?v=[^'\"]*|sw.js?v=${HASH}|g" index.html
+
+          echo "Done. sw.js and index.html updated with hash: $HASH"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          exclude_assets: '.github'
