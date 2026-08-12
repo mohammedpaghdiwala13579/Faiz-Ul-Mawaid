@@ -487,14 +487,14 @@
     .grid-2x3 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
+      gap: 10px;
     }
 
     .flip-card {
       background: transparent;
       perspective: 1000px;
       cursor: pointer;
-      min-height: 140px;
+      min-height: 168px;
       height: auto;
       position: relative;
     }
@@ -505,7 +505,7 @@
       transition: transform 0.35s ease;
       transform-style: preserve-3d;
       border-radius: 18px;
-      min-height: 140px;
+      min-height: 168px;
     }
 
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
@@ -515,12 +515,12 @@
       width: 100%; height: 100%;
       backface-visibility: hidden;
       border-radius: 18px;
-      padding: 7px 8px 6px 8px;
+      padding: 10px 11px 8px 11px;
       display: flex;
       flex-direction: column;
       background: #fffffffb;
       border: 1px solid #dfceb6;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       top: 0; left: 0; right: 0; bottom: 0;
       overflow: hidden;
     }
@@ -531,14 +531,14 @@
     }
 
     .menu-text {
-      font-size: 0.88rem;
-      line-height: 1.35;
+      font-size: 0.95rem;
+      line-height: 1.4;
       font-weight: 700;
       color: #33271e;
       white-space: pre-line;
       word-break: break-word;
       flex: 1;
-      margin: 4px 0 3px 0;
+      margin: 5px 0 4px 0;
       overflow-y: auto;
       max-height: 100%;
       scrollbar-width: thin;
@@ -549,10 +549,10 @@
     .menu-text::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 6px; }
 
     .extra-detail {
-      font-size: 0.82rem;
-      line-height: 1.3;
+      font-size: 0.86rem;
+      line-height: 1.35;
       background: #fffaf2;
-      padding: 5px 6px;
+      padding: 6px 8px;
       border-radius: 14px;
       border: 1px solid #f0e2d2;
       flex: 1;
@@ -571,15 +571,15 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 4px;
+      padding-bottom: 5px;
       margin-bottom: 4px;
-      gap: 3px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
     .day-name {
       font-family: 'Playfair Display', serif;
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: #b07d48;
       white-space: nowrap;
@@ -596,10 +596,10 @@
     }
 
     .date-chip {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 800;
       background: #f0e6db;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 30px;
       color: #7a5b3c;
       white-space: nowrap;
@@ -609,7 +609,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #ccc;
       line-height: 1;
       padding: 0 2px;
@@ -623,7 +623,7 @@
 
     .extra-head {
       font-family: 'Playfair Display', serif;
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: #9b6e42;
       border-left: 2px solid #dbbc9a;
@@ -633,7 +633,7 @@
     }
 
     .tap-hint, .back-hint {
-      font-size: 0.45rem;
+      font-size: 0.52rem;
       color: #c7ab89;
       text-align: right;
       margin-top: 4px;
@@ -1563,10 +1563,10 @@
     <!-- Panel 3: Niyyat Dua & Feedback -->
     <section class="tab-panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-btn-rules">
       <!-- Mawaid Dua -->
-      <div class="dua-card" style="text-align:center; align-items:center;">
-        <div class="dua-header">
-          <div class="dua-title">Dua</div>
-          <button class="speak-btn" id="playDuaBtn" type="button" aria-label="Recite Dua aloud">
+      <div class="dua-card" style="text-align:center; align-items:center; padding:10px 12px; gap:6px; border-radius:16px;">
+        <div class="dua-header" style="padding-bottom:4px; gap:4px;">
+          <div class="dua-title" style="font-size:0.95rem;">Dua</div>
+          <button class="speak-btn" id="playDuaBtn" type="button" aria-label="Recite Dua aloud" style="padding:2px 8px; font-size:0.65rem;">
             <span class="speak-icon">
               <svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;">
                 <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#c9a060"/>
@@ -1577,58 +1577,58 @@
           </button>
           <audio id="duaAudioPlayer" src="https://cdn.imageurlgenerator.com/uploads/75002bda-fb86-4c31-9160-24605219e34b.mp3" preload="none"></audio>
         </div>
-        <div class="dua-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ
+        <div class="dua-arabic" style="font-size:0.98rem; line-height:1.45; padding:8px 10px; border-radius:12px; margin:0;">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ
 
 الْحَمْدُ للهِ رَبِّ الْعَالَمِينَ ۞ بَارَكَ اللهُ لِصَاحِبِ هٰذَا الطَّعَامِ وَكَثَّرَ خَيْرَاتِهِ ۞ وَضَاعَفَ حَسَنَاتِهِ ۞ بِحَقِّ سَيِّدِنَا مُحَمَّدٍ وَّآلِهِ الطَّاهِرِينَ صَلَوَاتُ اللهِ عَلَيْهِمْ اَجْمَعِينَ ۞</div>
       </div>
 
       <!-- Daily Feedback Card -->
-      <div class="feedback-card" style="border:1.5px solid #7c4dff; background:linear-gradient(180deg, #ffffff 0%, #f7f2ff 100%); position:relative; box-shadow:0 4px 14px rgba(103,58,183,0.08);">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <svg style="width:24px; height:24px; flex-shrink:0;" viewBox="0 0 24 24" fill="none">
+      <div class="feedback-card" style="border:1.5px solid #7c4dff; background:linear-gradient(180deg, #ffffff 0%, #f7f2ff 100%); position:relative; box-shadow:0 3px 10px rgba(103,58,183,0.08); padding:10px 12px; gap:6px; border-radius:16px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <svg style="width:18px; height:18px; flex-shrink:0;" viewBox="0 0 24 24" fill="none">
               <rect width="24" height="24" rx="6" fill="#673AB7"/>
               <path d="M7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z" fill="#FFFFFF"/>
             </svg>
             <div>
-              <div class="feedback-title" style="color:#4a148c; margin:0; font-size:1.05rem; font-family:'Playfair Display', serif;">Feedback</div>
+              <div class="feedback-title" style="color:#4a148c; margin:0; font-size:0.92rem; font-family:'Playfair Display', serif;">Feedback</div>
             </div>
           </div>
         </div>
 
         <!-- Attached Menu Display -->
-        <div id="feedbackAttachedMenu" style="font-size:0.75rem; background:#f3e5f5; padding:8px 12px; border-radius:12px; border:1px solid #d1c4e9; color:#4a148c; font-weight:600; margin-bottom:10px;">
-          <span style="font-size:0.65rem; color:#7b1fa2; text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:2px; font-weight:800;">📋 Attached Menu of the Day</span>
-          <span id="feedbackMenuTextVal" style="color:#2a0845; font-weight:700; font-size:0.85rem;">Loading today's menu...</span>
+        <div id="feedbackAttachedMenu" style="font-size:0.7rem; background:#f3e5f5; padding:5px 9px; border-radius:10px; border:1px solid #d1c4e9; color:#4a148c; font-weight:600; margin-bottom:4px;">
+          <span style="font-size:0.6rem; color:#7b1fa2; text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:1px; font-weight:800;">📋 Attached Menu of the Day</span>
+          <span id="feedbackMenuTextVal" style="color:#2a0845; font-weight:700; font-size:0.78rem;">Loading today's menu...</span>
         </div>
 
         <!-- Optional Name Field -->
-        <div style="margin-bottom:8px;">
-          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Your Name (Optional)</label>
-          <input type="text" id="feedbackNameInput" class="feedback-input" placeholder="Your Name (Optional)" style="border-color:#d1c4e9; background:#ffffff;" aria-label="Your Name (Optional)">
+        <div style="margin-bottom:4px;">
+          <label style="font-size:0.68rem; color:#4a148c; font-weight:700; display:block; margin-bottom:2px;">Your Name (Optional)</label>
+          <input type="text" id="feedbackNameInput" class="feedback-input" placeholder="Your Name (Optional)" style="border-color:#d1c4e9; background:#ffffff; padding:4px 8px; font-size:0.75rem;" aria-label="Your Name (Optional)">
         </div>
 
         <!-- Star Rating -->
-        <div style="margin-bottom:8px;">
-          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Rating for Today's Tiffin</label>
-          <div class="star-rating" id="starRating" style="justify-content:flex-start;">
-            <span class="star-btn" data-star="1">★</span>
-            <span class="star-btn" data-star="2">★</span>
-            <span class="star-btn" data-star="3">★</span>
-            <span class="star-btn" data-star="4">★</span>
-            <span class="star-btn" data-star="5">★</span>
+        <div style="margin-bottom:4px;">
+          <label style="font-size:0.68rem; color:#4a148c; font-weight:700; display:block; margin-bottom:2px;">Rating for Today's Tiffin</label>
+          <div class="star-rating" id="starRating" style="justify-content:flex-start; margin:0; gap:4px;">
+            <span class="star-btn" data-star="1" style="font-size:1.15rem;">★</span>
+            <span class="star-btn" data-star="2" style="font-size:1.15rem;">★</span>
+            <span class="star-btn" data-star="3" style="font-size:1.15rem;">★</span>
+            <span class="star-btn" data-star="4" style="font-size:1.15rem;">★</span>
+            <span class="star-btn" data-star="5" style="font-size:1.15rem;">★</span>
           </div>
         </div>
 
         <!-- Feedback Textarea -->
-        <div style="margin-bottom:10px;">
-          <label style="font-size:0.72rem; color:#4a148c; font-weight:700; display:block; margin-bottom:3px;">Review / Notes</label>
-          <textarea id="feedbackText" class="feedback-input" rows="2" placeholder="Write your review, taste notes or suggestions..." style="border-color:#d1c4e9; background:#ffffff;"></textarea>
+        <div style="margin-bottom:6px;">
+          <label style="font-size:0.68rem; color:#4a148c; font-weight:700; display:block; margin-bottom:2px;">Review / Notes</label>
+          <textarea id="feedbackText" class="feedback-input" rows="1" placeholder="Write your review, taste notes or suggestions..." style="border-color:#d1c4e9; background:#ffffff; padding:4px 8px; font-size:0.75rem; min-height:36px;"></textarea>
         </div>
 
         <!-- Form Actions -->
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <button id="saveFeedbackBtn" class="primary-pill-btn" style="background:#673ab7; border-color:#512da8; color:#ffffff; display:inline-flex; align-items:center; gap:6px; width:100%; justify-content:center; padding:10px 16px; font-size:0.85rem; font-weight:700;">
+          <button id="saveFeedbackBtn" class="primary-pill-btn" style="background:#673ab7; border-color:#512da8; color:#ffffff; display:inline-flex; align-items:center; gap:6px; width:100%; justify-content:center; padding:6px 12px; font-size:0.78rem; font-weight:700;">
             <span>Submit</span>
           </button>
         </div>
@@ -1637,7 +1637,7 @@
         <iframe name="gform_hidden_iframe" id="gform_hidden_iframe" style="display:none;"></iframe>
         <form id="gform_element" action="https://docs.google.com/forms/d/e/1FAIpQLSczGXMlU0i_muPhHGX_ojsJY6IlElf8SKdRjq2piv_IKlrEPw/formResponse" method="POST" target="gform_hidden_iframe" style="display:none;"></form>
 
-        <div id="feedbackStatus" class="feedback-msg" style="margin-top:8px;"></div>
+        <div id="feedbackStatus" class="feedback-msg" style="margin-top:2px; min-height:0.8rem;"></div>
       </div>
     </section>
 
@@ -2757,7 +2757,7 @@
                 </span>
                 Read 
               </button>
-              <span class="tap-hint">Tap details</span>
+              <span class="tap-hint">Tap</span>
             </div>
           </div>
           <div class="card-back">
