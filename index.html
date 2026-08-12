@@ -1323,6 +1323,99 @@
       background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%) !important;
       border-color: #bbf7d0 !important;
     }
+
+    /* ── MUMINEEN CALENDAR ARABIC DATE CARD ── */
+    .mumineen-date-card {
+      background: linear-gradient(135deg, #fffdf8 0%, #f7eee2 100%);
+      border: 1px solid #ebd9c5;
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(43,35,28,0.03);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .mumineen-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #e8d7c5;
+      padding-bottom: 6px;
+    }
+
+    .mumineen-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #5a422d;
+    }
+
+    .mumineen-link {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #986f3f;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.85);
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid #ebd2b6;
+      transition: all 0.2s ease;
+    }
+    .mumineen-link:hover {
+      background: #ffffff;
+      color: #6b4e31;
+      border-color: #a57139;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .mumineen-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 4px 0 2px 0;
+    }
+
+    .arabic-date-main {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #6b4e31;
+      line-height: 1.4;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+      direction: rtl;
+    }
+
+    .arabic-date-sub {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #8b5e34;
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+    }
+
+    .miqaat-badge {
+      margin-top: 8px;
+      background: #fdf3e5;
+      border: 1px solid #ebd2b6;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #8b5e34;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
   </style>
 </head>
 <body>
@@ -1413,7 +1506,25 @@
           <div class="expand-menu-text" id="spotlightMenuText" style="font-size:0.95rem; background:#fffaf3; padding:12px; border-radius:14px; border:1px solid #f2e4d3; line-height:1.6;"></div>
         </div>
 
-        <!-- 2. Info Grid (Below Dishes) -->
+        <!-- 2. Arabic Date Card (Synced with Mumineen Calendar - Below Dishes) -->
+        <div class="mumineen-date-card" id="todayArabicDateCard">
+          <div class="mumineen-card-header">
+            <div class="mumineen-title-wrap">
+              <span>Hijri Date</span>
+            </div>
+          </div>
+
+          <div class="mumineen-body">
+            <div class="arabic-date-main" id="todayArabicDatePrimary">Loading Arabic date...</div>
+            <div class="arabic-date-sub" id="todayArabicDateSecondary">Syncing with Mumineen Calendar...</div>
+            <div class="miqaat-badge" id="todayMiqaatBadge" style="display:none;">
+              <span>✨</span>
+              <span id="todayMiqaatText">Miqaat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Info Grid (Below Dishes & Date) -->
         <div style="margin-bottom:14px;">
           <div class="extra-head" style="font-size:0.85rem; margin-bottom:6px;">Info</div>
           <div class="extra-detail" id="spotlightExtraText" style="font-size:0.85rem; background:#fff9f0; padding:12px; border-radius:14px; border:1px solid #eadbc8; color:#4a3728; line-height:1.5;">Prepared with authentic ingredients according to Mawaid guidelines.</div>
@@ -2148,11 +2259,108 @@
     }
   }
 
+  // ── MUMINEEN CALENDAR INTEGRATION ──
+  const MUMINEEN_MONTHS_EN = [
+    "Moharram al-Haraam", "Safar al-Muzaffar", "Rabi al-Awwal", "Rabi al-Aakhar",
+    "Jumada al-Ula", "Jumada al-Ukhra", "Rajab al-Asab", "Shabaan al-Karim",
+    "Ramadaan al-Moazzam", "Shawwal al-Mukarram", "Zilqadah al-Haraam", "Zilhaj al-Haraam"
+  ];
+
+  const MUMINEEN_MONTHS_AR = [
+    "محرم الحرام", "صفر المظفر", "ربيع الأول", "ربيع الآخر",
+    "جمادى الأولى", "جمادى الأخرى", "رجب الأصب", "شعبان الكريم",
+    "رمضان المعظم", "شوال المكرم", "ذو القعدة الحرام", "ذو الحجة الحرام"
+  ];
+
+  function toArabicDigitsStr(num) {
+    const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+    return String(num).replace(/\d/g, d => arabicDigits[parseInt(d)]);
+  }
+
+  function computeMumineenHijri(dateObj) {
+    const MONTH_ACC = [30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325];
+    const YEAR_ACC = [354, 708, 1063, 1417, 1771, 2126, 2480, 2834, 3189, 3543, 3898, 4252, 4606, 4961, 5315, 5669, 6024, 6378, 6732, 7087, 7441, 7796, 8150, 8504, 8859, 9213, 9567, 9922, 10276, 10631];
+
+    let r = dateObj.getFullYear();
+    let a = dateObj.getMonth() + 1;
+    const i = dateObj.getDate() + dateObj.getHours() / 24 + dateObj.getMinutes() / 1440;
+    if (a < 3) { r--; a += 12; }
+    let n = 0;
+    const isJulian = (r < 1582) || (r === 1582 && (dateObj.getMonth() < 9 || (dateObj.getMonth() === 9 && dateObj.getDate() < 5)));
+    if (!isJulian) {
+      const t = Math.floor(r / 100);
+      n = 2 - t + Math.floor(t / 4);
+    }
+    const ajd = Math.floor(365.25 * (r + 4716)) + Math.floor(30.6001 * (a + 1)) + i + n - 1524.5;
+
+    let s = 0;
+    let c = Math.floor(ajd - 1948083.5);
+    const u = Math.floor(c / 10631);
+    c -= 10631 * u;
+    while (c > YEAR_ACC[s]) s++;
+    const year = Math.round(30 * u + s);
+    if (s > 0) c -= YEAR_ACC[s - 1];
+    s = 0;
+    while (c > MONTH_ACC[s]) s++;
+    const month = Math.round(s);
+    const day = s > 0 ? Math.round(c - MONTH_ACC[s - 1]) : Math.round(c);
+
+    const monthAr = MUMINEEN_MONTHS_AR[month] || '';
+    const monthEn = MUMINEEN_MONTHS_EN[month] || '';
+    const dayAr = toArabicDigitsStr(day);
+    const yearAr = toArabicDigitsStr(year);
+
+    return {
+      day, month, year,
+      monthAr, monthEn,
+      formattedAr: `${dayAr} ${monthAr} ${yearAr} هـ`,
+      formattedEn: `${day} ${monthEn} ${year} H`
+    };
+  }
+
+  async function syncMumineenCalendarDate(dateObj = new Date()) {
+    const primaryEl   = document.getElementById('todayArabicDatePrimary');
+    const secondaryEl = document.getElementById('todayArabicDateSecondary');
+    const miqaatBadge = document.getElementById('todayMiqaatBadge');
+    const miqaatText  = document.getElementById('todayMiqaatText');
+
+    if (!primaryEl || !secondaryEl) return;
+
+    // 1. Instant local computation
+    const localHijri = computeMumineenHijri(dateObj);
+    primaryEl.textContent   = localHijri.formattedAr;
+    secondaryEl.textContent = localHijri.formattedEn;
+
+    // 2. Fetch live data & miqaats from server API synced with mumineencalendar.com
+    try {
+      const dateStr = dateObj.toISOString().split('T')[0];
+      const resp = await fetch(`/api/mumineen-calendar?date=${dateStr}`);
+      if (resp.ok) {
+        const json = await resp.json();
+        if (json && json.status === 'success' && json.hijri) {
+          primaryEl.textContent   = json.hijri.formattedAr;
+          secondaryEl.textContent = json.hijri.formattedEn;
+
+          if (json.miqaats && json.miqaats.length && miqaatBadge && miqaatText) {
+            const miqTitles = json.miqaats.map(m => m.title).join(' • ');
+            miqaatText.textContent = `Miqaat: ${miqTitles}`;
+            miqaatBadge.style.display = 'inline-flex';
+          } else if (miqaatBadge) {
+            miqaatBadge.style.display = 'none';
+          }
+        }
+      }
+    } catch (err) {
+      console.log('Using local Mumineen Calendar calculation:', err);
+    }
+  }
+
   // ── TODAY'S SPOTLIGHT & ATTACHED MENU ───────────────────
   let todayAttachedMenuText = '';
 
   function updateTodaySpotlight(menuItems) {
     fetchLiveWeather();
+    syncMumineenCalendarDate(new Date());
     const todayNameEl   = document.getElementById('spotlightDayName');
     const todayDateEl   = document.getElementById('spotlightDate');
     const todayMenuEl   = document.getElementById('spotlightMenuText');

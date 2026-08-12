@@ -1,6 +1,6 @@
 {
   "name": "Chattogram Daily Tiffin",
-  "description": "Daily tiffin menu viewer for Faiz-ul-Mawaid Chattogram with speech synthesis and PWA support.",
+  "description": "Daily tiffin menu viewer for Faiz-ul-Mawaid Chattogram with Mumineen Calendar Hijri date sync, speech synthesis, and PWA support.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
