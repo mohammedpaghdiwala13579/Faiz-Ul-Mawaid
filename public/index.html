@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Naskh+Arabic:wght@500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -279,6 +280,37 @@
 
     .install-btn:hover  { background: #a57139; transform: scale(1.02); }
     .install-btn:active { transform: scale(0.98); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .header-share-btn {
+      border: none;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      position: relative;
+      z-index: 5;
+      backdrop-filter: blur(4px);
+      background: rgba(107,78,49,0.92);
+      border: 1px solid rgba(255,255,200,0.3);
+      flex-shrink: 0;
+    }
+    .header-share-btn:hover { background: #a57139; transform: scale(1.05); }
+    .header-share-btn:active { transform: scale(0.95); }
 
     /* ── UTILITY STRIP ── */
     .utility-strip {
@@ -1453,14 +1485,25 @@
           <div class="arabic-micro">الحمد لله والشكر لوليه</div>
         </div>
       </div>
-      <button id="installAppBtn" class="install-btn" aria-label="Install App" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px; margin-right:4px;">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        <span>Install</span>
-      </button>
+      <div class="header-actions">
+        <button id="shareAllMenuBtn" class="header-share-btn" type="button" aria-label="Share Menu" title="Share Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+        <button id="installAppBtn" class="install-btn" aria-label="Install App" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px; margin-right:4px;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Install</span>
+        </button>
+      </div>
     </header>
 
     <!-- Navigation Tabs Bar -->
@@ -1735,6 +1778,35 @@
       </button>
       <button id="pwaCloseGotItBtn" style="padding:10px 16px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:600; font-size:0.82rem; cursor:pointer;">
         Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MENU IMAGE SHARE MODAL -->
+<div id="menuImageShareModal" class="expand-overlay" role="dialog" aria-modal="true" aria-label="Share Menu Image">
+  <div class="expand-modal" style="max-width:480px; padding:18px;">
+    <div class="expand-modal-header" style="border-bottom:1px solid #ebd9c5; padding-bottom:10px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:1.2rem;">🖼️</span>
+        <div>
+          <div style="font-family:'Playfair Display', serif; font-weight:800; font-size:1.05rem; color:#4a3728;">Weekly Menu Page</div>
+          <div style="font-size:0.72rem; color:#8b5e34;">Exact visual layout generated as an image</div>
+        </div>
+      </div>
+      <button class="expand-close-btn" id="closeImageShareModalBtn" aria-label="Close">✕</button>
+    </div>
+
+    <div style="text-align:center; background:#f9f5f0; padding:10px; border-radius:14px; border:1px solid #dfceb6; margin-bottom:14px; max-height:55vh; overflow-y:auto;">
+      <img id="menuShareImagePreview" src="" alt="Menu Page Graphic" style="width:100%; height:auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); display:block;" />
+    </div>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button id="nativeShareImageBtn" style="flex:1; min-width:140px; padding:10px 14px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>📲 Share Image</span>
+      </button>
+      <button id="downloadImageBtn" style="flex:1; min-width:140px; padding:10px 14px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>⬇️ Download PNG</span>
       </button>
     </div>
   </div>
@@ -2461,6 +2533,238 @@
     }
   }
 
+  let currentShareBlob = null;
+  let currentShareFile = null;
+  let currentShareDataUrl = '';
+
+  function ensureHtml2Canvas() {
+    if (window.html2canvas) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load image generator library'));
+      document.head.appendChild(script);
+    });
+  }
+
+  function createStaticCardGraphicNode(item, fallbackDay) {
+    const dayVal   = item && item.day ? item.day.trim() : fallbackDay;
+    const monthVal = item && item.month ? item.month.trim() : '';
+    const dateVal  = item && item.date ? item.date.trim() : '';
+    const menuRaw  = item && item.menu ? item.menu.trim() : 'Menu update soon';
+    const extraRaw = item && item.extra ? item.extra.trim() : '';
+    const colors   = item ? (item.menuColors || []) : [];
+
+    let dateDisplay = '';
+    if (monthVal && dateVal) dateDisplay = `${monthVal} ${dateVal}`;
+    else if (monthVal) dateDisplay = monthVal;
+    else if (dateVal) dateDisplay = dateVal;
+
+    const menuLinesHtml = menuRaw.split('\n').map((line, li) => {
+      const safe  = escapeText(line);
+      const color = (colors[li] || '').toString().trim().toLowerCase();
+      const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
+      if (!isDefault) {
+        return `<div style="color:${color}; font-weight:800; line-height:1.4; font-size:0.95rem; margin-bottom:2px;">${safe}</div>`;
+      }
+      return `<div style="color:#33271e; font-weight:700; line-height:1.4; font-size:0.95rem; margin-bottom:2px;">${safe}</div>`;
+    }).join('');
+
+    let extraHtml = '';
+    if (extraRaw) {
+      extraHtml = `<div style="margin-top:8px; font-size:0.78rem; background:#fffaf2; border:1px solid #f0e2d2; padding:6px 9px; border-radius:10px; color:#6b4f35; line-height:1.35;">${escapeWithBreaks(extraRaw)}</div>`;
+    }
+
+    return `
+      <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:18px; padding:14px 15px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:160px; box-sizing:border-box;">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0e2d2; padding-bottom:6px; margin-bottom:10px;">
+            <span style="font-family:'Playfair Display', serif; font-size:0.95rem; font-weight:800; color:#b07d48;">${escapeText(dayVal)}</span>
+            ${dateDisplay ? `<span style="font-size:0.78rem; font-weight:800; background:#f0e6db; padding:2px 8px; border-radius:30px; color:#7a5b3c;">${escapeText(dateDisplay)}</span>` : ''}
+          </div>
+          <div style="margin-bottom:6px;">
+            ${menuLinesHtml}
+          </div>
+        </div>
+        ${extraHtml}
+      </div>
+    `;
+  }
+
+  async function shareFullWeeklyMenu() {
+    const shareBtn = document.getElementById('shareAllMenuBtn');
+    const shareIconSvg = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;">
+        <circle cx="18" cy="5" r="3"></circle>
+        <circle cx="6" cy="12" r="3"></circle>
+        <circle cx="18" cy="19" r="3"></circle>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+      </svg>
+    `;
+
+    if (shareBtn) {
+      shareBtn.disabled = true;
+      shareBtn.innerHTML = `<span style="font-size:0.85rem;">⏳</span>`;
+    }
+
+    try {
+      await ensureHtml2Canvas();
+
+      const fallbackDays = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday'];
+      const itemsToRender = (globalMenuData && globalMenuData.length) ? globalMenuData : Array(6).fill(null);
+
+      const cardsHtml = itemsToRender.map((item, i) => {
+        return createStaticCardGraphicNode(item, fallbackDays[i] || `Day ${i+1}`);
+      }).join('');
+
+      const exportContainer = document.createElement('div');
+      exportContainer.id = 'menuExportGraphicContainer';
+      exportContainer.style.cssText = `
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        width: 680px;
+        background: linear-gradient(180deg, #f8f3eb 0%, #ede3d5 100%);
+        padding: 24px 22px;
+        border-radius: 24px;
+        font-family: 'Inter', sans-serif;
+        color: #2b231c;
+        box-sizing: border-box;
+      `;
+
+      exportContainer.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid #dfceb6;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="https://i.ibb.co.com/qLsxHhDf/logo-color.png" style="width:48px; height:48px; border-radius:14px; border:1.5px solid #d4c3af; background:#ffffff; padding:2px; object-fit:contain;" alt="logo">
+            <div>
+              <div style="font-family:'Playfair Display', serif; font-size:1.35rem; font-weight:800; color:#4a3728; letter-spacing:-0.3px;">CHATTOGRAM FMB TIFFIN</div>
+              <div style="font-size:0.8rem; font-weight:700; color:#8b5e34; text-transform:uppercase; letter-spacing:0.8px;">Weekly Tiffin Menu</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+          ${cardsHtml}
+        </div>
+
+        <div style="text-align:center; padding-top:12px; border-top:1.5px solid #e2d3bf; font-size:0.75rem; font-weight:700; color:#8b5e34; display:flex; justify-content:center; align-items:center;">
+          <span>✨ Chattogram Daily Tiffin App</span>
+        </div>
+      `;
+
+      document.body.appendChild(exportContainer);
+
+      const canvas = await window.html2canvas(exportContainer, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#f8f3eb',
+        logging: false
+      });
+
+      document.body.removeChild(exportContainer);
+
+      canvas.toBlob(async (blob) => {
+        if (shareBtn) {
+          shareBtn.disabled = false;
+          shareBtn.innerHTML = shareIconSvg;
+        }
+
+        if (!blob) return;
+
+        currentShareBlob = blob;
+        currentShareFile = new File([blob], 'chattogram-weekly-menu.png', { type: 'image/png' });
+        currentShareDataUrl = canvas.toDataURL('image/png');
+
+        if (navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
+          try {
+            await navigator.share({
+              title: 'Chattogram FMB Weekly Tiffin Menu',
+              text: 'Chattogram FMB Weekly Tiffin Menu Page',
+              files: [currentShareFile]
+            });
+            return;
+          } catch (e) {}
+        }
+
+        openMenuImageModal(currentShareDataUrl);
+      }, 'image/png', 0.95);
+
+    } catch (err) {
+      alert('Unable to generate menu image: ' + err.message);
+      if (shareBtn) {
+        shareBtn.disabled = false;
+        shareBtn.innerHTML = shareIconSvg;
+      }
+    }
+  }
+
+  function openMenuImageModal(dataUrl) {
+    const modal = document.getElementById('menuImageShareModal');
+    const previewImg = document.getElementById('menuShareImagePreview');
+    if (modal && previewImg) {
+      previewImg.src = dataUrl;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMenuImageModal() {
+    const modal = document.getElementById('menuImageShareModal');
+    if (modal) {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  const closeImgModalBtn = document.getElementById('closeImageShareModalBtn');
+  if (closeImgModalBtn) closeImgModalBtn.addEventListener('click', closeMenuImageModal);
+
+  const menuImgModalOverlay = document.getElementById('menuImageShareModal');
+  if (menuImgModalOverlay) {
+    menuImgModalOverlay.addEventListener('click', (e) => {
+      if (e.target === menuImgModalOverlay) closeMenuImageModal();
+    });
+  }
+
+  const nativeShareImgBtn = document.getElementById('nativeShareImageBtn');
+  if (nativeShareImgBtn) {
+    nativeShareImgBtn.addEventListener('click', async () => {
+      if (currentShareFile && navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
+        try {
+          await navigator.share({
+            title: 'Chattogram FMB Weekly Tiffin Menu',
+            files: [currentShareFile]
+          });
+        } catch (e) {}
+      } else if (navigator.clipboard && window.ClipboardItem && currentShareBlob) {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': currentShareBlob })]);
+          alert('📋 Menu page image copied to clipboard!');
+        } catch (e) {
+          alert('Direct image copy is not supported in this browser. Please use "Download PNG".');
+        }
+      } else {
+        alert('Use "Download PNG" to save the image file to your device.');
+      }
+    });
+  }
+
+  const downloadImgBtn = document.getElementById('downloadImageBtn');
+  if (downloadImgBtn) {
+    downloadImgBtn.addEventListener('click', () => {
+      if (!currentShareDataUrl) return;
+      const a = document.createElement('a');
+      a.href = currentShareDataUrl;
+      a.download = 'chattogram-weekly-menu.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
+
   const todayShareBtn = document.getElementById('todayShareBtn');
   if (todayShareBtn) {
     todayShareBtn.addEventListener('click', () => {
@@ -2469,6 +2773,11 @@
       const menu = document.getElementById('spotlightMenuText')?.innerText || '';
       shareFormattedMenu(day, date, menu);
     });
+  }
+
+  const shareAllMenuBtn = document.getElementById('shareAllMenuBtn');
+  if (shareAllMenuBtn) {
+    shareAllMenuBtn.addEventListener('click', shareFullWeeklyMenu);
   }
 
   // ── DUA RECITITION ───────────────────────────────────────
