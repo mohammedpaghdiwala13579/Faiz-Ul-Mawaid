@@ -107,6 +107,19 @@ async function fetchMiqaatsData() {
   } catch (err) {
     console.error('Error connecting to mumineencalendar.com:', err.message);
   }
+
+  if (!cachedMiqaats) {
+    try {
+      const fs = await import('fs/promises');
+      const localData = await fs.readFile(path.join(__dirname, 'miqaats.json'), 'utf-8');
+      cachedMiqaats = JSON.parse(localData);
+      lastCacheTime = NOW;
+      return cachedMiqaats;
+    } catch (e) {
+      console.warn('Could not read local miqaats.json fallback:', e.message);
+    }
+  }
+
   return cachedMiqaats || [];
 }
 

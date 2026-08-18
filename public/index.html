@@ -15,8 +15,9 @@
   <title>Chattogram • Daily Tiffin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Naskh+Arabic:wght@500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Naskh+Arabic:wght@500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -311,6 +312,8 @@
     }
     .header-share-btn:hover { background: #a57139; transform: scale(1.05); }
     .header-share-btn:active { transform: scale(0.95); }
+
+
 
     /* ── UTILITY STRIP ── */
     .utility-strip {
@@ -1437,12 +1440,12 @@
     .miqaat-badge {
       margin-top: 8px;
       background: #fdf3e5;
-      border: 1px solid #ebd2b6;
+      border: 1.2px solid #ebd2b6;
       border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #8b5e34;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #854d0e;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -1785,28 +1788,38 @@
 
 <!-- MENU IMAGE SHARE MODAL -->
 <div id="menuImageShareModal" class="expand-overlay" role="dialog" aria-modal="true" aria-label="Share Menu Image">
-  <div class="expand-modal" style="max-width:480px; padding:18px;">
+  <div class="expand-modal" style="max-width:490px; padding:18px;">
     <div class="expand-modal-header" style="border-bottom:1px solid #ebd9c5; padding-bottom:10px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:1.2rem;">🖼️</span>
         <div>
-          <div style="font-family:'Playfair Display', serif; font-weight:800; font-size:1.05rem; color:#4a3728;">Weekly Menu Page</div>
-          <div style="font-size:0.72rem; color:#8b5e34;">Exact visual layout generated as an image</div>
+          <div style="font-family:'Playfair Display', serif; font-weight:800; font-size:1.05rem; color:#4a3728;">Weekly Menu Graphic</div>
+          <div style="font-size:0.72rem; color:#8b5e34;">High-resolution graphic ready to send</div>
         </div>
       </div>
       <button class="expand-close-btn" id="closeImageShareModalBtn" aria-label="Close">✕</button>
     </div>
 
-    <div style="text-align:center; background:#f9f5f0; padding:10px; border-radius:14px; border:1px solid #dfceb6; margin-bottom:14px; max-height:55vh; overflow-y:auto;">
-      <img id="menuShareImagePreview" src="" alt="Menu Page Graphic" style="width:100%; height:auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); display:block;" />
+    <div style="text-align:center; background:#f9f5f0; padding:10px; border-radius:14px; border:1px solid #dfceb6; margin-bottom:12px; max-height:52vh; overflow-y:auto;">
+      <img id="menuShareImagePreview" src="" alt="Menu Page Graphic" style="width:100%; height:auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); display:block; cursor:pointer;" title="Click or long press to copy image" />
     </div>
 
-    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-      <button id="nativeShareImageBtn" style="flex:1; min-width:140px; padding:10px 14px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+    <div id="imageShareToast" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; font-size:0.75rem; font-weight:700; padding:8px 12px; border-radius:10px; text-align:center; margin-bottom:12px;">
+      ✅ Image copied to clipboard! Paste (Ctrl+V) anywhere.
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+      <button id="universalShareImageBtn" style="padding:10px 12px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 2px 6px rgba(107,78,49,0.25);">
         <span>📲 Share Image</span>
       </button>
-      <button id="downloadImageBtn" style="flex:1; min-width:140px; padding:10px 14px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
-        <span>⬇️ Download PNG</span>
+      <button id="copyImageDirectBtn" style="padding:10px 12px; background:#f5eee6; color:#6b4e31; border:1.5px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>📋 Copy Image</span>
+      </button>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr; gap:8px;">
+      <button id="downloadImageBtn" style="width:100%; padding:9px 12px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>⬇️ Download PNG Image File</span>
       </button>
     </div>
   </div>
@@ -1996,7 +2009,7 @@
   }
 
   // ── MENU API & INSTANT CACHE ──────────────────────────────
-  const MENU_API = "https://script.google.com/macros/s/AKfycbwBXxL2sH1IY0eO4z50bhE547cBnuy7wwF46G0z2_fpumhTTVJTvh0XRsjDlz8PGUI/exec";
+  const MENU_API = "https://script.google.com/macros/s/AKfycbw4ySIWqud7SDJSx4yd0P1MKeTgpEHc5f9-2rmdBYexFh574tBMnENCrBa1-KEeH2A8/exec";
 
   function escapeText(str) {
     if (!str) return '';
@@ -2009,6 +2022,26 @@
   function escapeWithBreaks(str) {
     if (!str) return '';
     return escapeText(str).replace(/\n/g, '<br>');
+  }
+
+  function splitMenuItems(menuRaw) {
+    if (!menuRaw) return [];
+    const rawLines = String(menuRaw).split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    const items = [];
+    rawLines.forEach(line => {
+      const cleanLine = line.replace(/^[\s•\-\*]+/, '').trim();
+      if (!cleanLine) return;
+      if (cleanLine.includes(',')) {
+        const parts = cleanLine.split(',').map(p => p.replace(/^[\s•\-\*]+/, '').trim()).filter(Boolean);
+        items.push(...parts);
+      } else if (cleanLine.includes(';') && !cleanLine.includes('&amp;')) {
+        const parts = cleanLine.split(';').map(p => p.replace(/^[\s•\-\*]+/, '').trim()).filter(Boolean);
+        items.push(...parts);
+      } else {
+        items.push(cleanLine);
+      }
+    });
+    return items.length ? items : [String(menuRaw).trim()];
   }
 
   async function fetchMenuData(statusCb) {
@@ -2474,12 +2507,15 @@
     const matching = menuItems.find(item => item && item.day.toLowerCase().trim() === currentDayName.toLowerCase()) || menuItems[0];
 
     if (matching) {
-      const formattedMenu = (matching.menu || '').replace(/\n/g, ', ');
+      const dishList = splitMenuItems(matching.menu);
+      const formattedMenu = dishList.join(', ');
       todayAttachedMenuText = `${matching.day} (${matching.month} ${matching.date}): ${formattedMenu}`;
 
       if (todayNameEl) todayNameEl.textContent = matching.day + " (Today)";
       if (todayDateEl) todayDateEl.textContent = `${matching.month} ${matching.date}`.trim() || 'Today';
-      if (todayMenuEl) todayMenuEl.innerHTML   = escapeWithBreaks(matching.menu) || 'Menu updating soon';
+      if (todayMenuEl) {
+        todayMenuEl.innerHTML = dishList.map(d => `<div style="margin-bottom:3px; font-weight:750;">• ${escapeText(d)}</div>`).join('') || 'Menu updating soon';
+      }
       if (todayExtraEl) todayExtraEl.innerHTML = escapeWithBreaks(matching.extra) || 'Prepared with authentic ingredients according to Mawaid guidelines.';
       if (attachedValEl) attachedValEl.textContent = todayAttachedMenuText;
     }
@@ -2514,10 +2550,11 @@
     setInterval(updateClock, 1000);
   }
 
-  // ── SHARE MENU HANDLERS ───────────────────────────────────
+  // ── SHARE & PDF EXPORT HANDLERS ───────────────────────────
   function shareFormattedMenu(day, date, menuRaw) {
-    const dishes = menuRaw ? menuRaw.replace(/\n/g, '\n• ') : 'No menu listed';
-    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n• ${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
+    const dishList = splitMenuItems(menuRaw);
+    const dishes = dishList.length ? dishList.map(d => `• ${d}`).join('\n') : '• No menu listed';
+    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
 
     if (navigator.share) {
       navigator.share({
@@ -2548,7 +2585,95 @@
     });
   }
 
-  function createStaticCardGraphicNode(item, fallbackDay) {
+  async function loadMiqaatsDataset() {
+    if (Array.isArray(window.MUMINEEN_MIQAATS_DATA) && window.MUMINEEN_MIQAATS_DATA.length) {
+      return window.MUMINEEN_MIQAATS_DATA;
+    }
+    try {
+      const resp = await fetch('/miqaats.json');
+      if (resp.ok) {
+        const json = await resp.json();
+        if (Array.isArray(json) && json.length) {
+          window.MUMINEEN_MIQAATS_DATA = json;
+          return json;
+        }
+      }
+    } catch (e) {}
+
+    try {
+      const resp2 = await fetch('https://www.mumineencalendar.com/data/miqaats.json');
+      if (resp2.ok) {
+        const json2 = await resp2.json();
+        if (Array.isArray(json2) && json2.length) {
+          window.MUMINEEN_MIQAATS_DATA = json2;
+          return json2;
+        }
+      }
+    } catch (e2) {}
+    return [];
+  }
+
+  function getGregorianDateForMenuItem(item, index = 0) {
+    const now = new Date();
+    if (!item) {
+      const d = new Date(now);
+      d.setDate(d.getDate() + index);
+      d.setHours(12, 0, 0, 0);
+      return d;
+    }
+
+    const monthStr = (item.month || '').toString().trim();
+    const dateStr = (item.date || '').toString().trim().replace(/(st|nd|rd|th)$/i, '');
+    const dayNum = parseInt(dateStr, 10);
+
+    if (monthStr && !isNaN(dayNum) && dayNum >= 1 && dayNum <= 31) {
+      const currentYear = now.getFullYear();
+      const monthNames = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+      const monthShort = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+      
+      let mIdx = monthNames.indexOf(monthStr.toLowerCase());
+      if (mIdx === -1) mIdx = monthShort.indexOf(monthStr.toLowerCase());
+      if (mIdx === -1) {
+        const numM = parseInt(monthStr, 10);
+        if (!isNaN(numM) && numM >= 1 && numM <= 12) mIdx = numM - 1;
+      }
+
+      if (mIdx !== -1) {
+        return new Date(currentYear, mIdx, dayNum, 12, 0, 0);
+      }
+
+      const parsed = new Date(`${monthStr} ${dayNum}, ${currentYear} 12:00:00`);
+      if (!isNaN(parsed.getTime())) return parsed;
+    }
+
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    if (item.day) {
+      const targetDayIdx = dayNames.indexOf(item.day.toLowerCase().trim());
+      if (targetDayIdx !== -1) {
+        const currentDayIdx = now.getDay();
+        let diff = targetDayIdx - currentDayIdx;
+        const d = new Date(now);
+        d.setDate(now.getDate() + diff);
+        d.setHours(12, 0, 0, 0);
+        return d;
+      }
+    }
+
+    const d = new Date(now);
+    d.setDate(d.getDate() + index);
+    d.setHours(12, 0, 0, 0);
+    return d;
+  }
+
+  function getMiqaatsForHijriDate(hijriInfo) {
+    const data = window.MUMINEEN_MIQAATS_DATA;
+    if (!Array.isArray(data) || !data.length || !hijriInfo) return [];
+    const dayObj = data.find(m => m.month === hijriInfo.month && m.date === hijriInfo.day);
+    if (!dayObj || !Array.isArray(dayObj.miqaats) || !dayObj.miqaats.length) return [];
+    return dayObj.miqaats.filter(m => !m.year || m.year <= hijriInfo.year);
+  }
+
+  function createStaticCardGraphicNode(item, fallbackDay, index = 0) {
     const dayVal   = item && item.day ? item.day.trim() : fallbackDay;
     const monthVal = item && item.month ? item.month.trim() : '';
     const dateVal  = item && item.date ? item.date.trim() : '';
@@ -2556,36 +2681,62 @@
     const extraRaw = item && item.extra ? item.extra.trim() : '';
     const colors   = item ? (item.menuColors || []) : [];
 
+    const dateObj = getGregorianDateForMenuItem(item, index);
+    const hijri = computeMumineenHijri(dateObj);
+    const miqaats = getMiqaatsForHijriDate(hijri);
+
     let dateDisplay = '';
     if (monthVal && dateVal) dateDisplay = `${monthVal} ${dateVal}`;
     else if (monthVal) dateDisplay = monthVal;
     else if (dateVal) dateDisplay = dateVal;
+    else dateDisplay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-    const menuLinesHtml = menuRaw.split('\n').map((line, li) => {
-      const safe  = escapeText(line);
-      const color = (colors[li] || '').toString().trim().toLowerCase();
+    const dishList = splitMenuItems(menuRaw);
+    const menuLinesHtml = dishList.map((dish, di) => {
+      const safe  = escapeText(dish);
+      const color = (colors[di] || '').toString().trim().toLowerCase();
       const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
       if (!isDefault) {
-        return `<div style="color:${color}; font-weight:800; line-height:1.4; font-size:0.95rem; margin-bottom:2px;">${safe}</div>`;
+        return `<div style="color:${color}; font-weight:800; line-height:1.45; font-size:1.02rem; margin-bottom:4px;">• ${safe}</div>`;
       }
-      return `<div style="color:#33271e; font-weight:700; line-height:1.4; font-size:0.95rem; margin-bottom:2px;">${safe}</div>`;
+      return `<div style="color:#33271e; font-weight:750; line-height:1.45; font-size:1.02rem; margin-bottom:4px;">• ${safe}</div>`;
     }).join('');
+
+    let miqaatBadgeHtml = '';
+    if (miqaats && miqaats.length) {
+      const titles = miqaats.map(m => m.title).join(' • ');
+      miqaatBadgeHtml = `
+        <div style="background:#fff8e7; border:1.2px solid #d4a359; border-radius:8px; padding:6px 10px; margin-top:8px; display:flex; align-items:center; gap:6px;">
+          <span style="font-size:13px;">✨</span>
+          <span style="font-size:12px; font-weight:800; color:#854d0e; line-height:1.3;">Miqaat: ${escapeText(titles)}</span>
+        </div>
+      `;
+    }
 
     let extraHtml = '';
     if (extraRaw) {
-      extraHtml = `<div style="margin-top:8px; font-size:0.78rem; background:#fffaf2; border:1px solid #f0e2d2; padding:6px 9px; border-radius:10px; color:#6b4f35; line-height:1.35;">${escapeWithBreaks(extraRaw)}</div>`;
+      extraHtml = `<div style="margin-top:6px; font-size:0.75rem; background:#fffaf2; border:1px solid #f0e2d2; padding:5px 8px; border-radius:8px; color:#6b4f35; line-height:1.3;">${escapeWithBreaks(extraRaw)}</div>`;
     }
 
     return `
-      <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:18px; padding:14px 15px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:160px; box-sizing:border-box;">
+      <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:18px; padding:14px 16px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
         <div>
+          <!-- Header with Day, Gregorian Date & Arabic Hijri Date -->
           <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0e2d2; padding-bottom:6px; margin-bottom:10px;">
-            <span style="font-family:'Playfair Display', serif; font-size:0.95rem; font-weight:800; color:#b07d48;">${escapeText(dayVal)}</span>
-            ${dateDisplay ? `<span style="font-size:0.78rem; font-weight:800; background:#f0e6db; padding:2px 8px; border-radius:30px; color:#7a5b3c;">${escapeText(dateDisplay)}</span>` : ''}
+            <span style="font-family:'Playfair Display', serif; font-size:1.05rem; font-weight:800; color:#8b5e34;">${escapeText(dayVal)}</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:0.75rem; font-weight:800; background:#f0e6db; padding:2px 8px; border-radius:20px; color:#7a5b3c;">${escapeText(dateDisplay)}</span>
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.8rem; font-weight:700; color:#8a5e35; direction:rtl; background:#faf3ea; border:1px solid #eadbc8; padding:2px 8px; border-radius:20px;">${escapeText(hijri.formattedAr)}</span>
+            </div>
           </div>
-          <div style="margin-bottom:6px;">
+
+          <!-- 1. Food Menu -->
+          <div style="margin-bottom:10px;">
             ${menuLinesHtml}
           </div>
+
+          <!-- 2. Miqaat -->
+          ${miqaatBadgeHtml}
         </div>
         ${extraHtml}
       </div>
@@ -2593,31 +2744,32 @@
   }
 
   async function shareFullWeeklyMenu() {
-    const shareBtn = document.getElementById('shareAllMenuBtn');
-    const shareIconSvg = `
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;">
-        <circle cx="18" cy="5" r="3"></circle>
-        <circle cx="6" cy="12" r="3"></circle>
-        <circle cx="18" cy="19" r="3"></circle>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-      </svg>
-    `;
-
-    if (shareBtn) {
-      shareBtn.disabled = true;
-      shareBtn.innerHTML = `<span style="font-size:0.85rem;">⏳</span>`;
-    }
+    const shareBtns = document.querySelectorAll('#shareAllMenuBtn, #shareWeeklyImageTabBtn');
+    const origHtmls = [];
+    shareBtns.forEach(btn => {
+      origHtmls.push(btn.innerHTML);
+      btn.disabled = true;
+      btn.innerHTML = `<span style="font-size:0.8rem;">⏳</span>`;
+    });
 
     try {
       await ensureHtml2Canvas();
+      await loadMiqaatsDataset();
 
       const fallbackDays = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday'];
       const itemsToRender = (globalMenuData && globalMenuData.length) ? globalMenuData : Array(6).fill(null);
 
       const cardsHtml = itemsToRender.map((item, i) => {
-        return createStaticCardGraphicNode(item, fallbackDays[i] || `Day ${i+1}`);
+        return createStaticCardGraphicNode(item, fallbackDays[i] || `Day ${i+1}`, i);
       }).join('');
+
+      const firstDate = getGregorianDateForMenuItem(itemsToRender[0], 0);
+      const lastDate = getGregorianDateForMenuItem(itemsToRender[itemsToRender.length - 1], itemsToRender.length - 1);
+      const firstHijri = computeMumineenHijri(firstDate);
+      const lastHijri = computeMumineenHijri(lastDate);
+
+      const rangeGreg = `${firstDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${lastDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+      const rangeHijri = `${firstHijri.day} ${firstHijri.monthEn} – ${lastHijri.day} ${lastHijri.monthEn} ${lastHijri.year} H`;
 
       const exportContainer = document.createElement('div');
       exportContainer.id = 'menuExportGraphicContainer';
@@ -2625,9 +2777,10 @@
         position: absolute;
         left: -9999px;
         top: 0;
-        width: 680px;
-        background: linear-gradient(180deg, #f8f3eb 0%, #ede3d5 100%);
-        padding: 24px 22px;
+        width: 720px;
+        min-height: 840px;
+        background: linear-gradient(180deg, #fbf7f1 0%, #ede3d5 100%);
+        padding: 26px 24px 22px 24px;
         border-radius: 24px;
         font-family: 'Inter', sans-serif;
         color: #2b231c;
@@ -2635,22 +2788,41 @@
       `;
 
       exportContainer.innerHTML = `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid #dfceb6;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding-bottom:12px; border-bottom:2px solid #dfceb6;">
           <div style="display:flex; align-items:center; gap:12px;">
             <img src="https://i.ibb.co.com/qLsxHhDf/logo-color.png" style="width:48px; height:48px; border-radius:14px; border:1.5px solid #d4c3af; background:#ffffff; padding:2px; object-fit:contain;" alt="logo">
             <div>
-              <div style="font-family:'Playfair Display', serif; font-size:1.35rem; font-weight:800; color:#4a3728; letter-spacing:-0.3px;">CHATTOGRAM FMB TIFFIN</div>
-              <div style="font-size:0.8rem; font-weight:700; color:#8b5e34; text-transform:uppercase; letter-spacing:0.8px;">Weekly Tiffin Menu</div>
+              <div style="font-family:'Playfair Display', serif; font-size:1.35rem; font-weight:800; color:#4a3728; letter-spacing:-0.3px;">FAIZ UL MAWAID IL BURHANIYAH</div>
+              <div style="font-size:0.75rem; font-weight:700; color:#8b5e34; text-transform:uppercase; letter-spacing:0.8px;">CHATTOGRAM</div>
             </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Noto Naskh Arabic', serif; font-size:1.05rem; font-weight:700; color:#6b4e31;">الحمد لله والشكر لوليه</div>
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+        <div style="margin-bottom:16px; background:#f2e9dc; border:1px solid #dcc8b1; border-radius:10px; padding:7px 14px; display:flex; align-items:center; justify-content:space-between; font-size:11.5px; font-weight:800; color:#5a3f25;">
+          <span>📅 Week: ${escapeText(rangeGreg)}</span>
+          <span>Hijri: ${escapeText(rangeHijri)}</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
           ${cardsHtml}
         </div>
 
-        <div style="text-align:center; padding-top:12px; border-top:1.5px solid #e2d3bf; font-size:0.75rem; font-weight:700; color:#8b5e34; display:flex; justify-content:center; align-items:center;">
-          <span>✨ Chattogram Daily Tiffin App</span>
+        <!-- Tiffin Guidelines -->
+        <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:14px; padding:10px 14px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+          <div style="font-size:11px; font-weight:800; color:#8b5e34; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px; text-align:center;">Tiffin Guidelines</div>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+            <div style="background:#faf5ed; border:1px solid #ebdccb; border-radius:8px; padding:6px 6px; font-size:10.5px; font-weight:750; color:#5a422d; text-align:center;">🧼 Wash & dry</div>
+            <div style="background:#faf5ed; border:1px solid #ebdccb; border-radius:8px; padding:6px 6px; font-size:10.5px; font-weight:750; color:#5a422d; text-align:center;">🔥 <strong>Do NOT heat</strong></div>
+            <div style="background:#faf5ed; border:1px solid #ebdccb; border-radius:8px; padding:6px 6px; font-size:10.5px; font-weight:750; color:#5a422d; text-align:center;">💳 FMB Card</div>
+            <div style="background:#faf5ed; border:1px solid #ebdccb; border-radius:8px; padding:6px 6px; font-size:10.5px; font-weight:750; color:#5a422d; text-align:center;">⏰ Before 10:00 AM</div>
+          </div>
+        </div>
+
+        <div style="text-align:center; padding-top:10px; border-top:1.5px solid #e2d3bf; font-size:0.78rem; font-weight:700; color:#8b5e34; display:flex; justify-content:center; align-items:center;">
+          <span>Developed by Mohammed Paghdiwala</span>
         </div>
       `;
 
@@ -2660,17 +2832,17 @@
         scale: 2,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#f8f3eb',
+        backgroundColor: '#fbf7f1',
         logging: false
       });
 
       document.body.removeChild(exportContainer);
 
       canvas.toBlob(async (blob) => {
-        if (shareBtn) {
-          shareBtn.disabled = false;
-          shareBtn.innerHTML = shareIconSvg;
-        }
+        shareBtns.forEach((btn, idx) => {
+          btn.disabled = false;
+          btn.innerHTML = origHtmls[idx] || '';
+        });
 
         if (!blob) return;
 
@@ -2681,8 +2853,6 @@
         if (navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
           try {
             await navigator.share({
-              title: 'Chattogram FMB Weekly Tiffin Menu',
-              text: 'Chattogram FMB Weekly Tiffin Menu Page',
               files: [currentShareFile]
             });
             return;
@@ -2694,10 +2864,10 @@
 
     } catch (err) {
       alert('Unable to generate menu image: ' + err.message);
-      if (shareBtn) {
-        shareBtn.disabled = false;
-        shareBtn.innerHTML = shareIconSvg;
-      }
+      shareBtns.forEach((btn, idx) => {
+        btn.disabled = false;
+        btn.innerHTML = origHtmls[idx] || '';
+      });
     }
   }
 
@@ -2729,25 +2899,76 @@
     });
   }
 
-  const nativeShareImgBtn = document.getElementById('nativeShareImageBtn');
-  if (nativeShareImgBtn) {
-    nativeShareImgBtn.addEventListener('click', async () => {
+  function showImageShareToast(msg) {
+    const toast = document.getElementById('imageShareToast');
+    if (toast) {
+      toast.textContent = msg || '✅ Image copied to clipboard! Paste (Ctrl+V) into WhatsApp.';
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+  }
+
+  async function copyShareImageToClipboard() {
+    if (navigator.clipboard && window.ClipboardItem && currentShareBlob) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': currentShareBlob })]);
+        showImageShareToast('✅ Image copied to clipboard! Paste (Ctrl+V) directly into WhatsApp.');
+        return true;
+      } catch (err) {
+        console.warn('Clipboard write error:', err);
+      }
+    }
+    return false;
+  }
+
+  const copyImgDirectBtn = document.getElementById('copyImageDirectBtn');
+  if (copyImgDirectBtn) {
+    copyImgDirectBtn.addEventListener('click', async () => {
+      const ok = await copyShareImageToClipboard();
+      if (!ok) {
+        alert('Direct image copy is not supported by your browser. Please use "Download PNG" or "Send via WhatsApp".');
+      }
+    });
+  }
+
+  const previewImgEl = document.getElementById('menuShareImagePreview');
+  if (previewImgEl) {
+    previewImgEl.addEventListener('click', () => {
+      copyShareImageToClipboard();
+    });
+  }
+
+  const uniShareImgBtn = document.getElementById('universalShareImageBtn');
+  if (uniShareImgBtn) {
+    uniShareImgBtn.addEventListener('click', async () => {
+      // 1. Universal OS Share Sheet: Works on Windows, Mac, Android, iOS to send file directly to WhatsApp, Telegram, Email, Messages, etc.
       if (currentShareFile && navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
         try {
           await navigator.share({
-            title: 'Chattogram FMB Weekly Tiffin Menu',
-            files: [currentShareFile]
+            files: [currentShareFile],
+            title: 'Chattogram Tiffin Menu'
           });
-        } catch (e) {}
-      } else if (navigator.clipboard && window.ClipboardItem && currentShareBlob) {
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': currentShareBlob })]);
-          alert('📋 Menu page image copied to clipboard!');
+          return;
         } catch (e) {
-          alert('Direct image copy is not supported in this browser. Please use "Download PNG".');
+          if (e.name === 'AbortError') return; // User canceled
         }
+      }
+
+      // 2. Fallback for browsers without Web Share File API: Copy to clipboard & trigger download
+      const copied = await copyShareImageToClipboard();
+      if (currentShareDataUrl) {
+        const a = document.createElement('a');
+        a.href = currentShareDataUrl;
+        a.download = 'chattogram-weekly-menu.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      if (copied) {
+        showImageShareToast('✅ Image copied & downloaded! Paste (Ctrl+V) or attach into any app.');
       } else {
-        alert('Use "Download PNG" to save the image file to your device.');
+        alert('✅ Menu image downloaded! You can attach or send it to anyone via your favorite app.');
       }
     });
   }
@@ -3018,15 +3239,16 @@
       else if (monthVal)         dateDisplay = escapeText(monthVal);
       else if (dateVal)          dateDisplay = escapeText(dateVal);
 
-      const menuHtml = menuRaw.split('\n').map((line, li) => {
-        const safe  = escapeText(line);
-        const color = (colors[li] || '').toString().trim().toLowerCase();
+      const dishList = splitMenuItems(menuRaw);
+      const menuHtml = dishList.map((dish, di) => {
+        const safe  = escapeText(dish);
+        const color = (colors[di] || '').toString().trim().toLowerCase();
         const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
 
         if (!isDefault) {
-          return `<span class="menu-line has-color" style="color:${color};">${safe}</span>`;
+          return `<span class="menu-line has-color" style="color:${color};">• ${safe}</span>`;
         }
-        return `<span class="menu-line">${safe}</span>`;
+        return `<span class="menu-line">• ${safe}</span>`;
       }).join('');
 
       const extraHtml      = escapeWithBreaks(extraRaw);

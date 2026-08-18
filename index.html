@@ -1788,28 +1788,38 @@
 
 <!-- MENU IMAGE SHARE MODAL -->
 <div id="menuImageShareModal" class="expand-overlay" role="dialog" aria-modal="true" aria-label="Share Menu Image">
-  <div class="expand-modal" style="max-width:480px; padding:18px;">
+  <div class="expand-modal" style="max-width:490px; padding:18px;">
     <div class="expand-modal-header" style="border-bottom:1px solid #ebd9c5; padding-bottom:10px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:1.2rem;">🖼️</span>
         <div>
-          <div style="font-family:'Playfair Display', serif; font-weight:800; font-size:1.05rem; color:#4a3728;">Weekly Menu Page</div>
-          <div style="font-size:0.72rem; color:#8b5e34;">Exact visual layout generated as an image</div>
+          <div style="font-family:'Playfair Display', serif; font-weight:800; font-size:1.05rem; color:#4a3728;">Weekly Menu Graphic</div>
+          <div style="font-size:0.72rem; color:#8b5e34;">High-resolution graphic ready to send</div>
         </div>
       </div>
       <button class="expand-close-btn" id="closeImageShareModalBtn" aria-label="Close">✕</button>
     </div>
 
-    <div style="text-align:center; background:#f9f5f0; padding:10px; border-radius:14px; border:1px solid #dfceb6; margin-bottom:14px; max-height:55vh; overflow-y:auto;">
-      <img id="menuShareImagePreview" src="" alt="Menu Page Graphic" style="width:100%; height:auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); display:block;" />
+    <div style="text-align:center; background:#f9f5f0; padding:10px; border-radius:14px; border:1px solid #dfceb6; margin-bottom:12px; max-height:52vh; overflow-y:auto;">
+      <img id="menuShareImagePreview" src="" alt="Menu Page Graphic" style="width:100%; height:auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); display:block; cursor:pointer;" title="Click or long press to copy image" />
     </div>
 
-    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-      <button id="nativeShareImageBtn" style="flex:1; min-width:130px; padding:10px 12px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+    <div id="imageShareToast" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; font-size:0.75rem; font-weight:700; padding:8px 12px; border-radius:10px; text-align:center; margin-bottom:12px;">
+      ✅ Image copied to clipboard! Paste (Ctrl+V) anywhere.
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+      <button id="universalShareImageBtn" style="padding:10px 12px; background:#6b4e31; color:#ffffff; border:none; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 2px 6px rgba(107,78,49,0.25);">
         <span>📲 Share Image</span>
       </button>
-      <button id="downloadImageBtn" style="flex:1; min-width:130px; padding:10px 12px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
-        <span>⬇️ Download PNG</span>
+      <button id="copyImageDirectBtn" style="padding:10px 12px; background:#f5eee6; color:#6b4e31; border:1.5px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>📋 Copy Image</span>
+      </button>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr; gap:8px;">
+      <button id="downloadImageBtn" style="width:100%; padding:9px 12px; background:#fff7ed; color:#8b5e34; border:1px solid #dfceb6; border-radius:12px; font-weight:700; font-size:0.82rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+        <span>⬇️ Download PNG Image File</span>
       </button>
     </div>
   </div>
@@ -1999,7 +2009,7 @@
   }
 
   // ── MENU API & INSTANT CACHE ──────────────────────────────
-  const MENU_API = "https://script.google.com/macros/s/AKfycbwBXxL2sH1IY0eO4z50bhE547cBnuy7wwF46G0z2_fpumhTTVJTvh0XRsjDlz8PGUI/exec";
+  const MENU_API = "https://script.google.com/macros/s/AKfycbw4ySIWqud7SDJSx4yd0P1MKeTgpEHc5f9-2rmdBYexFh574tBMnENCrBa1-KEeH2A8/exec";
 
   function escapeText(str) {
     if (!str) return '';
@@ -2012,6 +2022,26 @@
   function escapeWithBreaks(str) {
     if (!str) return '';
     return escapeText(str).replace(/\n/g, '<br>');
+  }
+
+  function splitMenuItems(menuRaw) {
+    if (!menuRaw) return [];
+    const rawLines = String(menuRaw).split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    const items = [];
+    rawLines.forEach(line => {
+      const cleanLine = line.replace(/^[\s•\-\*]+/, '').trim();
+      if (!cleanLine) return;
+      if (cleanLine.includes(',')) {
+        const parts = cleanLine.split(',').map(p => p.replace(/^[\s•\-\*]+/, '').trim()).filter(Boolean);
+        items.push(...parts);
+      } else if (cleanLine.includes(';') && !cleanLine.includes('&amp;')) {
+        const parts = cleanLine.split(';').map(p => p.replace(/^[\s•\-\*]+/, '').trim()).filter(Boolean);
+        items.push(...parts);
+      } else {
+        items.push(cleanLine);
+      }
+    });
+    return items.length ? items : [String(menuRaw).trim()];
   }
 
   async function fetchMenuData(statusCb) {
@@ -2477,12 +2507,15 @@
     const matching = menuItems.find(item => item && item.day.toLowerCase().trim() === currentDayName.toLowerCase()) || menuItems[0];
 
     if (matching) {
-      const formattedMenu = (matching.menu || '').replace(/\n/g, ', ');
+      const dishList = splitMenuItems(matching.menu);
+      const formattedMenu = dishList.join(', ');
       todayAttachedMenuText = `${matching.day} (${matching.month} ${matching.date}): ${formattedMenu}`;
 
       if (todayNameEl) todayNameEl.textContent = matching.day + " (Today)";
       if (todayDateEl) todayDateEl.textContent = `${matching.month} ${matching.date}`.trim() || 'Today';
-      if (todayMenuEl) todayMenuEl.innerHTML   = escapeWithBreaks(matching.menu) || 'Menu updating soon';
+      if (todayMenuEl) {
+        todayMenuEl.innerHTML = dishList.map(d => `<div style="margin-bottom:3px; font-weight:750;">• ${escapeText(d)}</div>`).join('') || 'Menu updating soon';
+      }
       if (todayExtraEl) todayExtraEl.innerHTML = escapeWithBreaks(matching.extra) || 'Prepared with authentic ingredients according to Mawaid guidelines.';
       if (attachedValEl) attachedValEl.textContent = todayAttachedMenuText;
     }
@@ -2519,8 +2552,9 @@
 
   // ── SHARE & PDF EXPORT HANDLERS ───────────────────────────
   function shareFormattedMenu(day, date, menuRaw) {
-    const dishes = menuRaw ? menuRaw.replace(/\n/g, '\n• ') : 'No menu listed';
-    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n• ${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
+    const dishList = splitMenuItems(menuRaw);
+    const dishes = dishList.length ? dishList.map(d => `• ${d}`).join('\n') : '• No menu listed';
+    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
 
     if (navigator.share) {
       navigator.share({
@@ -2657,14 +2691,15 @@
     else if (dateVal) dateDisplay = dateVal;
     else dateDisplay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-    const menuLinesHtml = menuRaw.split('\n').map((line, li) => {
-      const safe  = escapeText(line);
-      const color = (colors[li] || '').toString().trim().toLowerCase();
+    const dishList = splitMenuItems(menuRaw);
+    const menuLinesHtml = dishList.map((dish, di) => {
+      const safe  = escapeText(dish);
+      const color = (colors[di] || '').toString().trim().toLowerCase();
       const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
       if (!isDefault) {
-        return `<div style="color:${color}; font-weight:800; line-height:1.45; font-size:1.06rem; margin-bottom:4px;">• ${safe}</div>`;
+        return `<div style="color:${color}; font-weight:800; line-height:1.45; font-size:1.02rem; margin-bottom:4px;">• ${safe}</div>`;
       }
-      return `<div style="color:#33271e; font-weight:750; line-height:1.45; font-size:1.06rem; margin-bottom:4px;">• ${safe}</div>`;
+      return `<div style="color:#33271e; font-weight:750; line-height:1.45; font-size:1.02rem; margin-bottom:4px;">• ${safe}</div>`;
     }).join('');
 
     let miqaatBadgeHtml = '';
@@ -2864,24 +2899,76 @@
     });
   }
 
-  const nativeShareImgBtn = document.getElementById('nativeShareImageBtn');
-  if (nativeShareImgBtn) {
-    nativeShareImgBtn.addEventListener('click', async () => {
+  function showImageShareToast(msg) {
+    const toast = document.getElementById('imageShareToast');
+    if (toast) {
+      toast.textContent = msg || '✅ Image copied to clipboard! Paste (Ctrl+V) into WhatsApp.';
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+  }
+
+  async function copyShareImageToClipboard() {
+    if (navigator.clipboard && window.ClipboardItem && currentShareBlob) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': currentShareBlob })]);
+        showImageShareToast('✅ Image copied to clipboard! Paste (Ctrl+V) directly into WhatsApp.');
+        return true;
+      } catch (err) {
+        console.warn('Clipboard write error:', err);
+      }
+    }
+    return false;
+  }
+
+  const copyImgDirectBtn = document.getElementById('copyImageDirectBtn');
+  if (copyImgDirectBtn) {
+    copyImgDirectBtn.addEventListener('click', async () => {
+      const ok = await copyShareImageToClipboard();
+      if (!ok) {
+        alert('Direct image copy is not supported by your browser. Please use "Download PNG" or "Send via WhatsApp".');
+      }
+    });
+  }
+
+  const previewImgEl = document.getElementById('menuShareImagePreview');
+  if (previewImgEl) {
+    previewImgEl.addEventListener('click', () => {
+      copyShareImageToClipboard();
+    });
+  }
+
+  const uniShareImgBtn = document.getElementById('universalShareImageBtn');
+  if (uniShareImgBtn) {
+    uniShareImgBtn.addEventListener('click', async () => {
+      // 1. Universal OS Share Sheet: Works on Windows, Mac, Android, iOS to send file directly to WhatsApp, Telegram, Email, Messages, etc.
       if (currentShareFile && navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
         try {
           await navigator.share({
-            files: [currentShareFile]
+            files: [currentShareFile],
+            title: 'Chattogram Tiffin Menu'
           });
-        } catch (e) {}
-      } else if (navigator.clipboard && window.ClipboardItem && currentShareBlob) {
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': currentShareBlob })]);
-          alert('📋 Menu page image copied to clipboard!');
+          return;
         } catch (e) {
-          alert('Direct image copy is not supported in this browser. Please use "Download PNG".');
+          if (e.name === 'AbortError') return; // User canceled
         }
+      }
+
+      // 2. Fallback for browsers without Web Share File API: Copy to clipboard & trigger download
+      const copied = await copyShareImageToClipboard();
+      if (currentShareDataUrl) {
+        const a = document.createElement('a');
+        a.href = currentShareDataUrl;
+        a.download = 'chattogram-weekly-menu.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      if (copied) {
+        showImageShareToast('✅ Image copied & downloaded! Paste (Ctrl+V) or attach into any app.');
       } else {
-        alert('Use "Download PNG" to save the image file to your device.');
+        alert('✅ Menu image downloaded! You can attach or send it to anyone via your favorite app.');
       }
     });
   }
@@ -3152,15 +3239,16 @@
       else if (monthVal)         dateDisplay = escapeText(monthVal);
       else if (dateVal)          dateDisplay = escapeText(dateVal);
 
-      const menuHtml = menuRaw.split('\n').map((line, li) => {
-        const safe  = escapeText(line);
-        const color = (colors[li] || '').toString().trim().toLowerCase();
+      const dishList = splitMenuItems(menuRaw);
+      const menuHtml = dishList.map((dish, di) => {
+        const safe  = escapeText(dish);
+        const color = (colors[di] || '').toString().trim().toLowerCase();
         const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
 
         if (!isDefault) {
-          return `<span class="menu-line has-color" style="color:${color};">${safe}</span>`;
+          return `<span class="menu-line has-color" style="color:${color};">• ${safe}</span>`;
         }
-        return `<span class="menu-line">${safe}</span>`;
+        return `<span class="menu-line">• ${safe}</span>`;
       }).join('');
 
       const extraHtml      = escapeWithBreaks(extraRaw);
