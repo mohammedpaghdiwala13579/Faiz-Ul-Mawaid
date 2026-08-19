@@ -2009,7 +2009,7 @@
   }
 
   // ── MENU API & INSTANT CACHE ──────────────────────────────
-  const MENU_API = "https://script.google.com/macros/s/AKfycbz4EJjbmpbyqbBxpHTpF9gbvTDDSbvDdbyiiXqyRAJRXd9bNIC149V22ibBxVgTuvXw/exec";
+  const MENU_API = "https://script.google.com/macros/s/AKfycbwFjOac_9-hp4JZJg9sd8gHxB49MyFjx-NJdc6tC1siX87PtT-sds1w_8xt36uVV0tR/exec";
 
   function escapeText(str) {
     if (!str) return '';
@@ -2665,87 +2665,6 @@
     return d;
   }
 
-  // ── SUBTLE WEATHER FORECAST ATMOSPHERE (NO ICONS / OBJECTS) ──
-  let cachedWeatherMap = null;
-  async function fetchChattogramWeatherForecast() {
-    if (cachedWeatherMap) return cachedWeatherMap;
-    try {
-      const resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=22.3569&longitude=91.7832&daily=weather_code&timezone=Asia%2FDhaka', { cache: 'force-cache' });
-      if (!resp.ok) throw new Error('Weather fetch failed');
-      const data = await resp.json();
-      if (data && data.daily && Array.isArray(data.daily.time) && Array.isArray(data.daily.weather_code)) {
-        cachedWeatherMap = {};
-        data.daily.time.forEach((tStr, i) => {
-          cachedWeatherMap[tStr] = data.daily.weather_code[i];
-        });
-        return cachedWeatherMap;
-      }
-    } catch (e) {
-      console.warn('Weather atmosphere fallback used:', e);
-    }
-    return {};
-  }
-
-  function getWeatherAtmosphereStyle(dateObj, weatherMap = cachedWeatherMap) {
-    let code = null;
-    if (weatherMap && dateObj) {
-      const yyyy = dateObj.getFullYear();
-      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-      const dd = String(dateObj.getDate()).padStart(2, '0');
-      const dateKey = `${yyyy}-${mm}-${dd}`;
-      code = weatherMap[dateKey];
-    }
-
-    // Sunny / Clear Sky (WMO 0, 1) -> subtle golden morning sun warmth
-    if (code === 0 || code === 1) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #fffdf4 76%, #fcf4de 100%)',
-        border: '1.5px solid #dfceb6'
-      };
-    }
-    // Partly Cloudy (WMO 2) -> soft daylight sky gradient
-    if (code === 2) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #fbfbfc 76%, #ecf3f8 100%)',
-        border: '1.5px solid #d8cfc0'
-      };
-    }
-    // Overcast / Cloudy (WMO 3) -> muted pearlescent atmosphere
-    if (code === 3) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #f8f8f9 76%, #e7ecef 100%)',
-        border: '1.5px solid #d4ccc0'
-      };
-    }
-    // Fog / Mist (WMO 45, 48) -> soft morning haze
-    if (code === 45 || code === 48) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #f7f8f8 76%, #e6ebeb 100%)',
-        border: '1.5px solid #d5dbdc'
-      };
-    }
-    // Rain / Drizzle / Showers (WMO 51-67, 80-82) -> soft soothing raindrop mist hue
-    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #f3f8fb 74%, #deecf6 100%)',
-        border: '1.5px solid #c6d7e4'
-      };
-    }
-    // Thunderstorm (WMO 95, 96, 99) -> soft gentle twilight slate tone
-    if (code >= 95) {
-      return {
-        background: 'linear-gradient(165deg, #ffffff 50%, #f6f5fa 74%, #e4e1ee 100%)',
-        border: '1.5px solid #c8c5d6'
-      };
-    }
-
-    // Default graceful aesthetic
-    return {
-      background: 'linear-gradient(165deg, #ffffff 56%, #fdfbf7 78%, #f8f2e7 100%)',
-      border: '1.5px solid #dfceb6'
-    };
-  }
-
   function getMiqaatsForHijriDate(hijriInfo) {
     const data = window.MUMINEEN_MIQAATS_DATA;
     if (!Array.isArray(data) || !data.length || !hijriInfo) return [];
@@ -2754,7 +2673,7 @@
     return dayObj.miqaats.filter(m => !m.year || m.year <= hijriInfo.year);
   }
 
-  function createStaticCardGraphicNode(item, fallbackDay, index = 0, weatherMap = cachedWeatherMap) {
+  function createStaticCardGraphicNode(item, fallbackDay, index = 0) {
     const dayVal   = item && item.day ? item.day.trim() : fallbackDay;
     const monthVal = item && item.month ? item.month.trim() : '';
     const dateVal  = item && item.date ? item.date.trim() : '';
@@ -2765,7 +2684,6 @@
     const dateObj = getGregorianDateForMenuItem(item, index);
     const hijri = computeMumineenHijri(dateObj);
     const miqaats = getMiqaatsForHijriDate(hijri);
-    const wAtmosphere = getWeatherAtmosphereStyle(dateObj, weatherMap);
 
     let dateDisplay = '';
     if (monthVal && dateVal) dateDisplay = `${monthVal} ${dateVal}`;
@@ -2801,7 +2719,7 @@
     }
 
     return `
-      <div style="background:${wAtmosphere.background}; border:${wAtmosphere.border}; border-radius:18px; padding:14px 16px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
+      <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:18px; padding:14px 16px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
         <div>
           <!-- Header with Day, Gregorian Date & Arabic Hijri Date -->
           <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0e2d2; padding-bottom:6px; margin-bottom:10px;">
@@ -2837,13 +2755,12 @@
     try {
       await ensureHtml2Canvas();
       await loadMiqaatsDataset();
-      const weatherMap = await fetchChattogramWeatherForecast();
 
       const fallbackDays = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday'];
       const itemsToRender = (globalMenuData && globalMenuData.length) ? globalMenuData : Array(6).fill(null);
 
       const cardsHtml = itemsToRender.map((item, i) => {
-        return createStaticCardGraphicNode(item, fallbackDays[i] || `Day ${i+1}`, i, weatherMap);
+        return createStaticCardGraphicNode(item, fallbackDays[i] || `Day ${i+1}`, i);
       }).join('');
 
       const firstDate = getGregorianDateForMenuItem(itemsToRender[0], 0);
