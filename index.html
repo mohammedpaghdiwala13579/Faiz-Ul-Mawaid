@@ -529,59 +529,81 @@
       background: transparent;
       perspective: 1000px;
       cursor: pointer;
-      min-height: 168px;
-      height: auto;
+      min-height: 175px;
+      height: 100%;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .flip-card-inner {
       position: relative;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
+      min-height: 175px;
+      flex: 1;
       transition: transform 0.35s ease;
       transform-style: preserve-3d;
       border-radius: 18px;
-      min-height: 168px;
+      display: flex;
+      flex-direction: column;
     }
 
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%; height: 100%;
+    .card-front {
+      position: relative;
+      width: 100%;
+      min-height: 100%;
+      flex: 1;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       border-radius: 18px;
-      padding: 10px 11px 8px 11px;
+      padding: 11px 12px 9px 12px;
       display: flex;
       flex-direction: column;
       background: #fffffffb;
       border: 1px solid #dfceb6;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      top: 0; left: 0; right: 0; bottom: 0;
       overflow: hidden;
+      z-index: 2;
     }
 
     .card-back {
-      transform: rotateY(180deg);
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 18px;
+      padding: 11px 12px 9px 12px;
+      display: flex;
+      flex-direction: column;
       background: #fefaf4;
+      border: 1px solid #dfceb6;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transform: rotateY(180deg);
+      overflow: hidden;
+      z-index: 1;
     }
 
     .menu-text {
       font-size: 0.95rem;
-      line-height: 1.4;
+      line-height: 1.45;
       font-weight: 700;
       color: #33271e;
       white-space: pre-line;
       word-break: break-word;
       flex: 1;
-      margin: 5px 0 4px 0;
-      overflow-y: auto;
-      max-height: 100%;
-      scrollbar-width: thin;
-      padding-right: 2px;
+      margin: 5px 0 6px 0;
+      overflow: visible;
+      overflow-y: visible;
+      max-height: none;
+      padding-right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
-    .menu-text::-webkit-scrollbar { width: 3px; }
-    .menu-text::-webkit-scrollbar-track { background: #f0e2d2; border-radius: 6px; }
-    .menu-text::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 6px; }
 
     .extra-detail {
       font-size: 0.86rem;
@@ -628,6 +650,7 @@
       align-items: center;
       gap: 3px;
       flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .date-chip {
@@ -638,6 +661,82 @@
       border-radius: 30px;
       color: #7a5b3c;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .hijri-chip {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #faf3ea;
+      border: 1px solid #eadbc8;
+      padding: 1px 6px;
+      border-radius: 20px;
+      color: #8a5e35;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      direction: rtl;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+
+    .card-miqaat-chip {
+      background: linear-gradient(135deg, #fffcf0 0%, #fef3c7 100%);
+      border: 1px solid #f6d89b;
+      border-radius: 8px;
+      padding: 4px 7px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 750;
+      color: #854d0e;
+      line-height: 1.3;
+      box-shadow: 0 1px 2px rgba(217, 119, 6, 0.05);
+      flex-shrink: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .card-miqaat-chip .miqaat-sparkle {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .card-miqaat-chip .miqaat-label {
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .back-date-banner {
+      background: #faf2e6;
+      border: 1px solid #ebd9c5;
+      border-radius: 8px;
+      padding: 3px 7px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .back-miqaat-box {
+      background: #fff8e7;
+      border: 1.2px solid #d4a359;
+      border-radius: 8px;
+      padding: 4px 7px;
+      margin-bottom: 5px;
+      flex-shrink: 0;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .fav-star-btn {
@@ -1243,7 +1342,9 @@
       .tab-btn { padding: 8px 12px; font-size: 0.76rem; gap: 4px; border-radius: 20px; }
       .tab-icon { font-size: 0.85rem; }
       .day-name { font-size: 0.68rem; }
-      .date-chip { font-size: 0.66rem; padding: 1px 5px; }
+      .date-chip { font-size: 0.64rem; padding: 1px 4px; }
+      .hijri-chip { font-size: 0.64rem; padding: 1px 4px; }
+      .card-miqaat-chip { font-size: 0.62rem; padding: 2px 4px; }
       .rule { font-size: 0.6rem; padding: 3px 8px; }
       .spotlight-day { font-size: 1.2rem; }
       .countdown-time { font-size: 1.05rem; }
@@ -1721,11 +1822,20 @@
     <div class="expand-modal-header">
       <div class="expand-day-block">
         <div class="expand-day-name" id="expandDayName">Saturday</div>
-        <div class="expand-date-chip" id="expandDateChip">—</div>
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
+          <div class="expand-date-chip" id="expandDateChip">—</div>
+          <div class="expand-hijri-chip" id="expandHijriChip" dir="rtl" style="font-family:'Noto Naskh Arabic', serif; font-size:0.8rem; font-weight:700; color:#8a5e35; background:#faf3ea; border:1px solid #eadbc8; padding:2px 8px; border-radius:20px; white-space:nowrap; display:none;"></div>
+        </div>
       </div>
       <button class="expand-close-btn" id="expandCloseBtn" aria-label="Close">✕</button>
     </div>
     <div class="expand-body">
+      <div id="expandMiqaatBanner" style="display:none; background:#fff8e7; border:1.2px solid #d4a359; border-radius:10px; padding:7px 10px; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:6px; font-weight:800; color:#854d0e; font-size:0.8rem;">
+          <span>✨</span>
+          <span id="expandMiqaatText">Miqaat</span>
+        </div>
+      </div>
       <div>
         <div class="expand-section-label">Today's Menu</div>
         <div class="expand-menu-text" id="expandMenuText"></div>
@@ -2130,7 +2240,7 @@
     speechSynthesis.speak(utter);
   }
 
-  async function handleSpeakTap(idx, day, date, menuRaw, btn, card) {
+  async function handleSpeakTap(idx, day, date, menuRaw, btn, card, miqaatTitles = '') {
     if (card && card.classList.contains('speaking')) {
       stopSpeaking();
       return;
@@ -2143,7 +2253,10 @@
     stopSpeaking();
     if (btn) btn.classList.add('loading');
 
-    const cleanText = `On ${day} ${date}, the menu includes: ` + menuRaw.replace(/\n/g, ', ');
+    let cleanText = `On ${day} ${date}, the menu includes: ` + menuRaw.replace(/\n/g, ', ');
+    if (miqaatTitles) {
+      cleanText += `. Special Miqaat: ${miqaatTitles}`;
+    }
     doSpeak(cleanText, btn, card);
   }
 
@@ -2551,10 +2664,13 @@
   }
 
   // ── SHARE & PDF EXPORT HANDLERS ───────────────────────────
-  function shareFormattedMenu(day, date, menuRaw) {
+  function shareFormattedMenu(day, date, menuRaw, hijriText = '', miqaatText = '') {
     const dishList = splitMenuItems(menuRaw);
     const dishes = dishList.length ? dishList.map(d => `• ${d}`).join('\n') : '• No menu listed';
-    const text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*\n-----------------------\n${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
+    let text = `🍲 *Chattogram Daily Tiffin*\n📅 *${day} (${date})*`;
+    if (hijriText) text += `\n🌙 *${hijriText}*`;
+    if (miqaatText) text += `\n✨ *${miqaatText}*`;
+    text += `\n-----------------------\n${dishes}\n\n✨ Shared via Chattogram Tiffin App`;
 
     if (navigator.share) {
       navigator.share({
@@ -2706,9 +2822,9 @@
     if (miqaats && miqaats.length) {
       const titles = miqaats.map(m => m.title).join(' • ');
       miqaatBadgeHtml = `
-        <div style="background:#fff8e7; border:1.2px solid #d4a359; border-radius:8px; padding:6px 10px; margin-top:8px; display:flex; align-items:center; gap:6px;">
-          <span style="font-size:13px;">✨</span>
-          <span style="font-size:12px; font-weight:800; color:#854d0e; line-height:1.3;">Miqaat: ${escapeText(titles)}</span>
+        <div style="background:#fff8e7; border:1.2px solid #d4a359; border-radius:8px; padding:6px 10px; margin-top:8px; display:flex; align-items:flex-start; gap:6px; box-sizing:border-box; width:100%;">
+          <span style="font-size:13px; flex-shrink:0; margin-top:1px;">✨</span>
+          <span style="font-size:12px; font-weight:800; color:#854d0e; line-height:1.35; white-space:normal; word-break:break-word; overflow-wrap:break-word; flex:1;">Miqaat: ${escapeText(titles)}</span>
         </div>
       `;
     }
@@ -2721,12 +2837,12 @@
     return `
       <div style="background:#ffffff; border:1.5px solid #dfceb6; border-radius:18px; padding:14px 16px; box-shadow:0 3px 10px rgba(0,0,0,0.03); display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
         <div>
-          <!-- Header with Day, Gregorian Date & Arabic Hijri Date -->
-          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0e2d2; padding-bottom:6px; margin-bottom:10px;">
-            <span style="font-family:'Playfair Display', serif; font-size:1.05rem; font-weight:800; color:#8b5e34;">${escapeText(dayVal)}</span>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:0.75rem; font-weight:800; background:#f0e6db; padding:2px 8px; border-radius:20px; color:#7a5b3c;">${escapeText(dateDisplay)}</span>
-              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.8rem; font-weight:700; color:#8a5e35; direction:rtl; background:#faf3ea; border:1px solid #eadbc8; padding:2px 8px; border-radius:20px;">${escapeText(hijri.formattedAr)}</span>
+          <!-- Header with Day, Gregorian Date & Arabic Hijri Date (All in ONE single line) -->
+          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0e2d2; padding-bottom:7px; margin-bottom:10px; gap:8px; width:100%; box-sizing:border-box;">
+            <span style="font-family:'Playfair Display', serif; font-size:1.02rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${escapeText(dayVal)}</span>
+            <div style="display:flex; align-items:center; gap:5px; flex-shrink:0; white-space:nowrap;">
+              <span style="font-size:0.74rem; font-weight:800; background:#f0e6db; padding:3px 8px; border-radius:20px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1;">${escapeText(dateDisplay)}</span>
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.76rem; font-weight:700; color:#8a5e35; direction:rtl; background:#faf3ea; border:1px solid #eadbc8; padding:3px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1;">${escapeText(hijri.formattedAr)}</span>
             </div>
           </div>
 
@@ -2777,7 +2893,7 @@
         position: absolute;
         left: -9999px;
         top: 0;
-        width: 720px;
+        width: 820px;
         min-height: 840px;
         background: linear-gradient(180deg, #fbf7f1 0%, #ede3d5 100%);
         padding: 26px 24px 22px 24px;
@@ -2801,9 +2917,9 @@
           </div>
         </div>
 
-        <div style="margin-bottom:16px; background:#f2e9dc; border:1px solid #dcc8b1; border-radius:10px; padding:7px 14px; display:flex; align-items:center; justify-content:space-between; font-size:11.5px; font-weight:800; color:#5a3f25;">
-          <span>📅 Week: ${escapeText(rangeGreg)}</span>
-          <span>Hijri: ${escapeText(rangeHijri)}</span>
+        <div style="margin-bottom:16px; background:#f2e9dc; border:1px solid #dcc8b1; border-radius:10px; padding:8px 16px; display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:800; color:#5a3f25; white-space:nowrap;">
+          <span style="white-space:nowrap;">📅 Week: ${escapeText(rangeGreg)}</span>
+          <span style="white-space:nowrap;">Hijri: ${escapeText(rangeHijri)}</span>
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
@@ -3142,6 +3258,30 @@
     expandData = data;
     document.getElementById('expandDayName').textContent  = data.day;
     document.getElementById('expandDateChip').textContent = data.dateDisplay || '—';
+    
+    const hijriChip = document.getElementById('expandHijriChip');
+    if (hijriChip) {
+      if (data.hijri && data.hijri.formattedAr) {
+        hijriChip.textContent = data.hijri.formattedAr;
+        hijriChip.title = data.hijri.formattedEn || '';
+        hijriChip.style.display = 'inline-flex';
+      } else {
+        hijriChip.style.display = 'none';
+      }
+    }
+
+    const miqaatBanner = document.getElementById('expandMiqaatBanner');
+    const miqaatText   = document.getElementById('expandMiqaatText');
+    if (miqaatBanner && miqaatText) {
+      if (data.miqaats && data.miqaats.length) {
+        const titles = data.miqaats.map(m => m.title + (m.description ? ` (${m.description})` : '')).join(' • ');
+        miqaatText.textContent = `Miqaat: ${titles}`;
+        miqaatBanner.style.display = 'block';
+      } else {
+        miqaatBanner.style.display = 'none';
+      }
+    }
+
     document.getElementById('expandMenuText').innerHTML   = data.menuHtml;
     document.getElementById('expandExtraBox').innerHTML   = data.extraHtml;
     expandOverlay.classList.add('open');
@@ -3168,13 +3308,15 @@
   if (expandSpeakB) {
     expandSpeakB.addEventListener('click', function() {
       if (!expandData) return;
+      const miqaatTitles = (expandData.miqaats && expandData.miqaats.length) ? expandData.miqaats.map(m => m.title).join(' • ') : '';
       handleSpeakTap(
         'expand_' + expandData.idx,
         expandData.day,
         expandData.dateForSpeech,
         expandData.menuRaw,
         this,
-        null
+        null,
+        miqaatTitles
       );
     });
   }
@@ -3183,7 +3325,9 @@
   if (expandShareB) {
     expandShareB.addEventListener('click', function() {
       if (!expandData) return;
-      shareFormattedMenu(expandData.day, expandData.dateDisplay, expandData.menuRaw);
+      const miqaatTitles = (expandData.miqaats && expandData.miqaats.length) ? expandData.miqaats.map(m => m.title).join(' • ') : '';
+      const hijriText = (expandData.hijri && expandData.hijri.formattedAr) ? `${expandData.hijri.formattedAr} (${expandData.hijri.formattedEn})` : '';
+      shareFormattedMenu(expandData.day, expandData.dateDisplay, expandData.menuRaw, hijriText, miqaatTitles);
     });
   }
 
@@ -3234,10 +3378,27 @@
       const extraRaw = src && src.extra.trim() ? src.extra : 'Prepared with authentic ingredients.';
       const colors   = src ? (src.menuColors || []) : [];
 
+      const dateObj = getGregorianDateForMenuItem(src, i);
+      const hijri = computeMumineenHijri(dateObj);
+      const miqaats = getMiqaatsForHijriDate(hijri);
+
       let dateDisplay = '';
       if (monthVal && dateVal)   dateDisplay = `${escapeText(monthVal)} ${escapeText(dateVal)}`;
       else if (monthVal)         dateDisplay = escapeText(monthVal);
       else if (dateVal)          dateDisplay = escapeText(dateVal);
+      else                       dateDisplay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+      let cardMiqaatHtml = '';
+      let miqaatTitles = '';
+      if (miqaats && miqaats.length) {
+        miqaatTitles = miqaats.map(m => m.title).join(' • ');
+        cardMiqaatHtml = `
+          <div class="card-miqaat-chip" title="Miqaat: ${escapeText(miqaatTitles)}">
+            <span class="miqaat-sparkle">✨</span>
+            <span class="miqaat-label">Miqaat: ${escapeText(miqaatTitles)}</span>
+          </div>
+        `;
+      }
 
       const dishList = splitMenuItems(menuRaw);
       const menuHtml = dishList.map((dish, di) => {
@@ -3253,7 +3414,7 @@
 
       const extraHtml      = escapeWithBreaks(extraRaw);
       const safeDay        = escapeText(dayVal);
-      const dateForSpeech  = `${monthVal} ${dateVal}`.trim();
+      const dateForSpeech  = `${monthVal} ${dateVal}`.trim() || dateDisplay;
       const favKey         = `${dayVal}_${menuRaw.substring(0,20)}`;
       const isFav          = favoriteDishes.some(f => f.key === favKey);
 
@@ -3270,10 +3431,12 @@
               <span class="day-name">${safeDay}</span>
               <div class="date-chip-wrap">
                 <span class="date-chip">${dateDisplay || '—'}</span>
+                <span class="hijri-chip" dir="rtl" title="${escapeText(hijri.formattedEn)}">${escapeText(hijri.formattedAr)}</span>
                 <button class="fav-star-btn ${isFav ? 'is-fav' : ''}" aria-label="Favorite dish" type="button">★</button>
               </div>
             </div>
             <div class="menu-text">${menuHtml}</div>
+            ${cardMiqaatHtml}
             <div class="card-bottom-row">
               <button class="speak-btn" type="button" aria-label="Read menu aloud">
                 <span class="speak-icon">
@@ -3292,6 +3455,18 @@
             </div>
           </div>
           <div class="card-back">
+            <div class="back-date-banner">
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.75rem; font-weight:700; color:#8a5e35; direction:rtl;">${escapeText(hijri.formattedAr)}</span>
+              <span style="font-size:0.68rem; font-weight:600; color:#987250;">${escapeText(hijri.formattedEn)}</span>
+            </div>
+            ${miqaats && miqaats.length ? `
+              <div class="back-miqaat-box">
+                <div style="font-size:0.7rem; font-weight:800; color:#854d0e; margin-bottom:2px;">✨ Miqaat</div>
+                ${miqaats.map(m => `
+                  <div style="font-size:0.68rem; color:#78350f; font-weight:700; line-height:1.25;">• ${escapeText(m.title)}${m.description ? ` <span style="font-weight:500; font-size:0.62rem; color:#92400e;">(${escapeText(m.description)})</span>` : ''}</div>
+                `).join('')}
+              </div>
+            ` : ''}
             <div class="extra-head">Info</div>
             <div class="extra-detail">${extraHtml}</div>
             <div class="back-hint">↺ tap return</div>
@@ -3312,7 +3487,7 @@
       const speakBtn = card.querySelector('.speak-btn');
       speakBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card);
+        handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card, miqaatTitles);
       });
 
       // Flip click
@@ -3332,7 +3507,7 @@
       });
 
       const cardData = {
-        idx: i, day: dayVal, dateDisplay, dateForSpeech, menuRaw, menuHtml, extraHtml
+        idx: i, day: dayVal, dateDisplay, dateForSpeech, menuRaw, menuHtml, extraHtml, hijri, miqaats
       };
       attachLongPress(card, cardData);
 
