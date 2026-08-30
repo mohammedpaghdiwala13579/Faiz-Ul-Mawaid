@@ -521,32 +521,39 @@
     /* ── GRID LAYOUT ── */
     .grid-2x3 {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .flip-card {
       background: transparent;
       perspective: 1000px;
       cursor: pointer;
-      min-height: 175px;
+      min-height: 165px;
       height: 100%;
+      min-width: 0;
+      width: 100%;
       position: relative;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
     }
 
     .flip-card-inner {
       position: relative;
       width: 100%;
+      min-width: 0;
       height: 100%;
-      min-height: 175px;
+      min-height: 165px;
       flex: 1;
       transition: transform 0.35s ease;
       transform-style: preserve-3d;
       border-radius: 18px;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
     }
 
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
@@ -554,18 +561,20 @@
     .card-front {
       position: relative;
       width: 100%;
+      min-width: 0;
       min-height: 100%;
       flex: 1;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: 18px;
-      padding: 11px 12px 9px 12px;
+      padding: 10px 10px 8px 10px;
       display: flex;
       flex-direction: column;
       background: #fffffffb;
       border: 1px solid #dfceb6;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       overflow: hidden;
+      box-sizing: border-box;
       z-index: 2;
     }
 
@@ -573,10 +582,11 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       width: 100%; height: 100%;
+      min-width: 0;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: 18px;
-      padding: 11px 12px 9px 12px;
+      padding: 10px 10px 8px 10px;
       display: flex;
       flex-direction: column;
       background: #fefaf4;
@@ -584,18 +594,79 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       transform: rotateY(180deg);
       overflow: hidden;
+      box-sizing: border-box;
       z-index: 1;
     }
 
+    .day-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0e2d2;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+      gap: 2px;
+      width: 100%;
+      min-width: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    .day-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #8b5e34;
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+    }
+
+    .hijri-chip {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: #faf3ea;
+      border: 1px solid #eadbc8;
+      padding: 1px 4px;
+      border-radius: 14px;
+      color: #8a5e35;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      direction: rtl;
+      flex-shrink: 0;
+      line-height: 1.15;
+      margin: 0 auto;
+    }
+
+    .date-chip {
+      font-size: 0.62rem;
+      font-weight: 800;
+      background: #f0e6db;
+      padding: 1px 5px;
+      border-radius: 14px;
+      color: #7a5b3c;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.15;
+      flex-shrink: 0;
+    }
+
     .menu-text {
-      font-size: 0.95rem;
-      line-height: 1.45;
+      font-size: 0.92rem;
+      line-height: 1.42;
       font-weight: 700;
       color: #33271e;
       white-space: pre-line;
       word-break: break-word;
       flex: 1;
-      margin: 5px 0 6px 0;
+      margin: 4px 0 5px 0;
       overflow: visible;
       overflow-y: visible;
       max-height: none;
@@ -603,10 +674,12 @@
       display: flex;
       flex-direction: column;
       gap: 3px;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .extra-detail {
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       line-height: 1.35;
       background: #fffaf2;
       padding: 6px 8px;
@@ -623,86 +696,28 @@
     .extra-detail::-webkit-scrollbar-track { background: #f0e2d2; border-radius: 6px; }
     .extra-detail::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 6px; }
 
-    .day-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 5px;
-      margin-bottom: 4px;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .day-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #b07d48;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
-    }
-
-    .date-chip-wrap {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    .date-chip {
-      font-size: 0.78rem;
-      font-weight: 800;
-      background: #f0e6db;
-      padding: 2px 7px;
-      border-radius: 30px;
-      color: #7a5b3c;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .hijri-chip {
-      font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: #faf3ea;
-      border: 1px solid #eadbc8;
-      padding: 1px 6px;
-      border-radius: 20px;
-      color: #8a5e35;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      direction: rtl;
-      flex-shrink: 0;
-      line-height: 1.2;
-    }
-
     .card-miqaat-chip {
       background: linear-gradient(135deg, #fffcf0 0%, #fef3c7 100%);
       border: 1px solid #f6d89b;
       border-radius: 8px;
       padding: 4px 7px;
-      margin-top: 4px;
+      margin-top: 3px;
       margin-bottom: 4px;
       display: flex;
       align-items: flex-start;
-      gap: 5px;
-      font-size: 0.7rem;
+      gap: 4px;
+      font-size: 0.68rem;
       font-weight: 750;
       color: #854d0e;
       line-height: 1.3;
       box-shadow: 0 1px 2px rgba(217, 119, 6, 0.05);
       flex-shrink: 0;
       width: 100%;
+      min-width: 0;
       box-sizing: border-box;
     }
     .card-miqaat-chip .miqaat-sparkle {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       flex-shrink: 0;
       margin-top: 1px;
     }
@@ -737,22 +752,6 @@
       white-space: normal;
       word-break: break-word;
       overflow-wrap: break-word;
-    }
-
-    .fav-star-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      color: #ccc;
-      line-height: 1;
-      padding: 0 2px;
-      transition: color 0.2s, transform 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .fav-star-btn.is-fav {
-      color: #d97706;
-      transform: scale(1.15);
     }
 
     .extra-head {
@@ -853,7 +852,7 @@
     }
 
     /* ── SPOTLIGHT / TODAY'S TAB CARDS ── */
-    .spotlight-card, .dua-card, .checklist-card, .feedback-card, .favorites-card {
+    .spotlight-card, .dua-card, .checklist-card, .feedback-card {
       background: #fffffffb;
       border: 1px solid #dfceb6;
       border-radius: 22px;
@@ -1022,7 +1021,7 @@
       line-height: 1.4;
     }
 
-    .checklist-title, .feedback-title, .fav-title {
+    .checklist-title, .feedback-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
       font-weight: 800;
@@ -1103,69 +1102,6 @@
       color: #2e7d32;
       font-weight: 600;
       min-height: 1rem;
-    }
-
-    /* ── FAVORITES TAB ── */
-    .favorites-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 8px;
-    }
-
-    .fav-count {
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: #f0e6db;
-      padding: 2px 8px;
-      border-radius: 20px;
-      color: #7a5b3c;
-    }
-
-    .fav-list-container {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 120px;
-    }
-
-    .fav-item-card {
-      background: #fdf9f3;
-      border: 1px solid #f0e2d2;
-      border-radius: 14px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .fav-item-info {
-      flex: 1;
-    }
-
-    .fav-item-day {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #8b5e34;
-    }
-
-    .fav-item-menu {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #2b1e10;
-      margin-top: 2px;
-    }
-
-    .fav-remove-btn {
-      background: none;
-      border: none;
-      color: #c98f4b;
-      font-size: 1rem;
-      cursor: pointer;
-      padding: 4px;
     }
 
     /* Large text mode for accessibility */
@@ -1324,9 +1260,9 @@
 
     @media (max-width: 520px) {
       body { padding: 8px 6px; }
-      .flip-card   { min-height: 142px; }
-      .menu-text   { font-size: 0.82rem; }
-      .extra-detail{ font-size: 0.72rem; }
+      .flip-card   { min-height: 145px; }
+      .menu-text   { font-size: 0.85rem; }
+      .extra-detail{ font-size: 0.74rem; }
       .install-btn { padding: 6px 12px; font-size: 0.75rem; }
       .chatt-micro { font-size: 1.3rem; }
       .arabic-micro{ font-size: 0.7rem; }
@@ -1339,21 +1275,27 @@
 
     @media (max-width: 420px) {
       .nav-tabs-bar { padding: 4px; gap: 4px; border-radius: 24px; }
-      .tab-btn { padding: 8px 12px; font-size: 0.76rem; gap: 4px; border-radius: 20px; }
+      .tab-btn { padding: 8px 10px; font-size: 0.75rem; gap: 4px; border-radius: 20px; }
       .tab-icon { font-size: 0.85rem; }
-      .day-name { font-size: 0.68rem; }
-      .date-chip { font-size: 0.64rem; padding: 1px 4px; }
-      .hijri-chip { font-size: 0.64rem; padding: 1px 4px; }
-      .card-miqaat-chip { font-size: 0.62rem; padding: 2px 4px; }
+      .day-name { font-size: 0.74rem; }
+      .date-chip { font-size: 0.58rem; padding: 1px 4px; }
+      .hijri-chip { font-size: 0.58rem; padding: 1px 4px; }
+      .card-miqaat-chip { font-size: 0.64rem; padding: 3px 5px; }
       .rule { font-size: 0.6rem; padding: 3px 8px; }
       .spotlight-day { font-size: 1.2rem; }
       .countdown-time { font-size: 1.05rem; }
     }
 
-    @media (max-width: 350px) {
-      .tab-btn { padding: 7px 10px; font-size: 0.72rem; gap: 3px; }
-      .tab-icon { font-size: 0.8rem; }
-      .grid-2x3 { gap: 4px; }
+    @media (max-width: 360px) {
+      body { padding: 6px 4px; }
+      .tab-btn { padding: 6px 8px; font-size: 0.70rem; gap: 3px; }
+      .tab-icon { font-size: 0.78rem; }
+      .grid-2x3 { gap: 6px; }
+      .card-front, .card-back { padding: 8px 6px 6px 6px; }
+      .day-name { font-size: 0.70rem; }
+      .date-chip { font-size: 0.55rem; padding: 1px 3px; }
+      .hijri-chip { font-size: 0.55rem; padding: 1px 3px; }
+      .menu-text { font-size: 0.78rem; }
       .chatt-micro { font-size: 1.1rem; }
       .logo-micro { width: 38px; height: 38px; }
     }
@@ -1624,10 +1566,6 @@
         <span class="tab-icon">🤲</span>
         <span>Dua &amp; Feedback</span>
       </button>
-      <button class="tab-btn" id="tab-btn-favorites" role="tab" aria-selected="false" aria-controls="panel-favorites">
-        <span class="tab-icon">⭐</span>
-        <span>Favorites</span>
-      </button>
     </nav>
 
     <!-- TAB PANELS -->
@@ -1788,21 +1726,6 @@
       </div>
     </section>
 
-    <!-- Panel 4: Favorites -->
-    <section class="tab-panel" id="panel-favorites" role="tabpanel" aria-labelledby="tab-btn-favorites">
-      <div class="favorites-card">
-        <div class="favorites-header">
-          <div class="fav-title">⭐ Saved Favorite Dishes</div>
-          <div class="fav-count" id="favCount">0 items</div>
-        </div>
-        <div id="favoritesList" class="fav-list-container">
-          <div style="text-align:center; padding:20px; font-size:0.8rem; color:#8b5e34;">
-            No favorite dishes saved yet.<br>Tap the ⭐ star on any card to bookmark a dish!
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="tiffin-footer">
       <div class="rules-title">Tiffin Guidelines</div>
@@ -1938,10 +1861,8 @@
 <script>
   // ── CACHE KEYS & STATE ────────────────────────────────────
   const MENU_CACHE_KEY = 'chattogram_tiffin_menu_v2';
-  const FAV_CACHE_KEY  = 'chattogram_tiffin_favs_v1';
   const CHK_CACHE_KEY  = 'chattogram_tiffin_chks_v1';
   let globalMenuData   = [];
-  let favoriteDishes   = JSON.parse(localStorage.getItem(FAV_CACHE_KEY) || '[]');
 
   // ── ADVANCED CROSS-PLATFORM PWA INSTALL SYSTEM ────────────
   let deferredPrompt  = null;
@@ -2311,60 +2232,6 @@
     });
   }
 
-  // ── FAVORITES SYSTEM ────────────────────────────────────
-  function toggleFavorite(day, menuText) {
-    const key = `${day}_${menuText.substring(0, 20)}`;
-    const idx = favoriteDishes.findIndex(f => f.key === key);
-    
-    if (idx > -1) {
-      favoriteDishes.splice(idx, 1);
-      announceA11y(`Removed ${day} menu from favorites`);
-    } else {
-      favoriteDishes.push({ key, day, menu: menuText, time: Date.now() });
-      announceA11y(`Added ${day} menu to favorites`);
-    }
-
-    try {
-      localStorage.setItem(FAV_CACHE_KEY, JSON.stringify(favoriteDishes));
-    } catch (e) {}
-
-    renderFavoritesList();
-    renderCards(globalMenuData);
-  }
-
-  function renderFavoritesList() {
-    const container = document.getElementById('favoritesList');
-    const countEl   = document.getElementById('favCount');
-    if (!container) return;
-
-    if (countEl) countEl.textContent = `${favoriteDishes.length} items`;
-
-    if (!favoriteDishes.length) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:20px; font-size:0.8rem; color:#8b5e34;">
-          No favorite dishes saved yet.<br>Tap the ⭐ star on any card to bookmark a dish!
-        </div>`;
-      return;
-    }
-
-    container.innerHTML = favoriteDishes.map(fav => `
-      <div class="fav-item-card">
-        <div class="fav-item-info">
-          <div class="fav-item-day">${escapeText(fav.day)}</div>
-          <div class="fav-item-menu">${escapeWithBreaks(fav.menu)}</div>
-        </div>
-        <button class="fav-remove-btn" aria-label="Remove favorite" onclick="removeFav('${fav.key}')">✕</button>
-      </div>
-    `).join('');
-  }
-
-  window.removeFav = function(key) {
-    favoriteDishes = favoriteDishes.filter(f => f.key !== key);
-    localStorage.setItem(FAV_CACHE_KEY, JSON.stringify(favoriteDishes));
-    renderFavoritesList();
-    renderCards(globalMenuData);
-  };
-
   // ── LIVE MINIMALIST GOOGLE WEATHER WIDGET ──────────────────────
   let isWeatherFetching = false;
 
@@ -2532,6 +2399,8 @@
     return {
       day, month, year,
       monthAr, monthEn,
+      shortAr: `${dayAr} ${monthAr}`,
+      shortEn: `${day} ${monthEn}`,
       formattedAr: `${dayAr} ${monthAr} ${yearAr} هـ`,
       formattedEn: `${day} ${monthEn} ${year} H`
     };
@@ -3361,6 +3230,50 @@
     card.addEventListener('mouseleave', cancelLP);
   }
 
+  // ── SHORT DATE FORMATTER ──────────────────────────────────
+  function formatShortEnglishDate(monthVal, dateVal, dateObj) {
+    const monthMap = {
+      'january': 'Jan', 'jan': 'Jan',
+      'february': 'Feb', 'feb': 'Feb',
+      'march': 'Mar', 'mar': 'Mar',
+      'april': 'Apr', 'apr': 'Apr',
+      'may': 'May',
+      'june': 'Jun', 'jun': 'Jun',
+      'july': 'Jul', 'jul': 'Jul',
+      'august': 'Aug', 'aug': 'Aug',
+      'september': 'Sept', 'sept': 'Sept', 'sep': 'Sept',
+      'october': 'Oct', 'oct': 'Oct',
+      'november': 'Nov', 'nov': 'Nov',
+      'december': 'Dec', 'dec': 'Dec'
+    };
+
+    let m = (monthVal || '').trim();
+    let d = (dateVal || '').trim();
+
+    if (!d && m) {
+      const match = m.match(/^([a-zA-Z]+)\s*(\d+)?$/);
+      if (match) {
+        m = match[1];
+        if (match[2]) d = match[2];
+      }
+    }
+
+    const shortM = monthMap[m.toLowerCase()] || m;
+
+    if (shortM && d) {
+      return `${shortM} ${d}`;
+    } else if (shortM) {
+      return shortM;
+    } else if (d) {
+      return d;
+    } else if (dateObj) {
+      const mStr = dateObj.toLocaleDateString('en-US', { month: 'short' });
+      const sm = monthMap[mStr.toLowerCase()] || mStr;
+      return `${sm} ${dateObj.getDate()}`;
+    }
+    return '';
+  }
+
   // ── RENDER CARDS ─────────────────────────────────────────
   function renderCards(menuItems) {
     const container = document.getElementById('compactFlipGrid');
@@ -3382,11 +3295,7 @@
       const hijri = computeMumineenHijri(dateObj);
       const miqaats = getMiqaatsForHijriDate(hijri);
 
-      let dateDisplay = '';
-      if (monthVal && dateVal)   dateDisplay = `${escapeText(monthVal)} ${escapeText(dateVal)}`;
-      else if (monthVal)         dateDisplay = escapeText(monthVal);
-      else if (dateVal)          dateDisplay = escapeText(dateVal);
-      else                       dateDisplay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const dateDisplay = formatShortEnglishDate(monthVal, dateVal, dateObj);
 
       let cardMiqaatHtml = '';
       let miqaatTitles = '';
@@ -3415,8 +3324,6 @@
       const extraHtml      = escapeWithBreaks(extraRaw);
       const safeDay        = escapeText(dayVal);
       const dateForSpeech  = `${monthVal} ${dateVal}`.trim() || dateDisplay;
-      const favKey         = `${dayVal}_${menuRaw.substring(0,20)}`;
-      const isFav          = favoriteDishes.some(f => f.key === favKey);
 
       const card = document.createElement('div');
       card.className = 'flip-card';
@@ -3429,11 +3336,8 @@
           <div class="card-front">
             <div class="day-row">
               <span class="day-name">${safeDay}</span>
-              <div class="date-chip-wrap">
-                <span class="date-chip">${dateDisplay || '—'}</span>
-                <span class="hijri-chip" dir="rtl" title="${escapeText(hijri.formattedEn)}">${escapeText(hijri.formattedAr)}</span>
-                <button class="fav-star-btn ${isFav ? 'is-fav' : ''}" aria-label="Favorite dish" type="button">★</button>
-              </div>
+              <span class="hijri-chip" dir="rtl" title="${escapeText(hijri.formattedEn)}">${escapeText(hijri.shortAr || hijri.formattedAr)}</span>
+              <span class="date-chip">${dateDisplay || '—'}</span>
             </div>
             <div class="menu-text">${menuHtml}</div>
             ${cardMiqaatHtml}
@@ -3474,15 +3378,6 @@
         </div>
       `;
 
-      // Favorite button
-      const favBtn = card.querySelector('.fav-star-btn');
-      if (favBtn) {
-        favBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          toggleFavorite(dayVal, menuRaw);
-        });
-      }
-
       // Speak button
       const speakBtn = card.querySelector('.speak-btn');
       speakBtn.addEventListener('click', function(e) {
@@ -3492,7 +3387,7 @@
 
       // Flip click
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.speak-btn') || e.target.closest('.fav-star-btn')) return;
+        if (e.target.closest('.speak-btn')) return;
         if (!card.classList.contains('flipped')) stopSpeaking();
         card.classList.toggle('flipped');
       });
@@ -3500,7 +3395,7 @@
       // Keyboard enter/space to flip
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          if (e.target.closest('.speak-btn') || e.target.closest('.fav-star-btn')) return;
+          if (e.target.closest('.speak-btn')) return;
           e.preventDefault();
           card.classList.toggle('flipped');
         }
@@ -3522,8 +3417,6 @@
     const mainUi    = document.getElementById('mainContent');
     const statusEl  = document.getElementById('loadingStatusMsg');
     const setStatus = msg => { if (statusEl) statusEl.innerText = msg; };
-
-    renderFavoritesList();
 
     // 1. Try Instant Local Cache first
     let hasLoadedCache = false;
