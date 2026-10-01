@@ -6,9 +6,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ── MUMINEEN CALENDAR INTEGRATION ──
 const KABISA_YEARS = [2, 5, 8, 10, 13, 16, 19, 21, 24, 27, 29];
