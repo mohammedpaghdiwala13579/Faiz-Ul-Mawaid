@@ -380,8 +380,8 @@
     }
 
     .header-dropdown-menu {
-      width: 250px;
-      max-width: 90vw;
+      width: 275px;
+      max-width: 92vw;
       background: #ffffff;
       border: 1.5px solid #dfceb6;
       border-radius: 20px;
@@ -499,6 +499,85 @@
       height: 1px;
       background: #f0e4d4;
       margin: 4px 6px;
+    }
+
+    /* ── BIG FEATURED SHARE BUTTON IN OPTIONS ── */
+    .dropdown-share-big-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 15px;
+      border: 1.5px solid rgba(255, 235, 195, 0.45);
+      background: linear-gradient(135deg, #7c5836 0%, #54371d 100%);
+      border-radius: 14px;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 5px 16px rgba(84, 55, 29, 0.28);
+      margin: 6px 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dropdown-share-big-btn:hover {
+      background: linear-gradient(135deg, #8f663e 0%, #634123 100%);
+      box-shadow: 0 7px 22px rgba(84, 55, 29, 0.38);
+      transform: translateY(-1px);
+    }
+    .dropdown-share-big-btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 3px 8px rgba(84, 55, 29, 0.22);
+    }
+
+    .dropdown-share-icon {
+      font-size: 1.55rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.16);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .dropdown-share-text-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .dropdown-share-main {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.1px;
+      line-height: 1.25;
+    }
+
+    .dropdown-share-sub {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #f7e6d0;
+      line-height: 1.2;
+      opacity: 0.92;
+    }
+
+    .dropdown-share-arrow {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffd8a8;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .dropdown-share-big-btn:hover .dropdown-share-arrow {
+      transform: translateX(3px);
     }
 
     .header-share-btn {
@@ -1801,9 +1880,13 @@
         <div class="dropdown-divider"></div>
 
         <div class="dropdown-section-title">Options</div>
-        <button class="dropdown-item" id="shareAllMenuBtn" role="menuitem" title="Share weekly menu image">
-          <span class="dropdown-item-icon">📸</span>
-          <span class="dropdown-item-text">Share Menu Image</span>
+        <button class="dropdown-share-big-btn" id="shareAllMenuBtn" role="menuitem" title="Share weekly menu image">
+          <span class="dropdown-share-icon">📸</span>
+          <div class="dropdown-share-text-wrap">
+            <span class="dropdown-share-main">Share Menu Image</span>
+            <span class="dropdown-share-sub">Download &amp; share weekly card</span>
+          </div>
+          <span class="dropdown-share-arrow">→</span>
         </button>
         <button class="dropdown-item" id="installAppBtn" role="menuitem" style="display:none;" title="Install App">
           <span class="dropdown-item-icon">📲</span>
