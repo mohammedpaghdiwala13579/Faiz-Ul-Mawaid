@@ -82,6 +82,7 @@ function getMumineenHijriDate(date) {
     monthNameAr: MONTH_NAMES_AR[h.month] || "",
     formattedEn: `${h.day} ${MONTH_NAMES_EN[h.month]} ${h.year} H`,
     formattedAr: `${toArabicDigits(h.day)} ${MONTH_NAMES_AR[h.month]} ${toArabicDigits(h.year)} هـ`,
+    arabicDateNoYear: `${toArabicDigits(h.day)} ${MONTH_NAMES_AR[h.month]}`,
     dayArabicDigits: toArabicDigits(h.day),
     yearArabicDigits: toArabicDigits(h.year)
   };

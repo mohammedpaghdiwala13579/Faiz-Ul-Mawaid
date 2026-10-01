@@ -314,9 +314,191 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       position: relative;
-      z-index: 5;
+      z-index: 10;
+    }
+
+    .header-dots-btn {
+      border: none;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+      color: #ffffff;
+      background: #6b4e31;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(107, 78, 49, 0.28);
+      border: 1px solid rgba(255, 255, 200, 0.35);
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      z-index: 10;
+    }
+    .header-dots-btn:hover {
+      background: #8b5e34;
+      transform: scale(1.05);
+    }
+    .header-dots-btn:active {
+      transform: scale(0.95);
+    }
+    .header-dots-btn.active {
+      background: #8b5e34;
+      box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.3);
+    }
+
+    /* ── POPUP MENU BACKDROP & FIXED OVERLAY ── */
+    .header-menu-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(30, 20, 10, 0.38);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 999999;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 70px 16px 16px 16px;
+      box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s;
+    }
+
+    .header-menu-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header-dropdown-menu {
+      width: 250px;
+      max-width: 90vw;
+      background: #ffffff;
+      border: 1.5px solid #dfceb6;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(50, 32, 14, 0.25);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transform: translateY(-10px) scale(0.96);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    .header-menu-backdrop.open .header-dropdown-menu {
+      transform: translateY(0) scale(1);
+    }
+
+    .menu-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 8px 8px;
+      border-bottom: 1px solid #f0e2d2;
+      margin-bottom: 4px;
+    }
+
+    .menu-popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #3b2a19;
+    }
+
+    .menu-close-btn {
+      background: #f7eee2;
+      border: 1px solid #e2d1be;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #7a5836;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+    .menu-close-btn:hover {
+      background: #ebd2b6;
+      color: #3b2a19;
+    }
+
+    .dropdown-section-title {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #9c7b5b;
+      padding: 6px 10px 2px 10px;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 12px;
+      border: none;
+      background: transparent;
+      border-radius: 12px;
+      color: #4a3728;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dropdown-item:hover {
+      background: #faf3ea;
+      color: #6b4e31;
+    }
+    .dropdown-item.active {
+      background: #fdf6ec;
+      color: #8b5e34;
+      font-weight: 800;
+    }
+    .dropdown-item-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+    }
+    .dropdown-item-text {
+      flex: 1;
+    }
+    .dropdown-check {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #8b5e34;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .dropdown-item.active .dropdown-check {
+      opacity: 1;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: #f0e4d4;
+      margin: 4px 6px;
     }
 
     .header-share-btn {
@@ -640,7 +822,7 @@
       border-bottom: 1px solid #f0e2d2;
       padding-bottom: 4px;
       margin-bottom: 4px;
-      gap: 2px;
+      gap: 4px;
       width: 100%;
       min-width: 0;
       white-space: nowrap;
@@ -659,6 +841,14 @@
       letter-spacing: -0.2px;
     }
 
+    .day-date-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
     .date-chip {
       font-size: 0.62rem;
       font-weight: 800;
@@ -672,16 +862,16 @@
       justify-content: center;
       line-height: 1.15;
       flex-shrink: 0;
-      margin: 0 auto;
     }
 
     .hijri-chip {
       font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.62rem;
+      font-size: 0.64rem;
       font-weight: 700;
       background: #faf3ea;
       border: 1px solid #eadbc8;
-      padding: 1px 4px;
+      padding: 2px 9px;
+      min-width: 66px;
       border-radius: 14px;
       color: #8a5e35;
       white-space: nowrap;
@@ -740,11 +930,11 @@
       margin-bottom: 4px;
       display: flex;
       align-items: flex-start;
-      gap: 4px;
+      gap: 5px;
       font-size: 0.68rem;
       font-weight: 750;
       color: #854d0e;
-      line-height: 1.3;
+      line-height: 1.35;
       box-shadow: 0 1px 2px rgba(217, 119, 6, 0.05);
       flex-shrink: 0;
       width: 100%;
@@ -755,13 +945,16 @@
       font-size: 0.72rem;
       flex-shrink: 0;
       margin-top: 1px;
+      line-height: 1;
     }
     .card-miqaat-chip .miqaat-label {
-      white-space: normal;
-      word-break: break-word;
-      overflow-wrap: break-word;
-      min-width: 0;
       flex: 1;
+      min-width: 0;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: break-word;
+      color: #854d0e;
+      font-weight: 750;
     }
 
     .back-date-banner {
@@ -1309,12 +1502,10 @@
     }
 
     @media (max-width: 420px) {
-      .nav-tabs-bar { padding: 4px; gap: 4px; border-radius: 24px; }
-      .tab-btn { padding: 8px 10px; font-size: 0.75rem; gap: 4px; border-radius: 20px; }
-      .tab-icon { font-size: 0.85rem; }
+      .header-dots-btn { width: 36px; height: 36px; }
       .day-name { font-size: 0.74rem; }
       .date-chip { font-size: 0.58rem; padding: 1px 4px; }
-      .hijri-chip { font-size: 0.58rem; padding: 1px 4px; }
+      .hijri-chip { font-size: 0.60rem; padding: 2px 7px; min-width: 58px; }
       .card-miqaat-chip { font-size: 0.64rem; padding: 3px 5px; }
       .rule { font-size: 0.54rem; padding: 3px 3px; gap: 2px; }
       .spotlight-day { font-size: 1.2rem; }
@@ -1323,13 +1514,13 @@
 
     @media (max-width: 360px) {
       body { padding: 6px 4px; }
-      .tab-btn { padding: 6px 8px; font-size: 0.70rem; gap: 3px; }
-      .tab-icon { font-size: 0.78rem; }
+      .header-dots-btn { width: 34px; height: 34px; }
       .grid-2x3 { gap: 6px; }
       .card-front, .card-back { padding: 8px 6px 6px 6px; }
       .day-name { font-size: 0.70rem; }
       .date-chip { font-size: 0.55rem; padding: 1px 3px; }
-      .hijri-chip { font-size: 0.55rem; padding: 1px 3px; }
+      .hijri-chip { font-size: 0.56rem; padding: 2px 6px; min-width: 52px; }
+      .day-row { flex-wrap: wrap; gap: 2px 4px; }
       .menu-text { font-size: 0.78rem; }
       .chatt-micro { font-size: 1.1rem; }
       .logo-micro { width: 52px; height: 52px; border-radius: 14px; padding: 3px; }
@@ -1571,41 +1762,55 @@
         </div>
       </div>
       <div class="header-actions">
-        <button id="shareAllMenuBtn" class="header-share-btn" type="button" aria-label="Share Menu" title="Share Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        <!-- Three Dots Menu ("...") -->
+        <button id="headerMoreMenuBtn" class="header-dots-btn" type="button" aria-label="Menu options" aria-haspopup="true" aria-expanded="false" title="Menu options">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px;">
+            <circle cx="12" cy="5" r="2.2"></circle>
+            <circle cx="12" cy="12" r="2.2"></circle>
+            <circle cx="12" cy="19" r="2.2"></circle>
           </svg>
-        </button>
-        <button id="installAppBtn" class="install-btn" aria-label="Install App" style="display:none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px; margin-right:4px;">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          <span>Install</span>
         </button>
       </div>
     </header>
 
-    <!-- Navigation Tabs Bar -->
-    <nav class="nav-tabs-bar" role="tablist" aria-label="Navigation Features">
-      <button class="tab-btn active" id="tab-btn-today" role="tab" aria-selected="true" aria-controls="panel-today">
-        <span class="tab-icon">🌟</span>
-        <span>Today</span>
-      </button>
-      <button class="tab-btn" id="tab-btn-weekly" role="tab" aria-selected="false" aria-controls="panel-weekly">
-        <span class="tab-icon">🍲</span>
-        <span>Menu</span>
-      </button>
-      <button class="tab-btn" id="tab-btn-rules" role="tab" aria-selected="false" aria-controls="panel-rules">
-        <span class="tab-icon">🤲</span>
-        <span>Dua &amp; Feedback</span>
-      </button>
-    </nav>
+    <!-- Navigation & Options Popup Sheet (outside micro-header so it never gets clipped) -->
+    <div id="headerMenuBackdrop" class="header-menu-backdrop" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+      <div id="headerDropdownMenu" class="header-dropdown-menu" role="menu" aria-label="Navigation and options">
+        <div class="menu-popup-header">
+          <div class="menu-popup-title">Menu &amp; Navigation</div>
+          <button id="closeMenuBtn" class="menu-close-btn" type="button" aria-label="Close menu">✕</button>
+        </div>
+
+        <div class="dropdown-section-title">Views</div>
+        <button class="dropdown-item tab-btn active" id="tab-btn-today" role="menuitem" aria-selected="true" aria-controls="panel-today">
+          <span class="dropdown-item-icon">🌟</span>
+          <span class="dropdown-item-text">Today's Tiffin</span>
+          <span class="dropdown-check">✓</span>
+        </button>
+        <button class="dropdown-item tab-btn" id="tab-btn-weekly" role="menuitem" aria-selected="false" aria-controls="panel-weekly">
+          <span class="dropdown-item-icon">🍲</span>
+          <span class="dropdown-item-text">Weekly Menu</span>
+          <span class="dropdown-check">✓</span>
+        </button>
+        <button class="dropdown-item tab-btn" id="tab-btn-rules" role="menuitem" aria-selected="false" aria-controls="panel-rules">
+          <span class="dropdown-item-icon">🤲</span>
+          <span class="dropdown-item-text">Dua &amp; Feedback</span>
+          <span class="dropdown-check">✓</span>
+        </button>
+
+        <div class="dropdown-divider"></div>
+
+        <div class="dropdown-section-title">Options</div>
+        <button class="dropdown-item" id="shareAllMenuBtn" role="menuitem" title="Share weekly menu image">
+          <span class="dropdown-item-icon">📸</span>
+          <span class="dropdown-item-text">Share Menu Image</span>
+        </button>
+        <button class="dropdown-item" id="installAppBtn" role="menuitem" style="display:none;" title="Install App">
+          <span class="dropdown-item-icon">📲</span>
+          <span class="dropdown-item-text">Install App</span>
+        </button>
+      </div>
+    </div>
 
     <!-- TAB PANELS -->
 
@@ -1786,7 +1991,7 @@
         <div class="expand-day-name" id="expandDayName">Saturday</div>
         <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
           <div class="expand-date-chip" id="expandDateChip">—</div>
-          <div class="expand-hijri-chip" id="expandHijriChip" dir="rtl" style="font-family:'Noto Naskh Arabic', serif; font-size:0.8rem; font-weight:700; color:#8a5e35; background:#faf3ea; border:1px solid #eadbc8; padding:2px 8px; border-radius:20px; white-space:nowrap; display:none;"></div>
+          <div class="expand-hijri-chip" id="expandHijriChip" dir="rtl" style="font-family:'Noto Naskh Arabic', serif; font-size:0.8rem; font-weight:700; color:#8a5e35; background:#faf3ea; border:1px solid #eadbc8; padding:3px 12px; min-width:76px; text-align:center; border-radius:20px; white-space:nowrap; display:none;"></div>
         </div>
       </div>
       <button class="expand-close-btn" id="expandCloseBtn" aria-label="Close">✕</button>
@@ -2213,16 +2418,17 @@
     }
     if (currentSpeakBtn) currentSpeakBtn.classList.remove('speaking', 'loading');
     if (currentFlipCard) currentFlipCard.classList.remove('speaking');
+    clearInterval(window._speechKeepAliveTimer);
     currentUtterance = null;
     currentSpeakBtn = null;
     currentFlipCard = null;
   }
 
   function doSpeak(text, btn, card) {
-    speechSynthesis.cancel();
+    stopSpeaking();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'en-US';
-    utter.rate = 0.92;
+    utter.rate = 0.90;
     utter.pitch = 1;
 
     currentUtterance = utter;
@@ -2235,8 +2441,25 @@
     }
     if (card) card.classList.add('speaking');
 
-    utter.onend = () => stopSpeaking();
-    utter.onerror = () => stopSpeaking();
+    // Keep-alive timer prevents Chrome / WebView from stalling on longer speech strings
+    clearInterval(window._speechKeepAliveTimer);
+    window._speechKeepAliveTimer = setInterval(() => {
+      if (speechSynthesis && speechSynthesis.speaking) {
+        speechSynthesis.pause();
+        speechSynthesis.resume();
+      } else {
+        clearInterval(window._speechKeepAliveTimer);
+      }
+    }, 7000);
+
+    utter.onend = () => {
+      clearInterval(window._speechKeepAliveTimer);
+      stopSpeaking();
+    };
+    utter.onerror = () => {
+      clearInterval(window._speechKeepAliveTimer);
+      stopSpeaking();
+    };
 
     speechSynthesis.speak(utter);
   }
@@ -2256,10 +2479,78 @@
 
     let cleanText = `On ${day} ${date}, the menu includes: ` + menuRaw.replace(/\n/g, ', ');
     if (miqaatTitles) {
-      cleanText += `. Special Miqaat: ${miqaatTitles}`;
+      // Format miqaat titles cleanly so speech synthesis reads each title totally
+      const cleanMiqaats = miqaatTitles
+        .replace(/\s*•\s*/g, ', and ')
+        .replace(/\(AQ\)/gi, '')
+        .replace(/\(SA\)/gi, '')
+        .replace(/\(RA\)/gi, '')
+        .replace(/\(TUS\)/gi, '')
+        .replace(/\(QR\)/gi, '')
+        .trim();
+      cleanText += `. Special Miqaat: ${cleanMiqaats}.`;
     }
     doSpeak(cleanText, btn, card);
   }
+
+  // ── HEADER THREE DOTS POPUP MENU ─────────────────────────
+  const moreMenuBtn = document.getElementById('headerMoreMenuBtn');
+  const menuBackdrop = document.getElementById('headerMenuBackdrop');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const dropdownMenu = document.getElementById('headerDropdownMenu');
+
+  function openDropdown() {
+    if (!menuBackdrop) return;
+    menuBackdrop.classList.add('open');
+    if (moreMenuBtn) {
+      moreMenuBtn.classList.add('active');
+      moreMenuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  function closeDropdown() {
+    if (!menuBackdrop) return;
+    menuBackdrop.classList.remove('open');
+    if (moreMenuBtn) {
+      moreMenuBtn.classList.remove('active');
+      moreMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  function toggleDropdown() {
+    if (!menuBackdrop) return;
+    if (menuBackdrop.classList.contains('open')) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
+  }
+
+  if (moreMenuBtn) {
+    moreMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+  }
+
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeDropdown();
+    });
+  }
+
+  if (menuBackdrop) {
+    menuBackdrop.addEventListener('click', (e) => {
+      if (e.target === menuBackdrop) {
+        closeDropdown();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDropdown();
+  });
 
   // ── TAB NAVIGATION SYSTEM ─────────────────────────
   const tabBtns   = document.querySelectorAll('.tab-btn');
@@ -2270,9 +2561,6 @@
       const isTarget = btn.getAttribute('aria-controls') === targetId;
       btn.classList.toggle('active', isTarget);
       btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-      if (isTarget) {
-        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
     });
 
     tabPanels.forEach(panel => {
@@ -2280,6 +2568,7 @@
       panel.classList.toggle('active', isTarget);
     });
 
+    closeDropdown();
     announceA11y(`Switched to ${targetId.replace('panel-', '')} view`);
   }
 
@@ -2290,24 +2579,19 @@
     });
   });
 
-  // Keyboard navigation for tabs
-  const tabList = document.querySelector('.nav-tabs-bar');
-  if (tabList) {
-    tabList.addEventListener('keydown', (e) => {
-      const btns = Array.from(tabBtns);
-      const idx  = btns.indexOf(document.activeElement);
+  // Keyboard navigation for dropdown menu
+  if (dropdownMenu) {
+    dropdownMenu.addEventListener('keydown', (e) => {
+      const items = Array.from(dropdownMenu.querySelectorAll('button:not([style*="display:none"])'));
+      const idx = items.indexOf(document.activeElement);
       if (idx === -1) return;
 
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const next = btns[(idx + 1) % btns.length];
-        next.focus();
-        next.click();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        items[(idx + 1) % items.length].focus();
+      } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prev = btns[(idx - 1 + btns.length) % btns.length];
-        prev.focus();
-        prev.click();
+        items[(idx - 1 + items.length) % items.length].focus();
       }
     });
   }
@@ -2477,11 +2761,14 @@
     const dayAr = toArabicDigitsStr(day);
     const yearAr = toArabicDigitsStr(year);
 
+    const arabicDateNoYear = `${dayAr} ${monthAr}`;
+
     return {
       day, month, year,
       monthAr, monthEn,
-      shortAr: `${dayAr} ${monthAr}`,
+      shortAr: arabicDateNoYear,
       shortEn: `${day} ${monthEn}`,
+      arabicDateNoYear: arabicDateNoYear,
       formattedAr: `${dayAr} ${monthAr} ${yearAr} هـ`,
       formattedEn: `${day} ${monthEn} ${year} H`
     };
@@ -2792,7 +3079,7 @@
             <span style="font-family:'Playfair Display', serif; font-size:1.02rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${escapeText(dayVal)}</span>
             <div style="display:flex; align-items:center; gap:5px; flex-shrink:0; white-space:nowrap;">
               <span style="font-size:0.74rem; font-weight:800; background:#f0e6db; padding:3px 8px; border-radius:20px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1;">${escapeText(dateDisplay)}</span>
-              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.76rem; font-weight:700; color:#8a5e35; direction:rtl; background:#faf3ea; border:1px solid #eadbc8; padding:3px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1;">${escapeText(hijri.formattedAr)}</span>
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.76rem; font-weight:700; color:#8a5e35; direction:rtl; background:#faf3ea; border:1px solid #eadbc8; padding:3px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1;">${escapeText(hijri.arabicDateNoYear)}</span>
             </div>
           </div>
 
@@ -3064,7 +3351,10 @@
 
   const shareAllMenuBtn = document.getElementById('shareAllMenuBtn');
   if (shareAllMenuBtn) {
-    shareAllMenuBtn.addEventListener('click', shareFullWeeklyMenu);
+    shareAllMenuBtn.addEventListener('click', () => {
+      closeDropdown();
+      shareFullWeeklyMenu();
+    });
   }
 
   // ── DUA RECITITION ───────────────────────────────────────
@@ -3212,7 +3502,7 @@
     const hijriChip = document.getElementById('expandHijriChip');
     if (hijriChip) {
       if (data.hijri && data.hijri.formattedAr) {
-        hijriChip.textContent = data.hijri.formattedAr;
+        hijriChip.textContent = data.hijri.arabicDateNoYear || data.hijri.formattedAr;
         hijriChip.title = data.hijri.formattedEn || '';
         hijriChip.style.display = 'inline-flex';
       } else {
@@ -3417,54 +3707,29 @@
           <div class="card-front">
             <div class="day-row">
               <span class="day-name">${safeDay}</span>
-              <span class="date-chip">${dateDisplay || '—'}</span>
-              <span class="hijri-chip" dir="rtl" title="${escapeText(hijri.formattedEn)}">${escapeText(hijri.shortAr || hijri.formattedAr)}</span>
+              <div class="day-date-wrap">
+                <span class="date-chip">${dateDisplay || '—'}</span>
+                <span class="hijri-chip" dir="rtl" title="${escapeText(hijri.formattedEn)}">${escapeText(hijri.arabicDateNoYear)}</span>
+              </div>
             </div>
             <div class="menu-text">${menuHtml}</div>
             ${cardMiqaatHtml}
-            <div class="card-bottom-row">
-              <button class="speak-btn" type="button" aria-label="Read menu aloud">
-                <span class="speak-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#c9a060"/>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#c9a060" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <span class="speak-wave">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </span>
-                Read 
-              </button>
-              <span class="tap-hint">Tap</span>
-            </div>
           </div>
           <div class="card-back">
-            <div class="back-date-banner">
-              <span style="font-size:0.68rem; font-weight:700; color:#854d0e;">${dateDisplay ? dateDisplay + ' • ' : ''}${escapeText(hijri.formattedEn)}</span>
-              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.75rem; font-weight:700; color:#8a5e35; direction:rtl;">${escapeText(hijri.formattedAr)}</span>
-            </div>
-            ${miqaats && miqaats.length ? `
-              <div class="back-miqaat-box">
-                <div style="font-size:0.7rem; font-weight:800; color:#854d0e; margin-bottom:2px;">✨ Miqaat</div>
-                ${miqaats.map(m => `
-                  <div style="font-size:0.68rem; color:#78350f; font-weight:700; line-height:1.25;">• ${escapeText(m.title)}${m.description ? ` <span style="font-weight:500; font-size:0.62rem; color:#92400e;">(${escapeText(m.description)})</span>` : ''}</div>
-                `).join('')}
-              </div>
-            ` : ''}
             <div class="extra-head">Info</div>
             <div class="extra-detail">${extraHtml}</div>
-            <div class="back-hint">↺ tap return</div>
           </div>
         </div>
       `;
 
-      // Speak button
+      // Speak button (if present)
       const speakBtn = card.querySelector('.speak-btn');
-      speakBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card, miqaatTitles);
-      });
+      if (speakBtn) {
+        speakBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card, miqaatTitles);
+        });
+      }
 
       // Flip click
       card.addEventListener('click', (e) => {
