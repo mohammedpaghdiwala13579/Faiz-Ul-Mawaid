@@ -827,7 +827,7 @@
       background: transparent;
       perspective: 1000px;
       cursor: pointer;
-      min-height: 165px;
+      min-height: 195px;
       height: 100%;
       min-width: 0;
       width: 100%;
@@ -842,7 +842,7 @@
       width: 100%;
       min-width: 0;
       height: 100%;
-      min-height: 165px;
+      min-height: 195px;
       flex: 1;
       transition: transform 0.35s ease;
       transform-style: preserve-3d;
@@ -902,7 +902,7 @@
       justify-content: space-between;
       border-bottom: 1px solid #f0e2d2;
       padding-bottom: 4px;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       gap: 3px;
       width: 100%;
       min-width: 0;
@@ -913,7 +913,7 @@
 
     .day-name {
       font-family: 'Playfair Display', serif;
-      font-size: 0.74rem;
+      font-size: 0.90rem;
       font-weight: 800;
       color: #8b5e34;
       white-space: nowrap;
@@ -933,10 +933,10 @@
     }
 
     .date-chip {
-      font-size: 0.58rem;
+      font-size: 0.62rem;
       font-weight: 800;
       background: #f0e6db;
-      padding: 1px 4px;
+      padding: 1px 4.5px;
       border-radius: 14px;
       color: #7a5b3c;
       white-space: nowrap;
@@ -949,11 +949,11 @@
 
     .hijri-chip {
       font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.60rem;
+      font-size: 0.65rem;
       font-weight: 700;
       background: #faf3ea;
       border: 1px solid #eadbc8;
-      padding: 1.5px 6px;
+      padding: 1.5px 6.5px;
       min-width: auto;
       border-radius: 14px;
       color: #8a5e35;
@@ -967,9 +967,9 @@
     }
 
     .menu-text {
-      font-size: 0.92rem;
-      line-height: 1.42;
-      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.48;
+      font-weight: 750;
       color: #33271e;
       white-space: pre-line;
       word-break: break-word;
@@ -1571,9 +1571,9 @@
 
     @media (max-width: 520px) {
       body { padding: 8px 6px; }
-      .flip-card   { min-height: 145px; }
-      .menu-text   { font-size: 0.85rem; }
-      .extra-detail{ font-size: 0.74rem; }
+      .flip-card   { min-height: 185px; }
+      .menu-text   { font-size: 0.95rem; }
+      .extra-detail{ font-size: 0.82rem; }
       .install-btn { padding: 6px 12px; font-size: 0.75rem; }
       .chatt-micro { font-size: 1.3rem; }
       .arabic-micro{ font-size: 0.7rem; }
@@ -1586,14 +1586,16 @@
 
     @media (max-width: 420px) {
       .header-dots-btn { width: 36px; height: 36px; }
+      .flip-card { min-height: 180px; }
       .day-row { flex-wrap: nowrap !important; gap: 2px; }
-      .day-name { font-size: 0.66rem; letter-spacing: -0.3px; }
+      .day-name { font-size: 0.78rem; letter-spacing: -0.2px; }
       .day-date-wrap { gap: 2px; flex-shrink: 0; flex-wrap: nowrap !important; }
-      .date-chip { font-size: 0.52rem; padding: 1px 2.5px; }
-      .hijri-chip { font-size: 0.54rem; padding: 1px 4px; min-width: auto; }
-      .card-miqaat-chip { font-size: 0.64rem; padding: 3px 5px; }
+      .date-chip { font-size: 0.58rem; padding: 1px 3px; }
+      .hijri-chip { font-size: 0.60rem; padding: 1px 5px; min-width: auto; }
+      .card-miqaat-chip { font-size: 0.70rem; padding: 3px 5px; }
+      .menu-text { font-size: 0.92rem; }
       .rule { font-size: 0.54rem; padding: 3px 3px; gap: 2px; }
-      .spotlight-day { font-size: 1.2rem; }
+      .spotlight-day { font-size: 1.25rem; }
       .countdown-time { font-size: 1.05rem; }
     }
 
@@ -1601,13 +1603,14 @@
       body { padding: 6px 4px; }
       .header-dots-btn { width: 34px; height: 34px; }
       .grid-2x3 { gap: 4px; }
-      .card-front, .card-back { padding: 6px 4px 5px 4px; }
+      .flip-card { min-height: 175px; }
+      .card-front, .card-back { padding: 8px 6px 6px 6px; }
       .day-row { flex-wrap: nowrap !important; gap: 1.5px; }
-      .day-name { font-size: 0.58rem; letter-spacing: -0.35px; }
+      .day-name { font-size: 0.72rem; letter-spacing: -0.3px; }
       .day-date-wrap { gap: 1.5px; flex-shrink: 0; flex-wrap: nowrap !important; }
-      .date-chip { font-size: 0.48rem; padding: 1px 2px; }
-      .hijri-chip { font-size: 0.50rem; padding: 1px 3px; min-width: auto; }
-      .menu-text { font-size: 0.78rem; }
+      .date-chip { font-size: 0.52rem; padding: 1px 2.5px; }
+      .hijri-chip { font-size: 0.54rem; padding: 1px 4px; min-width: auto; }
+      .menu-text { font-size: 0.86rem; }
       .chatt-micro { font-size: 1.1rem; }
       .logo-micro { width: 52px; height: 52px; border-radius: 14px; padding: 3px; }
       .rule { font-size: 0.50rem; padding: 2px 2px; gap: 1px; }
@@ -3309,22 +3312,22 @@
       const color = (colors[di] || '').toString().trim().toLowerCase();
       const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
       if (!isDefault) {
-        return `<div style="color:${color}; font-weight:750; font-size:0.90rem; line-height:1.42; margin-bottom:2px;">• ${safe}</div>`;
+        return `<div style="color:${color}; font-weight:750; font-size:0.98rem; line-height:1.44; margin-bottom:2px;">• ${safe}</div>`;
       }
-      return `<div style="color:#2b231c; font-weight:750; font-size:0.90rem; line-height:1.42; margin-bottom:2px;">• ${safe}</div>`;
+      return `<div style="color:#2b231c; font-weight:750; font-size:0.98rem; line-height:1.44; margin-bottom:2px;">• ${safe}</div>`;
     }).join('');
 
     const safeDay = escapeText(dayVal);
 
     return `
-      <div style="background:#fffffffb; border:1px solid #dfceb6; border-radius:18px; box-shadow:0 2px 6px rgba(0,0,0,0.03); padding:10px 10px 10px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:165px; box-sizing:border-box;">
+      <div style="background:#fffffffb; border:1px solid #dfceb6; border-radius:18px; box-shadow:0 2px 6px rgba(0,0,0,0.03); padding:10px 10px 10px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
         <div>
           <!-- day-row -->
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; padding-bottom:3px; border-bottom:1px solid #f0e2d2; gap:4px; width:100%; box-sizing:border-box;">
-            <span style="font-family:'Playfair Display', serif; font-size:0.88rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${safeDay}</span>
+            <span style="font-family:'Playfair Display', serif; font-size:0.96rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${safeDay}</span>
             <div style="display:flex; align-items:center; gap:4px; flex-shrink:0; white-space:nowrap;">
-              <span style="font-size:0.62rem; font-weight:800; background:#f0e6db; padding:1px 5px; border-radius:14px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1.15;">${escapeText(dateDisplay || '—')}</span>
-              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.64rem; font-weight:700; background:#faf3ea; border:1px solid #eadbc8; padding:2px 9px; min-width:66px; border-radius:14px; color:#8a5e35; white-space:nowrap; display:inline-flex; align-items:center; justify-content:center; direction:rtl; flex-shrink:0; line-height:1.15; text-align:center;">${escapeText(hijri.arabicDateNoYear)}</span>
+              <span style="font-size:0.66rem; font-weight:800; background:#f0e6db; padding:1px 5px; border-radius:14px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1.15;">${escapeText(dateDisplay || '—')}</span>
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.68rem; font-weight:700; background:#faf3ea; border:1px solid #eadbc8; padding:2px 7px; border-radius:14px; color:#8a5e35; white-space:nowrap; display:inline-flex; align-items:center; justify-content:center; direction:rtl; flex-shrink:0; line-height:1.15; text-align:center;">${escapeText(hijri.arabicDateNoYear)}</span>
             </div>
           </div>
 
