@@ -603,8 +603,6 @@
     .header-share-btn:hover { background: #a57139; transform: scale(1.05); }
     .header-share-btn:active { transform: scale(0.95); }
 
-
-
     /* ── UTILITY STRIP ── */
     .utility-strip {
       display: flex;
@@ -823,11 +821,14 @@
       box-sizing: border-box;
     }
 
+    /* 
+      MENU CARDS SLIGHTLY SHORTER AS REQUESTED (min-height reduced to 168px)
+    */
     .flip-card {
       background: transparent;
       perspective: 1000px;
       cursor: pointer;
-      min-height: 195px;
+      min-height: 168px;
       height: 100%;
       min-width: 0;
       width: 100%;
@@ -842,7 +843,7 @@
       width: 100%;
       min-width: 0;
       height: 100%;
-      min-height: 195px;
+      min-height: 168px;
       flex: 1;
       transition: transform 0.35s ease;
       transform-style: preserve-3d;
@@ -863,9 +864,10 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: 18px;
-      padding: 10px 10px 8px 10px;
+      padding: 8px 8px 6px 8px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       background: #fffffffb;
       border: 1px solid #dfceb6;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
@@ -882,7 +884,7 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: 18px;
-      padding: 10px 10px 8px 10px;
+      padding: 8px 8px 6px 8px;
       display: flex;
       flex-direction: column;
       background: #fefaf4;
@@ -894,52 +896,56 @@
       z-index: 1;
     }
 
+    /*
+      STRICT SINGLE-LINE GUARANTEE FOR TOP ROW ACROSS ALL DEVICES:
+      Arabic months, English months/dates, and Weekday names stay on a single line!
+    */
     .day-row {
-      display: flex;
-      flex-direction: row;
+      display: flex !important;
+      flex-direction: row !important;
       flex-wrap: nowrap !important;
-      align-items: center;
-      justify-content: space-between;
+      align-items: center !important;
+      justify-content: space-between !important;
       border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 4px;
-      margin-bottom: 5px;
-      gap: 3px;
-      width: 100%;
-      min-width: 0;
-      white-space: nowrap;
-      flex-shrink: 0;
+      padding-bottom: 3px;
+      margin-bottom: 3px;
+      gap: 1.5px !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
       box-sizing: border-box;
     }
 
     .day-name {
       font-family: 'Playfair Display', serif;
-      font-size: 0.90rem;
+      font-size: clamp(0.64rem, 2vw, 0.86rem);
       font-weight: 800;
       color: #8b5e34;
-      white-space: nowrap;
-      flex-shrink: 0;
-      line-height: 1.2;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      line-height: 1.15;
       letter-spacing: -0.2px;
     }
 
     .day-date-wrap {
-      display: inline-flex;
-      flex-direction: row;
+      display: inline-flex !important;
+      flex-direction: row !important;
       flex-wrap: nowrap !important;
-      align-items: center;
-      gap: 2.5px;
-      flex-shrink: 0;
-      white-space: nowrap;
+      align-items: center !important;
+      gap: 1.5px !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
     }
 
     .date-chip {
-      font-size: 0.62rem;
+      font-size: clamp(0.48rem, 1.5vw, 0.60rem);
       font-weight: 800;
       background: #f0e6db;
-      padding: 1px 4.5px;
-      border-radius: 14px;
+      padding: 1px 3px;
+      border-radius: 12px;
       color: #7a5b3c;
-      white-space: nowrap;
+      white-space: nowrap !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -949,49 +955,47 @@
 
     .hijri-chip {
       font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.65rem;
+      font-size: clamp(0.50rem, 1.6vw, 0.62rem);
       font-weight: 700;
       background: #faf3ea;
       border: 1px solid #eadbc8;
-      padding: 1.5px 6.5px;
+      padding: 1px 4px;
       min-width: auto;
-      border-radius: 14px;
+      border-radius: 12px;
       color: #8a5e35;
-      white-space: nowrap;
+      white-space: nowrap !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       direction: rtl;
       flex-shrink: 0;
       line-height: 1.15;
+      text-align: center;
     }
 
     .menu-text {
-      font-size: 1.02rem;
-      line-height: 1.48;
+      font-size: 0.94rem;
+      line-height: 1.42;
       font-weight: 750;
       color: #33271e;
       white-space: pre-line;
       word-break: break-word;
       flex: 1;
-      margin: 4px 0 5px 0;
-      overflow: visible;
-      overflow-y: visible;
-      max-height: none;
-      padding-right: 0;
+      margin: 2px 0 3px 0;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       min-width: 0;
       box-sizing: border-box;
     }
 
     .extra-detail {
-      font-size: 0.82rem;
+      font-size: 0.80rem;
       line-height: 1.35;
       background: #fffaf2;
-      padding: 6px 8px;
-      border-radius: 14px;
+      padding: 5px 7px;
+      border-radius: 12px;
       border: 1px solid #f0e2d2;
       flex: 1;
       overflow-y: auto;
@@ -1007,17 +1011,17 @@
     .card-miqaat-chip {
       background: linear-gradient(135deg, #fffcf0 0%, #fef3c7 100%);
       border: 1px solid #f6d89b;
-      border-radius: 8px;
-      padding: 4px 7px;
-      margin-top: 3px;
-      margin-bottom: 4px;
+      border-radius: 7px;
+      padding: 2.5px 5px;
+      margin-top: 2px;
+      margin-bottom: 2px;
       display: flex;
       align-items: flex-start;
-      gap: 5px;
-      font-size: 0.68rem;
+      gap: 3px;
+      font-size: 0.64rem;
       font-weight: 750;
       color: #854d0e;
-      line-height: 1.35;
+      line-height: 1.25;
       box-shadow: 0 1px 2px rgba(217, 119, 6, 0.05);
       flex-shrink: 0;
       width: 100%;
@@ -1025,7 +1029,7 @@
       box-sizing: border-box;
     }
     .card-miqaat-chip .miqaat-sparkle {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       flex-shrink: 0;
       margin-top: 1px;
       line-height: 1;
@@ -1045,7 +1049,7 @@
       border: 1px solid #ebd9c5;
       border-radius: 8px;
       padding: 3px 7px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1057,8 +1061,8 @@
       background: #fff8e7;
       border: 1.2px solid #d4a359;
       border-radius: 8px;
-      padding: 4px 7px;
-      margin-bottom: 5px;
+      padding: 3px 6px;
+      margin-bottom: 4px;
       flex-shrink: 0;
       white-space: normal;
       word-break: break-word;
@@ -1071,8 +1075,8 @@
       font-weight: 700;
       color: #9b6e42;
       border-left: 2px solid #dbbc9a;
-      padding-left: 6px;
-      margin-bottom: 5px;
+      padding-left: 5px;
+      margin-bottom: 3px;
       flex-shrink: 0;
     }
 
@@ -1080,29 +1084,31 @@
       font-size: 0.52rem;
       color: #c7ab89;
       text-align: right;
-      margin-top: 4px;
+      margin-top: 3px;
       flex-shrink: 0;
     }
 
     .menu-line {
       display: block;
-      border-radius: 5px;
-      padding: 0 3px;
-      margin: 1px 0;
-      line-height: 1.4;
+      border-radius: 4px;
+      padding: 0 2px;
+      margin: 0.5px 0;
+      line-height: 1.35;
     }
 
     .menu-line.has-color {
       font-weight: 800;
-      padding: 1px 4px;
-      border-radius: 6px;
+      padding: 1px 3px;
+      border-radius: 5px;
     }
 
     .card-bottom-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 4px;
+      margin-top: 2px;
+      padding-top: 2px;
+      border-top: 1px solid #f0e2d2;
       flex-shrink: 0;
     }
 
@@ -1110,11 +1116,11 @@
       background: none;
       border: 1px solid #e2ccb0;
       border-radius: 30px;
-      padding: 3px 9px 3px 7px;
+      padding: 2.5px 7px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3.5px;
       font-size: 0.48rem;
       font-weight: 600;
       color: #9b7048;
@@ -1167,11 +1173,11 @@
       background: #fffffffb;
       border: 1px solid #dfceb6;
       border-radius: 22px;
-      padding: 16px;
+      padding: 14px 16px;
       box-shadow: 0 2px 8px rgba(43,35,28,0.03);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .spotlight-header {
@@ -1179,12 +1185,12 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     .spotlight-day {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: #2b1e10;
     }
@@ -1199,84 +1205,6 @@
       border: 1px solid #ebd2b6;
     }
 
-    .countdown-box {
-      background: linear-gradient(135deg, #fffaf3 0%, #fef5e8 100%);
-      border: 1px solid #f0e2d2;
-      border-radius: 16px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .countdown-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #8b5e34;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .countdown-time {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #3b2c1d;
-    }
-
-    .portion-calc {
-      background: #fdf9f3;
-      border: 1px solid #eee2d3;
-      border-radius: 16px;
-      padding: 12px;
-    }
-
-    .portion-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #5a422d;
-      margin-bottom: 8px;
-    }
-
-    .portion-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .portion-btn {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      border: 1px solid #dbcbb8;
-      background: #ffffff;
-      font-weight: 800;
-      color: #5a422d;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .portion-val {
-      font-weight: 800;
-      font-size: 1rem;
-      color: #3b2c1d;
-      min-width: 70px;
-      text-align: center;
-    }
-
-    .portion-results {
-      font-size: 0.78rem;
-      color: #6b523b;
-      line-height: 1.5;
-      background: #ffffff;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid #f0e6da;
-    }
-
     /* ── DUA & CHECKLIST ── */
     .dua-header {
       display: flex;
@@ -1284,9 +1212,9 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 8px;
+      gap: 6px;
       border-bottom: 1px solid #f0e2d2;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     .dua-title {
@@ -1306,64 +1234,16 @@
 
     .dua-arabic {
       font-family: 'Noto Naskh Arabic', serif;
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       text-align: center;
       color: #3b2a19;
-      line-height: 2;
+      line-height: 1.8;
       background: #fffaf3;
-      padding: 16px 14px;
+      padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid #f2e4d3;
       white-space: pre-line;
       direction: rtl;
-    }
-
-    .dua-trans {
-      font-size: 0.8rem;
-      font-style: italic;
-      color: #8b5e34;
-      text-align: center;
-    }
-
-    .dua-english {
-      font-size: 0.78rem;
-      color: #4f3926;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    .checklist-title, .feedback-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #2b1e10;
-      margin-bottom: 4px;
-    }
-
-    .checklist-items {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: #3b2a19;
-      cursor: pointer;
-      user-select: none;
-      background: #fdf9f3;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid #f0e2d2;
-    }
-
-    .custom-chk {
-      width: 16px; height: 16px;
-      accent-color: #6b4e31;
-      cursor: pointer;
     }
 
     .star-rating {
@@ -1414,12 +1294,6 @@
       font-weight: 600;
       min-height: 1rem;
     }
-
-    /* Large text mode for accessibility */
-    body.large-text-mode .menu-text { font-size: 1.05rem; }
-    body.large-text-mode .day-name { font-size: 0.85rem; }
-    body.large-text-mode .date-chip { font-size: 0.88rem; }
-    body.large-text-mode .extra-detail { font-size: 0.95rem; }
 
     /* ── EXPAND MODAL ── */
     .expand-overlay {
@@ -1569,11 +1443,13 @@
       background: #fffdf9;
     }
 
+    /* ── RESPONSIVE CALIBRATIONS ENSURING STRICT SINGLE-LINE FOR TOP ROW ── */
     @media (max-width: 520px) {
       body { padding: 8px 6px; }
-      .flip-card   { min-height: 185px; }
-      .menu-text   { font-size: 0.95rem; }
-      .extra-detail{ font-size: 0.82rem; }
+      .flip-card   { min-height: 162px; }
+      .card-front, .card-back { padding: 7px 7px 5px 7px; }
+      .menu-text   { font-size: 0.90rem; }
+      .extra-detail{ font-size: 0.78rem; }
       .install-btn { padding: 6px 12px; font-size: 0.75rem; }
       .chatt-micro { font-size: 1.3rem; }
       .arabic-micro{ font-size: 0.7rem; }
@@ -1582,35 +1458,39 @@
       .tiffin-footer { padding: 8px 10px; border-radius: 20px; }
       .rules-title { font-size: 0.88rem; }
       .rule { font-size: 0.58rem; padding: 3px 5px; gap: 2px; }
+      .day-row { gap: 1.5px !important; }
+      .day-name { font-size: 0.76rem; }
+      .date-chip { font-size: 0.54rem; padding: 1px 3px; }
+      .hijri-chip { font-size: 0.56rem; padding: 1px 4px; }
     }
 
     @media (max-width: 420px) {
       .header-dots-btn { width: 36px; height: 36px; }
-      .flip-card { min-height: 180px; }
-      .day-row { flex-wrap: nowrap !important; gap: 2px; }
-      .day-name { font-size: 0.78rem; letter-spacing: -0.2px; }
-      .day-date-wrap { gap: 2px; flex-shrink: 0; flex-wrap: nowrap !important; }
-      .date-chip { font-size: 0.58rem; padding: 1px 3px; }
-      .hijri-chip { font-size: 0.60rem; padding: 1px 5px; min-width: auto; }
-      .card-miqaat-chip { font-size: 0.70rem; padding: 3px 5px; }
-      .menu-text { font-size: 0.92rem; }
+      .flip-card { min-height: 158px; }
+      .card-front, .card-back { padding: 6px 6px 5px 6px; }
+      .day-row { flex-wrap: nowrap !important; gap: 1.5px !important; margin-bottom: 2px; padding-bottom: 2px; }
+      .day-name { font-size: 0.70rem; letter-spacing: -0.2px; }
+      .day-date-wrap { gap: 1.5px !important; flex-shrink: 0; flex-wrap: nowrap !important; }
+      .date-chip { font-size: 0.50rem; padding: 1px 2.5px; }
+      .hijri-chip { font-size: 0.52rem; padding: 1px 3.5px; min-width: auto; }
+      .card-miqaat-chip { font-size: 0.62rem; padding: 2px 4px; }
+      .menu-text { font-size: 0.86rem; }
       .rule { font-size: 0.54rem; padding: 3px 3px; gap: 2px; }
       .spotlight-day { font-size: 1.25rem; }
-      .countdown-time { font-size: 1.05rem; }
     }
 
     @media (max-width: 360px) {
       body { padding: 6px 4px; }
       .header-dots-btn { width: 34px; height: 34px; }
       .grid-2x3 { gap: 4px; }
-      .flip-card { min-height: 175px; }
-      .card-front, .card-back { padding: 8px 6px 6px 6px; }
-      .day-row { flex-wrap: nowrap !important; gap: 1.5px; }
-      .day-name { font-size: 0.72rem; letter-spacing: -0.3px; }
-      .day-date-wrap { gap: 1.5px; flex-shrink: 0; flex-wrap: nowrap !important; }
-      .date-chip { font-size: 0.52rem; padding: 1px 2.5px; }
-      .hijri-chip { font-size: 0.54rem; padding: 1px 4px; min-width: auto; }
-      .menu-text { font-size: 0.86rem; }
+      .flip-card { min-height: 154px; }
+      .card-front, .card-back { padding: 5px 5px 4px 5px; }
+      .day-row { flex-wrap: nowrap !important; gap: 1px !important; margin-bottom: 2px; padding-bottom: 2px; }
+      .day-name { font-size: 0.64rem; letter-spacing: -0.25px; }
+      .day-date-wrap { gap: 1px !important; flex-shrink: 0; flex-wrap: nowrap !important; }
+      .date-chip { font-size: 0.46rem; padding: 1px 2px; }
+      .hijri-chip { font-size: 0.48rem; padding: 1px 3px; min-width: auto; }
+      .menu-text { font-size: 0.82rem; }
       .chatt-micro { font-size: 1.1rem; }
       .logo-micro { width: 52px; height: 52px; border-radius: 14px; padding: 3px; }
       .rule { font-size: 0.50rem; padding: 2px 2px; gap: 1px; }
@@ -1647,72 +1527,31 @@
       animation: floatSoft 3s ease-in-out infinite;
     }
 
-    @keyframes sunnyPulse {
-      0%, 100% { box-shadow: 0 2px 10px rgba(245, 158, 11, 0.12); }
-      50% { box-shadow: 0 4px 18px rgba(245, 158, 11, 0.28); }
-    }
-
-    @keyframes rainShimmer {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    @keyframes stormPulse {
-      0%, 100% { border-color: #cbd5e1; }
-      50% { border-color: #94a3b8; }
-    }
-
-    /* Sunny / Clear Sky Theme */
+    /* Weather Themes */
     .weather-theme-sunny {
       background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%) !important;
       border-color: #fcd34d !important;
-      animation: sunnyPulse 4s ease-in-out infinite;
     }
-    .weather-theme-sunny #weatherTemp { color: #92400e !important; }
-    .weather-theme-sunny #weatherCondition { color: #b45309 !important; }
-    .weather-theme-sunny #weatherMeta { color: #d97706 !important; }
-
-    /* Clear / Mostly Sunny Theme */
     .weather-theme-clear {
       background: linear-gradient(135deg, #fffcf5 0%, #fef3c7 60%, #e0f2fe 100%) !important;
       border-color: #fde68a !important;
     }
-
-    /* Cloudy / Overcast Theme */
     .weather-theme-cloudy {
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%) !important;
       border-color: #cbd5e1 !important;
     }
-    .weather-theme-cloudy #weatherTemp { color: #334155 !important; }
-    .weather-theme-cloudy #weatherCondition { color: #475569 !important; }
-
-    /* Rainy / Drizzle Theme */
     .weather-theme-rainy {
       background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%) !important;
-      background-size: 200% 200% !important;
       border-color: #7dd3fc !important;
-      animation: rainShimmer 6s ease infinite;
     }
-    .weather-theme-rainy #weatherTemp { color: #0369a1 !important; }
-    .weather-theme-rainy #weatherCondition { color: #0284c7 !important; }
-    .weather-theme-rainy #weatherMeta { color: #0369a1 !important; }
-
-    /* Thunderstorm Theme */
     .weather-theme-thunderstorm {
       background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%) !important;
       border-color: #94a3b8 !important;
-      animation: stormPulse 3s infinite ease-in-out;
     }
-    .weather-theme-thunderstorm #weatherTemp { color: #1e293b !important; }
-    .weather-theme-thunderstorm #weatherCondition { color: #334155 !important; }
-
-    /* Foggy Theme */
     .weather-theme-foggy {
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
       border-color: #e2e8f0 !important;
     }
-
-    /* Snowy Theme */
     .weather-theme-snowy {
       background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%) !important;
       border-color: #bbf7d0 !important;
@@ -1807,12 +1646,14 @@
       text-align: center;
     }
   </style>
-<script>window.MUMINEEN_MIQAATS_DATA = [{"month":0,"date":1,"miqaats":[{"title":"Hijri New Year","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Abdullah Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":2,"miqaats":[{"title":"Urus Mawlai Raj Bin Mawlai Hasan Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Khanji Fir Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Shaikh Pir Jamaluddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":6,"miqaats":[{"title":"Urus Syedi Mohammed Bin Qazikhan","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":7,"miqaats":[{"title":"Urus Syedna Ismail Badruddin (AQ)","description":"38th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null}]},{"month":0,"date":10,"miqaats":[{"title":"Yawme Ashura","description":null,"phase":"day","priority":1,"year":null},{"title":"Shahadat Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Zoeb Bin Musa (AQ)","description":"1st Dai, Hawth, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Ahmed Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":11,"miqaats":[{"title":"Suyum Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"night","priority":1,"year":null}]},{"month":0,"date":14,"miqaats":[{"title":"Urus Mawlai Lukmanji Mulla Alibhai Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":15,"miqaats":[{"title":"Urus Mawlai Nuruddin Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":16,"miqaats":[{"title":"Urus Syedna Hatim bin Syedna Ibrahim (AQ)","description":"3rd Dai, Hutaib, Yemen.","phase":"day","priority":1,"year":null}]},{"month":0,"date":17,"miqaats":[{"title":"Shahadat Imam Ali Zainulabedin (SA)","description":"3rd Imam, Medina, Saudi Arabia.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Ibrahim Vajihuddin (AQ)","description":"39th Dai, Ujjain, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mulla Mohammedali bin Syedi Najam Khan","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mawlai Masud bin Sulaiman","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Seven Shahid Sahebo","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":18,"miqaats":[{"title":"Urus Shahid Gani Pir Ibne Dawoodji","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":23,"miqaats":[{"title":"Urus Syedi Hasan Fir Saheb Shahid","description":"Denmal, India.","phase":"day","priority":2,"year":null},{"title":"Urus Noor Bibi Umme Syedna Yusuf Najmuddin","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Fatema Bibi Ukhte Syedna Yusuf Najmuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":24,"miqaats":[{"title":"Urus Syedi Dada Sulemanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":27,"miqaats":[{"title":"Urus Syedi Fakhruddin Shahid (AQ)","description":"Taherabad, India.","phase":"day","priority":2,"year":null}]},{"month":0,"date":28,"miqaats":[{"title":"Urus Syedi Musaji bin Taj","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":29,"miqaats":[{"title":"Urus Mawlai Hasan Bin Mawlai Adam","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":1,"miqaats":[{"title":"Urus Syedna Ali Bin Syedna Hussain (AQ)","description":"10th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":3,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin Bin Syedna Abdullah (AQ)","description":"18th Dai, Sharaqa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":4,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin (AQ)","description":"41st Dai, Burhanpur, India.","phase":"day","priority":1,"year":null}]},{"month":1,"date":6,"miqaats":[{"title":"Urus Syedi Abdeali Imaduddin","description":"Surat, India.","phase":"day","priority":3,"year":null}]},{"month":1,"date":8,"miqaats":[{"title":"Urus Syedna Khattab Bin Hasan Hamdani (AQ)","description":null,"phase":"day","priority":1,"year":null}]},{"month":1,"date":9,"miqaats":[{"title":"Urus Syedi Tayyib bs Zainuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":12,"miqaats":[{"title":"Urus Syedna Ahmed Hamiduddin Kirmani (RA)","description":null,"phase":"day","priority":1,"year":null}]},{"month":1,"date":13,"miqaats":[{"title":"Urus Mawlai Adam bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":14,"miqaats":[{"title":"Urus Kaka Akela - Kaki Akeli","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mawlai Noorbhai Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":15,"miqaats":[{"title":"Urus Syedi Hamza Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":17,"miqaats":[{"title":"Urus Mawlai Shaikh Saheb bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Shaikh Ibrahim","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Shaikh AbdulHusain Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":20,"miqaats":[{"title":"Chelum Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"day","priority":1,"year":null}]},{"month":1,"date":22,"miqaats":[{"title":"Urus Syedna Hussain bin Syedna Ali (AQ)","description":"8th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":27,"miqaats":[{"title":"Urus Syedna Mohammed Izziuddin (AQ)","description":"23rd Dai, Zabid, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":28,"miqaats":[{"title":"Shahadat Imam Hassan (SA)","description":"1st Imam, Medina, Saudi Arabia.","phase":"day","priority":1,"year":null}]},{"month":1,"date":29,"miqaats":[{"title":"Urus Syedi Hasan Zakiyuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":1,"miqaats":[{"title":"Urus Syedi Shaikh Adam Safiyuddin","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Jamaluddin bin Shaikh Adam","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":2,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin bin Syedna Dawood bin Qutbub Shah (AQ)","description":"29th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":4,"miqaats":[{"title":"Urus Syedi Habibullah bin Mulla Adamji","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":7,"miqaats":[{"title":"Urus Syedi Shaikh Dawood Bhai Mulla Mehmoodji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Abdeali Mohyiddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":10,"miqaats":[{"title":"Urus Syedna Abdullah Badruddin (AQ)","description":"50th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":12,"miqaats":[{"title":"Eid Milad un-Nabi (SA)","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Ummul Mumineen Amatullah Aaisaheba (QR)","description":"London, UK.","phase":"day","priority":2,"year":null},{"title":"Ayyam al-Ta'abudaat","description":"Start of 40 days of ta'abudaat.","phase":"day","priority":1,"year":null}]},{"month":2,"date":14,"miqaats":[{"title":"Urus Syedi Miaji Mulla Taj Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":16,"miqaats":[{"title":"Urus Syedna Mohammed Burhanuddin (AQ)","description":"52nd Dai, Mumbai, India.","phase":"day","priority":1,"year":1435}]},{"month":2,"date":22,"miqaats":[{"title":"Urus Syedna Ali bin Hanzala (AQ)","description":"6th Dai, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Dawood bin Raj Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":23,"miqaats":[{"title":"Urus Mawlai Raj Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Qazi Khan bin Ameen Shah","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":25,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin bin Mawlai Hasan (AQ)","description":"30th Dai, Hasanfir, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":28,"miqaats":[{"title":"Urus Mohammad bin Hasan Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":4,"miqaats":[{"title":"Milad Imam uz-Zaman (SA)","description":"21st Imam.","phase":"day","priority":1,"year":null}]},{"month":3,"date":5,"miqaats":[{"title":"Urus Mia Saheb Maati Bhai Mulla Noor Bhai","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mia Saheb Tayebji Shaikh Shams Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":8,"miqaats":[{"title":"Urus Mawlai Raj bin Mulla Adam Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":10,"miqaats":[{"title":"Urus Syedi AbdulRasul Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":14,"miqaats":[{"title":"Urus Syedi Ismailji Shahid bin Abde Musa","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":16,"miqaats":[{"title":"Urus Syedna Jalal Shamsuddin (AQ) bin Hasan","description":"25th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":3,"date":20,"miqaats":[{"title":"Milad Dai al-Muqaddas, Syedna Mohammed Burhanuddin (AQ)","description":"52nd Dai, Mumbai, India.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Ta'abudaat","description":"End of 40 days of ta'abudaat.","phase":"day","priority":1,"year":null}]},{"month":3,"date":22,"miqaats":[{"title":"Urus Syedna Musa Kalimuddin (AQ)","description":"36th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Mulla Habibullah bin Shaikh Sultanali","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":27,"miqaats":[{"title":"Urus Syedna Dawood Burhanuddin bin Ajab Shah (AQ)","description":"26th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":3,"date":28,"miqaats":[{"title":"Urus Kakaji Mulla Isa Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":1,"miqaats":[{"title":"Urus Syedna Ahmed Al Mukaraam","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":3,"miqaats":[{"title":"Urus Syedi Qazi Khan bin Ali","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":8,"miqaats":[{"title":"Urus Syedi Mulla Wahid Bhaisaheb bin Mulla Ibrahimji","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":10,"miqaats":[{"title":"Shahadat Maulatena Fatema tuz Zahra (SA)","description":"Binte Nabi Mohammed Rasullulah (SA).","phase":"day","priority":1,"year":null}]},{"month":4,"date":11,"miqaats":[{"title":"Urus Mawlai Nooruddin Saheb","description":"Dawngham, India.","phase":"day","priority":3,"year":null}]},{"month":4,"date":15,"miqaats":[{"title":"Urus Mawlai Dawood bin Qazi Ahmed","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":17,"miqaats":[{"title":"Urus Syedi Dawood Bhaisaheb Shihabuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":21,"miqaats":[{"title":"Urus Seth Chanda bhai ibne Karim Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":23,"miqaats":[{"title":"Urus Mulla Jaferji Jiwaji","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":29,"miqaats":[{"title":"Urus Syedi Jivanji bin Shaikh Dawood Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":8,"miqaats":[{"title":"Urus Syedi Luqmaanji bin Mulla Habibullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":12,"miqaats":[{"title":"Urus Mulla Tayyib Bawa bin Mulla Ibrahimji","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":14,"miqaats":[{"title":"Urus Ganje Shohoda","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":15,"miqaats":[{"title":"Urus Syedna Dawood Burhanuddin (AQ) bin Qutub Shah","description":"27th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Ali bhai Shahid","description":"Indore, India.","phase":"day","priority":3,"year":null}]},{"month":5,"date":18,"miqaats":[{"title":"Urus Syedna Yusuf Najmuddin (AQ)","description":"42nd Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Adam ibne Dawood","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Moulai Burhanuddin Ibne Khoj Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":23,"miqaats":[{"title":"Urus Syedna Ismail Badruddin (AQ) bin Mawlai Raj","description":"34th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null}]},{"month":5,"date":27,"miqaats":[{"title":"Urus Syedna Qutub Khan Qutbuddin Shahid (AQ)","description":"32nd Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Lamak bin Malik (RA)","description":null,"phase":"day","priority":1,"year":null}]},{"month":5,"date":28,"miqaats":[{"title":"Urus Syedna Ahmed bin Mubarak (AQ)","description":"7th Dai, Hamdaan, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Yahya bin Syedna Lamak (AQ)","description":null,"phase":"day","priority":1,"year":null}]},{"month":5,"date":29,"miqaats":[{"title":"Urus Syedna Mohammed Badruddin (AQ)","description":"46th Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Rajab al-Asab Pehli raat","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedna Qadi Numan bin Mohammed (AQ)","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Ajab Busaheba Binte Syedna Qutubuddin Shahid (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":1,"miqaats":[{"title":"Rajab al-Asab Pehli taarik","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":6,"date":2,"miqaats":[{"title":"Urus Mawlai Raj bin Dawood","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Bhaiji Bhai Ibne Qazi Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":4,"miqaats":[{"title":"Urus Syedna Noor Mohammed Nooruddin (AQ)","description":"37th Dai, Mandwi, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Hasanji Badshah","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":7,"miqaats":[{"title":"Urus Syedna Shaikh Adam Safiyuddin (AQ)","description":"28th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":6,"date":8,"miqaats":[{"title":"Urus Syedi Saifuddin Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":12,"miqaats":[{"title":"Urus Syedi Najam Khan bin Syedna Fir Khan Shujahuddin AQ","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":13,"miqaats":[{"title":"Milad Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA)","phase":"day","priority":1,"year":null},{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":6,"date":14,"miqaats":[{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Abdul Mutalib Najmuddin (AQ)","description":"14th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Yaqub Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":15,"miqaats":[{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Salaat uz-Zawaal","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":17,"miqaats":[{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":18,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin (AQ)","description":"13th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":19,"miqaats":[{"title":"Urus Syedna Taher Saifuddin (AQ)","description":"51st Dai, Mumbai, India.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":24,"miqaats":[{"title":"Urus Syedi Qamruddin Bhaisaheb bin Syedna Haibatullah Al Muaid (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":26,"miqaats":[{"title":"Shab-e-Meraaj","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedna Abdulqadir Najmuddin (AQ)","description":"47th Dai, Ujjain, India.","phase":"day","priority":1,"year":null}]},{"month":6,"date":27,"miqaats":[{"title":"Yawm-al-Maba'th","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Miasaheb Alibhai bin Peeriji","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":29,"miqaats":[{"title":"Urus Syedi Luqmaanji bin Syedi Dawood bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":1,"miqaats":[{"title":"Urus Syedna Hebatullah Muayyadfiddin (AQ)","description":"40th Dai, Ujjain, India.","phase":"day","priority":1,"year":null}]},{"month":7,"date":14,"miqaats":[{"title":"Shab-e-Baraat","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":7,"date":15,"miqaats":[{"title":"Urus Syedna Hasan Badruddin (AQ)","description":"20th Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":7,"date":16,"miqaats":[{"title":"Urus Syedna Ibrahim bin Husain (AQ)","description":"2nd Dai, Ghailbani Hamid, Yemen.","phase":"day","priority":1,"year":null}]},{"month":7,"date":19,"miqaats":[{"title":"Urus Syedi Saleh Bhaisaheb Saifuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":22,"miqaats":[{"title":"Urus Moulatena Hurratul Maleka (RA)","description":"Ummul Duat Mutlaqeen, Zijibla, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Shaikhfir bin Dawood Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":25,"miqaats":[{"title":"Urus Syedi Shams Khan bin Syedi Yusufji","description":"Surat, India.","phase":"day","priority":3,"year":null}]},{"month":7,"date":29,"miqaats":[{"title":"Ramadaan al-Moazzan Pehli raat","description":null,"phase":"night","priority":1,"year":null},{"title":"Urus Syedna Ali bin Mawla Mohammed al-Walid (AQ)","description":"5th Dai, Haraaz, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Jiwanji bin Shaikh Dawoodbhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":1,"miqaats":[{"title":"Urus Shaikh Dawood Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":2,"miqaats":[{"title":"Urus Syedi Wali Bhaisaheb bin Syedi Habibullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":4,"miqaats":[{"title":"Urus Syedi Tayyib Bhaisaheb Zainuddin (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":8,"miqaats":[{"title":"Urus Syedi Fazal Bhaisaheb Qutubuddin bin Syedna Abdullah (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":9,"miqaats":[{"title":"Urus Syedna Abdullah Fakhruddin (AQ)","description":"16th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":8,"date":16,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedi Hebatullah Jamaluddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":18,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":8,"date":19,"miqaats":[{"title":"Shahadat Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA).","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Mohammed Ezzuddin (AQ)","description":"44th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":8,"date":20,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":8,"date":21,"miqaats":[{"title":"Wafaat Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA).","phase":"day","priority":1,"year":null}]},{"month":8,"date":22,"miqaats":[{"title":"Lailat al-Qadr","description":null,"phase":"night","priority":1,"year":null}]},{"month":8,"date":23,"miqaats":[{"title":"Milad Dai az-Zamaan, Syedna Mufaddal Saifuddin (TUS)","description":"53rd Dai al-Mutlaq","phase":"day","priority":1,"year":null}]},{"month":8,"date":29,"miqaats":[{"title":"Lailat al-Thala'theen","description":null,"phase":"night","priority":1,"year":null}]},{"month":8,"date":30,"miqaats":[{"title":"Lailat ul-Eid-ul-Fitr","description":"Washeq, Takbira","phase":"night","priority":1,"year":null}]},{"month":9,"date":1,"miqaats":[{"title":"Yawm al-Eid-ul-Fitr","description":"Takbira until Asr","phase":"day","priority":1,"year":null}]},{"month":9,"date":3,"miqaats":[{"title":"Urus Shehzadi Sakina Bhensaheba","description":"Mumbai, India.","phase":"day","priority":2,"year":null}]},{"month":9,"date":4,"miqaats":[{"title":"Urus Syedi Yusufji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Taiyebji Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":5,"miqaats":[{"title":"Urus Syedi Abdul Qadir Hakimuddin (AQ)","description":"1st Urus, Burhanpur, India.","phase":"day","priority":1,"year":null}]},{"month":9,"date":6,"miqaats":[{"title":"Urus Syedna Hasan Badruddin (AQ)","description":"17th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":7,"miqaats":[{"title":"Urus Syedna Mohammed bin Taher (AQ)","description":"Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":8,"miqaats":[{"title":"Urus Syedna Abbas bin Syedna Mohammed (AQ)","description":"15th Dai, Hisne Afedat, Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":9,"miqaats":[{"title":"Urus Syedna Qasim Khan Zainuddin (AQ)","description":"31st Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":9,"date":10,"miqaats":[{"title":"Urus Syedna Ibrahim bin Syedna Husain (AQ)","description":"11th Dai, Hisne Afedat, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Husain Husamuddin (AQ)","description":"21st Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Hebatullah Muayyadfiddin Shirazi (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":13,"miqaats":[{"title":"Urus Syedi Aminji bin Jalal","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":24,"miqaats":[{"title":"Urus Shaikh Qutub Bhai bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":27,"miqaats":[{"title":"Urus Syedi Abdul Qadir Hakimuddin (AQ)","description":"2nd Urus, Burhanpur, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mia Saheb Abdeali Waliullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":29,"miqaats":[{"title":"Urus Syedi Bawa Mulla Khan Saheb","description":"Rampura, India.","phase":"day","priority":3,"year":null},{"title":"Urus Syedi Qasim Khan bin Hamza Bhai","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mulla Salehbhai Ibne Najamkhan","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":9,"miqaats":[{"title":"Urus Syedna Fir Khan Shujahuddin (AQ)","description":"33rd Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":10,"date":11,"miqaats":[{"title":"Urus Syedna Ali bin Mohammed Sulayhi (RA)","description":"Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Hasan bin Nuh Bharuji","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":12,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin (AQ)","description":"35th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Abdeali Saifuddin (AQ)","description":"43rd Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":10,"date":13,"miqaats":[{"title":"Urus Syedna Ali bin Syedna Husain (AQ)","description":"9th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":15,"miqaats":[{"title":"Urus Syedna Tayyib Zainuddin (AQ)","description":"45th Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Urus Bai Saheba Raani Baisaheba (RA)","description":"Binte Syedna Ismail Badruddin (AQ)","phase":"day","priority":3,"year":null}]},{"month":10,"date":19,"miqaats":[{"title":"Urus Syedna Idris Imaduddin (AQ)","description":"19th Dai, Shebaam, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":21,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin (AQ)","description":"22nd Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":22,"miqaats":[{"title":"Urus Syedi Shaikh Sadiq Ali Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":25,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin bin Syedna Hatim (AQ)","description":"4th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":27,"miqaats":[{"title":"Zikra Milad","description":"Milad Syedna Taher Saifuddin (AQ), 51st Dai al-Mutlaq.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Yusuf Khan bin Syedi Shams Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":1,"miqaats":[{"title":"Urus Syedna Mohammed bin Syedna Hatim (AQ)","description":"12th Dai, Yemen.","phase":"day","priority":1,"year":null}]},{"month":11,"date":6,"miqaats":[{"title":"Urus Syedi Khoj bin Malak","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":9,"miqaats":[{"title":"Yawm ul-Arafa","description":"Takbira from Fajr","phase":"day","priority":1,"year":null},{"title":"Lailat al-Eid-al-Adha","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":11,"date":10,"miqaats":[{"title":"Yawm al-Eid-al-Adha","description":"Takbira","phase":"day","priority":1,"year":null}]},{"month":11,"date":11,"miqaats":[{"title":"Takbira","description":null,"phase":"day","priority":1,"year":null}]},{"month":11,"date":12,"miqaats":[{"title":"Takbira","description":null,"phase":"day","priority":1,"year":null}]},{"month":11,"date":13,"miqaats":[{"title":"Urus Mawlai Feroz bin Ismail","description":null,"phase":"day","priority":3,"year":null},{"title":"Takbira","description":"Until Asr","phase":"day","priority":1,"year":null}]},{"month":11,"date":16,"miqaats":[{"title":"Urus Syedna Yusuf Najmuddin bin Sulaiman (AQ)","description":"24th Dai, Taiba, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Ishaq Bhaishaeb Jamaluddin (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":18,"miqaats":[{"title":"Yawm al-Eid-e-Gadhir-e-Khum","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":11,"date":27,"miqaats":[{"title":"Urus Syedna Abdul Husain Husamuddin (AQ)","description":"48th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Mohammed Burhanuddin (AQ)","description":"49th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":11,"date":29,"miqaats":[{"title":"Urus Ghanj Shohada","description":null,"phase":"day","priority":3,"year":null}]}];</script>
+<script>
+window.MUMINEEN_MIQAATS_DATA = [{"month":0,"date":1,"miqaats":[{"title":"Hijri New Year","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Abdullah Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":2,"miqaats":[{"title":"Urus Mawlai Raj Bin Mawlai Hasan Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Khanji Fir Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Shaikh Pir Jamaluddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":6,"miqaats":[{"title":"Urus Syedi Mohammed Bin Qazikhan","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":7,"miqaats":[{"title":"Urus Syedna Ismail Badruddin (AQ)","description":"38th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null}]},{"month":0,"date":10,"miqaats":[{"title":"Yawme Ashura","description":null,"phase":"day","priority":1,"year":null},{"title":"Shahadat Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Zoeb Bin Musa (AQ)","description":"1st Dai, Hawth, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Ahmed Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":11,"miqaats":[{"title":"Suyum Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"night","priority":1,"year":null}]},{"month":0,"date":14,"miqaats":[{"title":"Urus Mawlai Lukmanji Mulla Alibhai Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":15,"miqaats":[{"title":"Urus Mawlai Nuruddin Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":16,"miqaats":[{"title":"Urus Syedna Hatim bin Syedna Ibrahim (AQ)","description":"3rd Dai, Hutaib, Yemen.","phase":"day","priority":1,"year":null}]},{"month":0,"date":17,"miqaats":[{"title":"Shahadat Imam Ali Zainulabedin (SA)","description":"3rd Imam, Medina, Saudi Arabia.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Ibrahim Vajihuddin (AQ)","description":"39th Dai, Ujjain, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mulla Mohammedali bin Syedi Najam Khan","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mawlai Masud bin Sulaiman","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Seven Shahid Sahebo","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":18,"miqaats":[{"title":"Urus Shahid Gani Pir Ibne Dawoodji","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":23,"miqaats":[{"title":"Urus Syedi Hasan Fir Saheb Shahid","description":"Denmal, India.","phase":"day","priority":2,"year":null},{"title":"Urus Noor Bibi Umme Syedna Yusuf Najmuddin","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Fatema Bibi Ukhte Syedna Yusuf Najmuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":24,"miqaats":[{"title":"Urus Syedi Dada Sulemanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":27,"miqaats":[{"title":"Urus Syedi Fakhruddin Shahid (AQ)","description":"Taherabad, India.","phase":"day","priority":2,"year":null}]},{"month":0,"date":28,"miqaats":[{"title":"Urus Syedi Musaji bin Taj","description":null,"phase":"day","priority":3,"year":null}]},{"month":0,"date":29,"miqaats":[{"title":"Urus Mawlai Hasan Bin Mawlai Adam","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":1,"miqaats":[{"title":"Urus Syedna Ali Bin Syedna Hussain (AQ)","description":"10th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":3,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin Bin Syedna Abdullah (AQ)","description":"18th Dai, Sharaqa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":4,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin (AQ)","description":"41st Dai, Burhanpur, India.","phase":"day","priority":1,"year":null}]},{"month":1,"date":6,"miqaats":[{"title":"Urus Syedi Abdeali Imaduddin","description":"Surat, India.","phase":"day","priority":3,"year":null}]},{"month":1,"date":8,"miqaats":[{"title":"Urus Syedna Khattab Bin Hasan Hamdani (AQ)","description":null,"phase":"day","priority":1,"year":null}]},{"month":1,"date":9,"miqaats":[{"title":"Urus Syedi Tayyib bs Zainuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":12,"miqaats":[{"title":"Urus Syedna Ahmed Hamiduddin Kirmani (RA)","description":null,"phase":"day","priority":1,"year":null}]},{"month":1,"date":13,"miqaats":[{"title":"Urus Mawlai Adam bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":14,"miqaats":[{"title":"Urus Kaka Akela - Kaki Akeli","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mawlai Noorbhai Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":15,"miqaats":[{"title":"Urus Syedi Hamza Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":17,"miqaats":[{"title":"Urus Mawlai Shaikh Saheb bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Shaikh Ibrahim","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Shaikh AbdulHusain Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":1,"date":20,"miqaats":[{"title":"Chelum Imam Hussain (SA)","description":"2nd Imam, Karbala, Iraq.","phase":"day","priority":1,"year":null}]},{"month":1,"date":22,"miqaats":[{"title":"Urus Syedna Hussain bin Syedna Ali (AQ)","description":"8th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":27,"miqaats":[{"title":"Urus Syedna Mohammed Izziuddin (AQ)","description":"23rd Dai, Zabid, Yemen.","phase":"day","priority":1,"year":null}]},{"month":1,"date":28,"miqaats":[{"title":"Shahadat Imam Hassan (SA)","description":"1st Imam, Medina, Saudi Arabia.","phase":"day","priority":1,"year":null}]},{"month":1,"date":29,"miqaats":[{"title":"Urus Syedi Hasan Zakiyuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":1,"miqaats":[{"title":"Urus Syedi Shaikh Adam Safiyuddin","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Jamaluddin bin Shaikh Adam","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":2,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin bin Syedna Dawood bin Qutbub Shah (AQ)","description":"29th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":4,"miqaats":[{"title":"Urus Syedi Habibullah bin Mulla Adamji","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":7,"miqaats":[{"title":"Urus Syedi Shaikh Dawood Bhai Mulla Mehmoodji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Abdeali Mohyiddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":10,"miqaats":[{"title":"Urus Syedna Abdullah Badruddin (AQ)","description":"50th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":12,"miqaats":[{"title":"Eid Milad un-Nabi (SA)","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Ummul Mumineen Amatullah Aaisaheba (QR)","description":"London, UK.","phase":"day","priority":2,"year":null},{"title":"Ayyam al-Ta'abudaat","description":"Start of 40 days of ta'abudaat.","phase":"day","priority":1,"year":null}]},{"month":2,"date":14,"miqaats":[{"title":"Urus Syedi Miaji Mulla Taj Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":16,"miqaats":[{"title":"Urus Syedna Mohammed Burhanuddin (AQ)","description":"52nd Dai, Mumbai, India.","phase":"day","priority":1,"year":1435}]},{"month":2,"date":22,"miqaats":[{"title":"Urus Syedna Ali bin Hanzala (AQ)","description":"6th Dai, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Dawood bin Raj Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":23,"miqaats":[{"title":"Urus Mawlai Raj Saheb","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Qazi Khan bin Ameen Shah","description":null,"phase":"day","priority":3,"year":null}]},{"month":2,"date":25,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin bin Mawlai Hasan (AQ)","description":"30th Dai, Hasanfir, India.","phase":"day","priority":1,"year":null}]},{"month":2,"date":28,"miqaats":[{"title":"Urus Mohammad bin Hasan Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":4,"miqaats":[{"title":"Milad Imam uz-Zaman (SA)","description":"21st Imam.","phase":"day","priority":1,"year":null}]},{"month":3,"date":5,"miqaats":[{"title":"Urus Mia Saheb Maati Bhai Mulla Noor Bhai","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mia Saheb Tayebji Shaikh Shams Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":8,"miqaats":[{"title":"Urus Mawlai Raj bin Mulla Adam Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":10,"miqaats":[{"title":"Urus Syedi AbdulRasul Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":14,"miqaats":[{"title":"Urus Syedi Ismailji Shahid bin Abde Musa","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":16,"miqaats":[{"title":"Urus Syedna Jalal Shamsuddin (AQ) bin Hasan","description":"25th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":3,"date":20,"miqaats":[{"title":"Milad Dai al-Muqaddas, Syedna Mohammed Burhanuddin (AQ)","description":"52nd Dai, Mumbai, India.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Ta'abudaat","description":"End of 40 days of ta'abudaat.","phase":"day","priority":1,"year":null}]},{"month":3,"date":22,"miqaats":[{"title":"Urus Syedna Musa Kalimuddin (AQ)","description":"36th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Mulla Habibullah bin Shaikh Sultanali","description":null,"phase":"day","priority":3,"year":null}]},{"month":3,"date":27,"miqaats":[{"title":"Urus Syedna Dawood Burhanuddin bin Ajab Shah (AQ)","description":"26th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":3,"date":28,"miqaats":[{"title":"Urus Kakaji Mulla Isa Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":1,"miqaats":[{"title":"Urus Syedna Ahmed Al Mukaraam","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":3,"miqaats":[{"title":"Urus Syedi Qazi Khan bin Ali","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":8,"miqaats":[{"title":"Urus Syedi Mulla Wahid Bhaisaheb bin Mulla Ibrahimji","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":10,"miqaats":[{"title":"Shahadat Maulatena Fatema tuz Zahra (SA)","description":"Binte Nabi Mohammed Rasullulah (SA).","phase":"day","priority":1,"year":null}]},{"month":4,"date":11,"miqaats":[{"title":"Urus Mawlai Nooruddin Saheb","description":"Dawngham, India.","phase":"day","priority":3,"year":null}]},{"month":4,"date":15,"miqaats":[{"title":"Urus Mawlai Dawood bin Qazi Ahmed","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":17,"miqaats":[{"title":"Urus Syedi Dawood Bhaisaheb Shihabuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":21,"miqaats":[{"title":"Urus Seth Chanda bhai ibne Karim Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":23,"miqaats":[{"title":"Urus Mulla Jaferji Jiwaji","description":null,"phase":"day","priority":3,"year":null}]},{"month":4,"date":29,"miqaats":[{"title":"Urus Syedi Jivanji bin Shaikh Dawood Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":8,"miqaats":[{"title":"Urus Syedi Luqmaanji bin Mulla Habibullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":12,"miqaats":[{"title":"Urus Mulla Tayyib Bawa bin Mulla Ibrahimji","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":14,"miqaats":[{"title":"Urus Ganje Shohoda","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":15,"miqaats":[{"title":"Urus Syedna Dawood Burhanuddin (AQ) bin Qutub Shah","description":"27th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Ali bhai Shahid","description":"Indore, India.","phase":"day","priority":3,"year":null}]},{"month":5,"date":18,"miqaats":[{"title":"Urus Syedna Yusuf Najmuddin (AQ)","description":"42nd Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Adam ibne Dawood","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Moulai Burhanuddin Ibne Khoj Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":5,"date":23,"miqaats":[{"title":"Urus Syedna Ismail Badruddin (AQ) bin Mawlai Raj","description":"34th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null}]},{"month":5,"date":27,"miqaats":[{"title":"Urus Syedna Qutub Khan Qutbuddin Shahid (AQ)","description":"32nd Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Lamak bin Malik (RA)","description":null,"phase":"day","priority":1,"year":null}]},{"month":5,"date":28,"miqaats":[{"title":"Urus Syedna Ahmed bin Mubarak (AQ)","description":"7th Dai, Hamdaan, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Yahya bin Syedna Lamak (AQ)","description":null,"phase":"day","priority":1,"year":null}]},{"month":5,"date":29,"miqaats":[{"title":"Urus Syedna Mohammed Badruddin (AQ)","description":"46th Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Rajab al-Asab Pehli raat","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedna Qadi Numan bin Mohammed (AQ)","description":null,"phase":"day","priority":1,"year":null},{"title":"Urus Ajab Busaheba Binte Syedna Qutubuddin Shahid (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":1,"miqaats":[{"title":"Rajab al-Asab Pehli taarik","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":6,"date":2,"miqaats":[{"title":"Urus Mawlai Raj bin Dawood","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Bhaiji Bhai Ibne Qazi Bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":4,"miqaats":[{"title":"Urus Syedna Noor Mohammed Nooruddin (AQ)","description":"37th Dai, Mandwi, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Hasanji Badshah","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":7,"miqaats":[{"title":"Urus Syedna Shaikh Adam Safiyuddin (AQ)","description":"28th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":6,"date":8,"miqaats":[{"title":"Urus Syedi Saifuddin Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":12,"miqaats":[{"title":"Urus Syedi Najam Khan bin Syedna Fir Khan Shujahuddin AQ","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":13,"miqaats":[{"title":"Milad Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA)","phase":"day","priority":1,"year":null},{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":6,"date":14,"miqaats":[{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Abdul Mutalib Najmuddin (AQ)","description":"14th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Mawlai Yaqub Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":15,"miqaats":[{"title":"Ayyam ul-Beez","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Salaat uz-Zawaal","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":17,"miqaats":[{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":18,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin (AQ)","description":"13th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":19,"miqaats":[{"title":"Urus Syedna Taher Saifuddin (AQ)","description":"51st Dai, Mumbai, India.","phase":"day","priority":1,"year":null},{"title":"Ayyam al-Barakaat ul-Khuldiyah","description":null,"phase":"day","priority":1,"year":null}]},{"month":6,"date":24,"miqaats":[{"title":"Urus Syedi Qamruddin Bhaisaheb bin Syedna Haibatullah Al Muaid (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":26,"miqaats":[{"title":"Shab-e-Meraaj","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedna Abdulqadir Najmuddin (AQ)","description":"47th Dai, Ujjain, India.","phase":"day","priority":1,"year":null}]},{"month":6,"date":27,"miqaats":[{"title":"Yawm-al-Maba'th","description":"Rozu","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Miasaheb Alibhai bin Peeriji","description":null,"phase":"day","priority":3,"year":null}]},{"month":6,"date":29,"miqaats":[{"title":"Urus Syedi Luqmaanji bin Syedi Dawood bhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":1,"miqaats":[{"title":"Urus Syedna Hebatullah Muayyadfiddin (AQ)","description":"40th Dai, Ujjain, India.","phase":"day","priority":1,"year":null}]},{"month":7,"date":14,"miqaats":[{"title":"Shab-e-Baraat","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":7,"date":15,"miqaats":[{"title":"Urus Syedna Hasan Badruddin (AQ)","description":"20th Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":7,"date":16,"miqaats":[{"title":"Urus Syedna Ibrahim bin Husain (AQ)","description":"2nd Dai, Ghailbani Hamid, Yemen.","phase":"day","priority":1,"year":null}]},{"month":7,"date":19,"miqaats":[{"title":"Urus Syedi Saleh Bhaisaheb Saifuddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":22,"miqaats":[{"title":"Urus Moulatena Hurratul Maleka (RA)","description":"Ummul Duat Mutlaqeen, Zijibla, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Shaikhfir bin Dawood Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":7,"date":25,"miqaats":[{"title":"Urus Syedi Shams Khan bin Syedi Yusufji","description":"Surat, India.","phase":"day","priority":3,"year":null}]},{"month":7,"date":29,"miqaats":[{"title":"Ramadaan al-Moazzan Pehli raat","description":null,"phase":"night","priority":1,"year":null},{"title":"Urus Syedna Ali bin Mawla Mohammed al-Walid (AQ)","description":"5th Dai, Haraaz, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Jiwanji bin Shaikh Dawoodbhai","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":1,"miqaats":[{"title":"Urus Shaikh Dawood Bhaisaheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":2,"miqaats":[{"title":"Urus Syedi Wali Bhaisaheb bin Syedi Habibullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":4,"miqaats":[{"title":"Urus Syedi Tayyib Bhaisaheb Zainuddin (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":8,"miqaats":[{"title":"Urus Syedi Fazal Bhaisaheb Qutubuddin bin Syedna Abdullah (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":9,"miqaats":[{"title":"Urus Syedna Abdullah Fakhruddin (AQ)","description":"16th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":8,"date":16,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null},{"title":"Urus Syedi Hebatullah Jamaluddin","description":null,"phase":"day","priority":3,"year":null}]},{"month":8,"date":18,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":8,"date":19,"miqaats":[{"title":"Shahadat Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA).","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Mohammed Ezzuddin (AQ)","description":"44th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":8,"date":20,"miqaats":[{"title":"Lailat al-Fahdil","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":8,"date":21,"miqaats":[{"title":"Wafaat Amir ul-Mumineen (SA)","description":"Wasi Moulana Ali Ibn Ali Talib (SA).","phase":"day","priority":1,"year":null}]},{"month":8,"date":22,"miqaats":[{"title":"Lailat al-Qadr","description":null,"phase":"night","priority":1,"year":null}]},{"month":8,"date":23,"miqaats":[{"title":"Milad Dai az-Zamaan, Syedna Mufaddal Saifuddin (TUS)","description":"53rd Dai al-Mutlaq","phase":"day","priority":1,"year":null}]},{"month":8,"date":29,"miqaats":[{"title":"Lailat al-Thala'theen","description":null,"phase":"night","priority":1,"year":null}]},{"month":8,"date":30,"miqaats":[{"title":"Lailat ul-Eid-ul-Fitr","description":"Washeq, Takbira","phase":"night","priority":1,"year":null}]},{"month":9,"date":1,"miqaats":[{"title":"Yawm al-Eid-ul-Fitr","description":"Takbira until Asr","phase":"day","priority":1,"year":null}]},{"month":9,"date":3,"miqaats":[{"title":"Urus Shehzadi Sakina Bhensaheba","description":"Mumbai, India.","phase":"day","priority":2,"year":null}]},{"month":9,"date":4,"miqaats":[{"title":"Urus Syedi Yusufji","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Syedi Taiyebji Shahid","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":5,"miqaats":[{"title":"Urus Syedi Abdul Qadir Hakimuddin (AQ)","description":"1st Urus, Burhanpur, India.","phase":"day","priority":1,"year":null}]},{"month":9,"date":6,"miqaats":[{"title":"Urus Syedna Hasan Badruddin (AQ)","description":"17th Dai, Zimarmar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":7,"miqaats":[{"title":"Urus Syedna Mohammed bin Taher (AQ)","description":"Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":8,"miqaats":[{"title":"Urus Syedna Abbas bin Syedna Mohammed (AQ)","description":"15th Dai, Hisne Afedat, Yemen.","phase":"day","priority":1,"year":null}]},{"month":9,"date":9,"miqaats":[{"title":"Urus Syedna Qasim Khan Zainuddin (AQ)","description":"31st Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":9,"date":10,"miqaats":[{"title":"Urus Syedna Ibrahim bin Syedna Husain (AQ)","description":"11th Dai, Hisne Afedat, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Husain Husamuddin (AQ)","description":"21st Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Hebatullah Muayyadfiddin Shirazi (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":13,"miqaats":[{"title":"Urus Syedi Aminji bin Jalal","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":24,"miqaats":[{"title":"Urus Shaikh Qutub Bhai bin Sulaimanji","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":27,"miqaats":[{"title":"Urus Syedi Abdul Qadir Hakimuddin (AQ)","description":"2nd Urus, Burhanpur, India.","phase":"day","priority":1,"year":null},{"title":"Urus Mia Saheb Abdeali Waliullah","description":null,"phase":"day","priority":3,"year":null}]},{"month":9,"date":29,"miqaats":[{"title":"Urus Syedi Bawa Mulla Khan Saheb","description":"Rampura, India.","phase":"day","priority":3,"year":null},{"title":"Urus Syedi Qasim Khan bin Hamza Bhai","description":null,"phase":"day","priority":3,"year":null},{"title":"Urus Mulla Salehbhai Ibne Najamkhan","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":9,"miqaats":[{"title":"Urus Syedna Fir Khan Shujahuddin (AQ)","description":"33rd Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null}]},{"month":10,"date":11,"miqaats":[{"title":"Urus Syedna Ali bin Mohammed Sulayhi (RA)","description":"Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Hasan bin Nuh Bharuji","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":12,"miqaats":[{"title":"Urus Syedna Abdul Tayyib Zakiyuddin (AQ)","description":"35th Dai, Jamnagar, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Abdeali Saifuddin (AQ)","description":"43rd Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":10,"date":13,"miqaats":[{"title":"Urus Syedna Ali bin Syedna Husain (AQ)","description":"9th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":15,"miqaats":[{"title":"Urus Syedna Tayyib Zainuddin (AQ)","description":"45th Dai, Surat, India.","phase":"day","priority":1,"year":null},{"title":"Urus Bai Saheba Raani Baisaheba (RA)","description":"Binte Syedna Ismail Badruddin (AQ)","phase":"day","priority":3,"year":null}]},{"month":10,"date":19,"miqaats":[{"title":"Urus Syedna Idris Imaduddin (AQ)","description":"19th Dai, Shebaam, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":21,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin (AQ)","description":"22nd Dai, Masaar, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":22,"miqaats":[{"title":"Urus Syedi Shaikh Sadiq Ali Saheb","description":null,"phase":"day","priority":3,"year":null}]},{"month":10,"date":25,"miqaats":[{"title":"Urus Syedna Ali Shamsuddin bin Syedna Hatim (AQ)","description":"4th Dai, Sanaa, Yemen.","phase":"day","priority":1,"year":null}]},{"month":10,"date":27,"miqaats":[{"title":"Zikra Milad","description":"Milad Syedna Taher Saifuddin (AQ), 51st Dai al-Mutlaq.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Yusuf Khan bin Syedi Shams Khan","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":1,"miqaats":[{"title":"Urus Syedna Mohammed bin Syedna Hatim (AQ)","description":"12th Dai, Yemen.","phase":"day","priority":1,"year":null}]},{"month":11,"date":6,"miqaats":[{"title":"Urus Syedi Khoj bin Malak","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":9,"miqaats":[{"title":"Yawm ul-Arafa","description":"Takbira from Fajr","phase":"day","priority":1,"year":null},{"title":"Lailat al-Eid-al-Adha","description":"Washeq","phase":"night","priority":1,"year":null}]},{"month":11,"date":10,"miqaats":[{"title":"Yawm al-Eid-al-Adha","description":"Takbira","phase":"day","priority":1,"year":null}]},{"month":11,"date":11,"miqaats":[{"title":"Takbira","description":null,"phase":"day","priority":1,"year":null}]},{"month":11,"date":12,"miqaats":[{"title":"Takbira","description":null,"phase":"day","priority":1,"year":null}]},{"month":11,"date":13,"miqaats":[{"title":"Urus Mawlai Feroz bin Ismail","description":null,"phase":"day","priority":3,"year":null},{"title":"Takbira","description":"Until Asr","phase":"day","priority":1,"year":null}]},{"month":11,"date":16,"miqaats":[{"title":"Urus Syedna Yusuf Najmuddin bin Sulaiman (AQ)","description":"24th Dai, Taiba, Yemen.","phase":"day","priority":1,"year":null},{"title":"Urus Syedi Ishaq Bhaishaeb Jamaluddin (AQ)","description":null,"phase":"day","priority":3,"year":null}]},{"month":11,"date":18,"miqaats":[{"title":"Yawm al-Eid-e-Gadhir-e-Khum","description":"Rozu","phase":"day","priority":1,"year":null}]},{"month":11,"date":27,"miqaats":[{"title":"Urus Syedna Abdul Husain Husamuddin (AQ)","description":"48th Dai, Ahmedabad, India.","phase":"day","priority":1,"year":null},{"title":"Urus Syedna Mohammed Burhanuddin (AQ)","description":"49th Dai, Surat, India.","phase":"day","priority":1,"year":null}]},{"month":11,"date":29,"miqaats":[{"title":"Urus Ghanj Shohada","description":null,"phase":"day","priority":3,"year":null}]}];
+</script>
 </head>
 <body>
 <div class="app-wrapper">
 
-  <!-- Offline status indicator (only 'Currently you are offline') -->
+  <!-- Offline status indicator -->
   <div id="offlineIndicator" class="offline-banner" role="status" aria-live="polite">Currently you are offline</div>
 
   <!-- Screen reader announcer -->
@@ -1858,7 +1699,7 @@
       </div>
     </header>
 
-    <!-- Navigation & Options Popup Sheet (outside micro-header so it never gets clipped) -->
+    <!-- Navigation & Options Popup Sheet -->
     <div id="headerMenuBackdrop" class="header-menu-backdrop" role="dialog" aria-modal="true" aria-label="Navigation Menu">
       <div id="headerDropdownMenu" class="header-dropdown-menu" role="menu" aria-label="Navigation and options">
         <div class="menu-popup-header">
@@ -1917,7 +1758,7 @@
           </button>
         </div>
 
-        <!-- 1. Today's Dishes Grid (At Top) -->
+        <!-- 1. Today's Dishes Grid -->
         <div style="margin-bottom:14px;">
           <div style="font-family:'Playfair Display', serif; font-size:0.95rem; font-weight:700; color:#5a422d; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
             <span>🍲</span> <span>Today's Dishes</span>
@@ -1925,7 +1766,7 @@
           <div class="expand-menu-text" id="spotlightMenuText" style="font-size:0.95rem; background:#fffaf3; padding:12px; border-radius:14px; border:1px solid #f2e4d3; line-height:1.6;"></div>
         </div>
 
-        <!-- 2. Arabic Date Card (Synced with Mumineen Calendar - Below Dishes) -->
+        <!-- 2. Arabic Date Card -->
         <div class="mumineen-date-card" id="todayArabicDateCard">
           <div class="mumineen-card-header">
             <div class="mumineen-title-wrap">
@@ -1946,13 +1787,13 @@
           </div>
         </div>
 
-        <!-- 3. Info Grid (Below Dishes & Date) -->
+        <!-- 3. Info Section -->
         <div style="margin-bottom:14px;">
           <div class="extra-head" style="font-size:0.85rem; margin-bottom:6px;">Info</div>
           <div class="extra-detail" id="spotlightExtraText" style="font-size:0.85rem; background:#fff9f0; padding:12px; border-radius:14px; border:1px solid #eadbc8; color:#4a3728; line-height:1.5;">Prepared with authentic ingredients according to Mawaid guidelines.</div>
         </div>
 
-        <!-- 3. Minimalist Live Weather Widget (At Bottom) -->
+        <!-- 4. Minimalist Live Weather Widget -->
         <div id="todayWeatherWidget" style="margin-top:0; padding:10px 14px; border-radius:14px; border:1px solid #ebd9c5; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
           <div style="display:flex; align-items:center; gap:10px;">
             <div id="weatherIcon" style="font-size:1.6rem; line-height:1;">🌤️</div>
@@ -2194,10 +2035,8 @@
   </div>
 </div>
 
-
-
 <script>
-  // ── SAFE NON-BLOCKING TOAST (Avoiding window.alert in iframes) ──
+  // ── SAFE NON-BLOCKING TOAST ──
   function showAppToast(message, duration = 4000) {
     let toast = document.getElementById('globalAppToast');
     if (!toast) {
@@ -2240,10 +2079,9 @@
 
   // ── CACHE KEYS & STATE ────────────────────────────────────
   const MENU_CACHE_KEY = 'chattogram_tiffin_menu_v2';
-  const CHK_CACHE_KEY  = 'chattogram_tiffin_chks_v1';
   let globalMenuData   = [];
 
-  // ── ADVANCED CROSS-PLATFORM PWA INSTALL SYSTEM ────────────
+  // ── PWA INSTALL SYSTEM ────────────
   let deferredPrompt  = null;
   const installBtn    = document.getElementById('installAppBtn');
   const pwaModal      = document.getElementById('pwaInstallModal');
@@ -2268,7 +2106,6 @@
     }
   }
 
-  // Initial check on load
   updateInstallBtnVisibility();
 
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -2374,48 +2211,11 @@
   // ── SERVICE WORKER ───────────────────────────────────────
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js?v=BUILD_HASH', { updateViaCache: 'none' })
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
         .then(reg => {
           reg.update();
-          reg.addEventListener('updatefound', () => {
-            const nw = reg.installing;
-            nw.addEventListener('statechange', () => {
-              if (nw.state === 'activated') window.location.reload();
-            });
-          });
         }).catch(err => console.log('SW failed:', err));
-
-      navigator.serviceWorker.addEventListener('message', (e) => {
-        if (e.data && e.data.type === 'SW_ACTIVATED') window.location.reload();
-      });
     });
-  }
-
-  // ── ACCESSIBILITY & TEXT SIZE TOGGLE ──────────────────────
-  const textSizeBtn = document.getElementById('textSizeToggleBtn');
-  let isLargeText = localStorage.getItem('chattogram_a11y_text') === 'true';
-
-  function applyTextSize() {
-    if (isLargeText) {
-      document.body.classList.add('large-text-mode');
-    } else {
-      document.body.classList.remove('large-text-mode');
-    }
-    localStorage.setItem('chattogram_a11y_text', isLargeText);
-  }
-  applyTextSize();
-
-  if (textSizeBtn) {
-    textSizeBtn.addEventListener('click', () => {
-      isLargeText = !isLargeText;
-      applyTextSize();
-      announceA11y(isLargeText ? 'Large text enabled' : 'Standard text enabled');
-    });
-  }
-
-  function announceA11y(msg) {
-    const el = document.getElementById('a11yAnnouncer');
-    if (el) el.textContent = msg;
   }
 
   // ── MENU API & INSTANT CACHE ──────────────────────────────
@@ -2455,13 +2255,13 @@
   }
 
   async function fetchMenuData(statusCb) {
-    statusCb('Connecting to kitchen...');
+    if (statusCb) statusCb('Connecting to kitchen...');
     const ctrl = new AbortController();
     const tid  = setTimeout(() => ctrl.abort(), 6000);
     const resp = await fetch(MENU_API, { signal: ctrl.signal });
     clearTimeout(tid);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    statusCb('Unfolding recipes...');
+    if (statusCb) statusCb('Unfolding recipes...');
     const json = await resp.json();
     if (json && json.error) throw new Error(json.message);
     if (!Array.isArray(json) || !json.length) return [];
@@ -2475,7 +2275,6 @@
       menuColors : Array.isArray(row.menuColors) ? row.menuColors : []
     }));
 
-    // Cache locally for instant next load
     try {
       localStorage.setItem(MENU_CACHE_KEY, JSON.stringify({
         data: parsed,
@@ -2483,12 +2282,11 @@
       }));
     } catch (e) {}
 
-    statusCb('✨ Menu ready! ✨');
+    if (statusCb) statusCb('✨ Menu ready! ✨');
     return parsed;
   }
 
   // ── SPEAK SYSTEM ─────────────────────────────────────────
-  const speakCache = {};
   let currentUtterance = null;
   let currentSpeakBtn = null;
   let currentFlipCard = null;
@@ -2535,7 +2333,6 @@
     }
     if (card) card.classList.add('speaking');
 
-    // Keep-alive timer prevents Chrome / WebView from stalling on longer speech strings
     clearInterval(window._speechKeepAliveTimer);
     window._speechKeepAliveTimer = setInterval(() => {
       if (speechSynthesis && speechSynthesis.speaking) {
@@ -2573,7 +2370,6 @@
 
     let cleanText = `On ${day} ${date}, the menu includes: ` + menuRaw.replace(/\n/g, ', ');
     if (miqaatTitles) {
-      // Format miqaat titles cleanly so speech synthesis reads each title totally
       const cleanMiqaats = miqaatTitles
         .replace(/\s*•\s*/g, ', and ')
         .replace(/\(AQ\)/gi, '')
@@ -2591,7 +2387,6 @@
   const moreMenuBtn = document.getElementById('headerMoreMenuBtn');
   const menuBackdrop = document.getElementById('headerMenuBackdrop');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
-  const dropdownMenu = document.getElementById('headerDropdownMenu');
 
   function openDropdown() {
     if (!menuBackdrop) return;
@@ -2663,7 +2458,6 @@
     });
 
     closeDropdown();
-    announceA11y(`Switched to ${targetId.replace('panel-', '')} view`);
   }
 
   tabBtns.forEach(btn => {
@@ -2673,30 +2467,12 @@
     });
   });
 
-  // Keyboard navigation for dropdown menu
-  if (dropdownMenu) {
-    dropdownMenu.addEventListener('keydown', (e) => {
-      const items = Array.from(dropdownMenu.querySelectorAll('button:not([style*="display:none"])'));
-      const idx = items.indexOf(document.activeElement);
-      if (idx === -1) return;
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        items[(idx + 1) % items.length].focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        items[(idx - 1 + items.length) % items.length].focus();
-      }
-    });
-  }
-
   // ── LIVE MINIMALIST GOOGLE WEATHER WIDGET ──────────────────────
   let isWeatherFetching = false;
 
   function setWidgetTheme(themeName) {
     const widget = document.getElementById('todayWeatherWidget');
     if (!widget) return;
-    // Remove existing weather theme classes
     widget.className = widget.className.split(' ').filter(c => !c.startsWith('weather-theme-')).join(' ');
     widget.classList.add(`weather-theme-${themeName}`);
 
@@ -2805,7 +2581,6 @@
   }
 
   // ── AUTHENTIC DAWOODI BOHRA (FATIMID / MISRI TABULAR) CALENDAR ENGINE ──
-  // Lifetime mathematical precision (1 AH to 3000+ AH) based on the 30-year astronomical cycle (Dawr).
   const MUMINEEN_KABISA_YEARS = [2, 5, 8, 10, 13, 16, 19, 21, 24, 27, 29];
   const MUMINEEN_MONTH_DAYS_ACC = [30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325];
   const MUMINEEN_YEAR_DAYS_ACC = [
@@ -2889,41 +2664,6 @@
     return { year, month, day };
   }
 
-  function bohraHijriToAJD(year, month, day) {
-    const dayOfYear = month === 0 ? day : MUMINEEN_MONTH_DAYS_ACC[month - 1] + day;
-    const cycle = Math.floor(year / 30);
-    let ajd = 1948083.5 + 10631 * cycle + dayOfYear;
-    const rem = year % 30;
-    if (rem !== 0) {
-      ajd += MUMINEEN_YEAR_DAYS_ACC[rem - 1];
-    }
-    return ajd;
-  }
-
-  function bohraAJDToGregorian(ajd) {
-    let s = Math.floor(ajd + 0.5);
-    let i = ajd + 0.5 - s;
-    let t;
-    if (s < 2299161) {
-      t = s;
-    } else {
-      const c = Math.floor((s - 1867216.25) / 36524.25);
-      t = s + 1 + c - Math.floor(0.25 * c);
-    }
-    const n = t + 1524;
-    const r = Math.floor((n - 122.1) / 365.25);
-    const o = Math.floor(365.25 * r);
-    const a = Math.floor((n - o) / 30.6001);
-    const l = n - o - Math.floor(30.6001 * a) + i;
-    const d = 24 * (l - Math.floor(l));
-    const h = 60 * (d - Math.floor(d));
-    const f = 60 * (h - Math.floor(h));
-    const m = 1000 * (f - Math.floor(f));
-    const p = a < 14 ? a - 2 : a - 14;
-    const u = p < 2 ? r - 4715 : r - 4716;
-    return new Date(u, p, Math.floor(l), Math.floor(d), Math.floor(h), Math.floor(f), Math.floor(m));
-  }
-
   function computeMumineenHijri(dateObj) {
     if (!dateObj || isNaN(dateObj.getTime())) dateObj = new Date();
     const noonDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 0, 0, 0);
@@ -2948,7 +2688,7 @@
 
     return {
       day: h.day,
-      month: h.month, // 0-indexed
+      month: h.month,
       monthNumber: h.month + 1,
       year: h.year,
       monthAr,
@@ -2970,46 +2710,6 @@
     };
   }
 
-  function enrichMiqaatClient(m, hijriYear) {
-    const title = m.title || '';
-    const desc = m.description || '';
-    let category = 'Miqaat';
-    let icon = '✨';
-
-    if (title.includes('Urus')) {
-      category = 'Urus Mubarak';
-      icon = '🕌';
-    } else if (title.includes('Milad') || title.includes('Zikra Milad')) {
-      category = 'Milad Mubarak';
-      icon = '🌟';
-    } else if (title.includes('Shahadat') || title.includes('Wafaat')) {
-      category = 'Shahadat';
-      icon = '🕊️';
-    } else if (title.includes('Eid') || title.includes('Ashura') || title.includes('Gadhir') || title.includes('Meraaj')) {
-      category = 'Azeem Miqaat';
-      icon = '👑';
-    } else if (title.includes('Raat') || title.includes('Shab') || title.includes('Lailat') || m.phase === 'night') {
-      category = 'Washeq / Night Ibadat';
-      icon = '🌙';
-    } else if (title.includes('Ayyam') || title.includes('Rozu') || title.includes('Takbira')) {
-      category = 'Fazilat / Fasting';
-      icon = '🤲';
-    }
-
-    let daiNumber = null;
-    const daiMatch = desc.match(/(\d+)(?:st|nd|rd|th)\s+Dai/i) || title.match(/(\d+)(?:st|nd|rd|th)\s+Dai/i);
-    if (daiMatch) daiNumber = parseInt(daiMatch[1], 10);
-
-    return {
-      ...m,
-      category,
-      icon,
-      daiNumber,
-      isApplicable: !m.year || m.year <= hijriYear
-    };
-  }
-
-  // ── AUTHENTIC DAWOODI BOHRA HIJRI & MIQAAT SYNCHRONIZATION ──
   function renderMiqaatForHijri(hijriInfo) {
     const miqaatBadge = document.getElementById('todayMiqaatBadge');
     const miqaatText  = document.getElementById('todayMiqaatText');
@@ -3031,26 +2731,20 @@
     const secondaryEl = document.getElementById('todayArabicDateSecondary');
     if (!primaryEl || !secondaryEl) return;
 
-    // In Dawoodi Bohra calendar tradition, sunset (Maghrib) initiates the new Islamic date (Raat/Eve)
     const currentHour = dateObj.getHours();
     const isNight = currentHour >= 18 || currentHour < 6;
 
-    // Daylight Hijri date calculation
     const localDayHijri = computeMumineenHijri(dateObj);
-    // Eve Hijri date calculation (for observance at night)
     const nextDayDate = new Date(dateObj.getTime() + 86400000);
     const localEveHijri = computeMumineenHijri(nextDayDate);
 
     const activeHijri = isNight ? localEveHijri : localDayHijri;
 
-    // 1. Instant mathematically exact Fatimid calculation display
     primaryEl.textContent   = activeHijri.formattedAr;
     secondaryEl.textContent = activeHijri.formattedEn;
 
-    // 2. Render Miqaat instantly from embedded/cached dataset
     let didRender = renderMiqaatForHijri(activeHijri);
 
-    // 3. Keep synchronized with authoritative Dawoodi Bohra Mumineen Calendar API
     try {
       const resp = await fetch('/api/mumineen-calendar?phase=' + (isNight ? 'night' : 'day'));
       if (resp.ok) {
@@ -3077,7 +2771,6 @@
       }
     } catch (e) {}
 
-    // Fallback: direct to official Dawoodi Bohra Mumineen Calendar website API
     if (!didRender && (!window.MUMINEEN_MIQAATS_DATA || !window.MUMINEEN_MIQAATS_DATA.length)) {
       try {
         const resp2 = await fetch('https://www.mumineencalendar.com/data/miqaats.json');
@@ -3092,7 +2785,7 @@
     }
   }
 
-  // ── TODAY'S SPOTLIGHT & ATTACHED MENU ───────────────────
+  // ── TODAY'S SPOTLIGHT ───────────────────
   let todayAttachedMenuText = '';
 
   function updateTodaySpotlight(menuItems) {
@@ -3102,7 +2795,6 @@
     const todayDateEl   = document.getElementById('spotlightDate');
     const todayMenuEl   = document.getElementById('spotlightMenuText');
     const todayExtraEl  = document.getElementById('spotlightExtraText');
-    const statusBadge   = document.getElementById('spotlightStatusBadge');
     const attachedValEl = document.getElementById('feedbackMenuTextVal');
 
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -3124,38 +2816,9 @@
       if (todayExtraEl) todayExtraEl.innerHTML = escapeWithBreaks(matching.extra) || 'Prepared with authentic ingredients according to Mawaid guidelines.';
       if (attachedValEl) attachedValEl.textContent = todayAttachedMenuText;
     }
-
-    // Live countdown to 10:00 AM
-    const cutoffEl = document.getElementById('cutoffCountdown');
-    function updateClock() {
-      const t = new Date();
-      const cutoff = new Date(t.getFullYear(), t.getMonth(), t.getDate(), 10, 0, 0);
-
-      if (t > cutoff) {
-        if (cutoffEl) cutoffEl.textContent = "Closed";
-        if (statusBadge) {
-          statusBadge.textContent = "Kitchen Closed";
-          statusBadge.style.background = "#e6f4ea";
-          statusBadge.style.color = "#1e7e34";
-        }
-      } else {
-        const diff = cutoff - t;
-        const hrs  = Math.floor(diff / 3600000);
-        const mins = Math.floor((diff % 3600000) / 60000);
-        const secs = Math.floor((diff % 60000) / 1000);
-        if (cutoffEl) {
-          cutoffEl.textContent = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-        }
-        if (statusBadge) {
-          statusBadge.textContent = "Before 10 AM Cutoff";
-        }
-      }
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
   }
 
-  // ── SHARE & PDF EXPORT HANDLERS ───────────────────────────
+  // ── SHARE HANDLERS ───────────────────────────
   function shareFormattedMenu(day, date, menuRaw, hijriText = '', miqaatText = '') {
     const dishList = splitMenuItems(menuRaw);
     const dishes = dishList.length ? dishList.map(d => `• ${d}`).join('\n') : '• No menu listed';
@@ -3171,10 +2834,10 @@
       }).catch(() => {});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(() => {
-        alert('📲 Menu copied to clipboard! You can paste and send it in WhatsApp.');
+        showAppToast('📲 Menu copied to clipboard! You can paste and send it in WhatsApp.');
       });
     } else {
-      alert(text);
+      showAppToast(text);
     }
   }
 
@@ -3191,34 +2854,6 @@
       script.onerror = () => reject(new Error('Failed to load image generator library'));
       document.head.appendChild(script);
     });
-  }
-
-  async function loadMiqaatsDataset() {
-    if (Array.isArray(window.MUMINEEN_MIQAATS_DATA) && window.MUMINEEN_MIQAATS_DATA.length) {
-      return window.MUMINEEN_MIQAATS_DATA;
-    }
-    try {
-      const resp = await fetch('/miqaats.json');
-      if (resp.ok) {
-        const json = await resp.json();
-        if (Array.isArray(json) && json.length) {
-          window.MUMINEEN_MIQAATS_DATA = json;
-          return json;
-        }
-      }
-    } catch (e) {}
-
-    try {
-      const resp2 = await fetch('https://www.mumineencalendar.com/data/miqaats.json');
-      if (resp2.ok) {
-        const json2 = await resp2.json();
-        if (Array.isArray(json2) && json2.length) {
-          window.MUMINEEN_MIQAATS_DATA = json2;
-          return json2;
-        }
-      }
-    } catch (e2) {}
-    return [];
   }
 
   function getGregorianDateForMenuItem(item, index = 0) {
@@ -3281,6 +2916,7 @@
     return dayObj.miqaats.filter(m => !m.year || m.year <= hijriInfo.year);
   }
 
+  /* Graphic Card Node matching single-line top row & slightly shorter height */
   function createStaticCardGraphicNode(item, fallbackDay, index = 0) {
     const dayVal   = item && item.day ? item.day.trim() : fallbackDay;
     const monthVal = item && item.month ? item.month.trim() : '';
@@ -3299,8 +2935,8 @@
     if (miqaats && miqaats.length) {
       miqaatTitles = miqaats.map(m => m.title).join(' • ');
       cardMiqaatHtml = `
-        <div style="background:linear-gradient(135deg, #fffcf0 0%, #fef3c7 100%); border:1px solid #f6d89b; border-radius:8px; padding:4px 7px; margin-top:4px; display:flex; align-items:flex-start; gap:5px; font-size:0.68rem; font-weight:750; color:#854d0e; line-height:1.35; width:100%; box-sizing:border-box;">
-          <span style="font-size:0.72rem; flex-shrink:0; margin-top:1px; line-height:1;">✨</span>
+        <div style="background:linear-gradient(135deg, #fffcf0 0%, #fef3c7 100%); border:1px solid #f6d89b; border-radius:7px; padding:3px 6px; margin-top:2px; display:flex; align-items:flex-start; gap:4px; font-size:0.64rem; font-weight:750; color:#854d0e; line-height:1.25; width:100%; box-sizing:border-box;">
+          <span style="font-size:0.68rem; flex-shrink:0; line-height:1;">✨</span>
           <span style="flex:1; min-width:0; white-space:normal; word-break:normal; overflow-wrap:break-word; color:#854d0e; font-weight:750;">Miqaat: ${escapeText(miqaatTitles)}</span>
         </div>
       `;
@@ -3312,22 +2948,22 @@
       const color = (colors[di] || '').toString().trim().toLowerCase();
       const isDefault = !color || color === 'null' || color === '#ffffff' || color === '#fff' || color === '#000000' || color === '#000';
       if (!isDefault) {
-        return `<div style="color:${color}; font-weight:750; font-size:0.98rem; line-height:1.44; margin-bottom:2px;">• ${safe}</div>`;
+        return `<div style="color:${color}; font-weight:750; font-size:0.92rem; line-height:1.38; margin-bottom:2px;">• ${safe}</div>`;
       }
-      return `<div style="color:#2b231c; font-weight:750; font-size:0.98rem; line-height:1.44; margin-bottom:2px;">• ${safe}</div>`;
+      return `<div style="color:#2b231c; font-weight:750; font-size:0.92rem; line-height:1.38; margin-bottom:2px;">• ${safe}</div>`;
     }).join('');
 
     const safeDay = escapeText(dayVal);
 
     return `
-      <div style="background:#fffffffb; border:1px solid #dfceb6; border-radius:18px; box-shadow:0 2px 6px rgba(0,0,0,0.03); padding:10px 10px 10px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:195px; box-sizing:border-box;">
+      <div style="background:#fffffffb; border:1px solid #dfceb6; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03); padding:8px 8px 8px 8px; display:flex; flex-direction:column; justify-content:space-between; min-height:168px; box-sizing:border-box;">
         <div>
-          <!-- day-row -->
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; padding-bottom:3px; border-bottom:1px solid #f0e2d2; gap:4px; width:100%; box-sizing:border-box;">
-            <span style="font-family:'Playfair Display', serif; font-size:0.96rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${safeDay}</span>
-            <div style="display:flex; align-items:center; gap:4px; flex-shrink:0; white-space:nowrap;">
-              <span style="font-size:0.66rem; font-weight:800; background:#f0e6db; padding:1px 5px; border-radius:14px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1.15;">${escapeText(dateDisplay || '—')}</span>
-              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.68rem; font-weight:700; background:#faf3ea; border:1px solid #eadbc8; padding:2px 7px; border-radius:14px; color:#8a5e35; white-space:nowrap; display:inline-flex; align-items:center; justify-content:center; direction:rtl; flex-shrink:0; line-height:1.15; text-align:center;">${escapeText(hijri.arabicDateNoYear)}</span>
+          <!-- day-row strictly in a single line -->
+          <div style="display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-between; align-items:center; margin-bottom:4px; padding-bottom:3px; border-bottom:1px solid #f0e2d2; gap:2px; width:100%; box-sizing:border-box; white-space:nowrap;">
+            <span style="font-family:'Playfair Display', serif; font-size:0.86rem; font-weight:800; color:#8b5e34; white-space:nowrap; flex-shrink:0;">${safeDay}</span>
+            <div style="display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; gap:2px; flex-shrink:0; white-space:nowrap;">
+              <span style="font-size:0.60rem; font-weight:800; background:#f0e6db; padding:1px 4px; border-radius:12px; color:#7a5b3c; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; line-height:1.15;">${escapeText(dateDisplay || '—')}</span>
+              <span style="font-family:'Noto Naskh Arabic', serif; font-size:0.62rem; font-weight:700; background:#faf3ea; border:1px solid #eadbc8; padding:1px 5px; border-radius:12px; color:#8a5e35; white-space:nowrap; display:inline-flex; align-items:center; justify-content:center; direction:rtl; flex-shrink:0; line-height:1.15; text-align:center;">${escapeText(hijri.arabicDateNoYear)}</span>
             </div>
           </div>
 
@@ -3343,7 +2979,7 @@
   }
 
   async function shareFullWeeklyMenu() {
-    const shareBtns = document.querySelectorAll('#shareAllMenuBtn, #shareWeeklyImageTabBtn');
+    const shareBtns = document.querySelectorAll('#shareAllMenuBtn');
     const origHtmls = [];
     shareBtns.forEach(btn => {
       origHtmls.push(btn.innerHTML);
@@ -3353,7 +2989,6 @@
 
     try {
       await ensureHtml2Canvas();
-      await loadMiqaatsDataset();
 
       const fallbackDays = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday'];
       const itemsToRender = (globalMenuData && globalMenuData.length) ? globalMenuData : Array(6).fill(null);
@@ -3379,32 +3014,32 @@
       `;
 
       exportContainer.innerHTML = `
-        <!-- 1. Header (Identical to Menu Section Header) -->
-        <div style="background:#e8dfd3; border-radius:36px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; border:1px solid #dbcbb8; position:relative; overflow:hidden; background-image:url('https://i.ibb.co/kVTGskyG/images.jpg'); background-size:cover; background-position:center; box-sizing:border-box;">
-          <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(232, 223, 211, 0.2); backdrop-filter:blur(1px); z-index:0; border-radius:36px;"></div>
+        <!-- 1. Header -->
+        <div style="background:#e8dfd3; border-radius:32px; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; border:1px solid #dbcbb8; position:relative; overflow:hidden; background-image:url('https://i.ibb.co/kVTGskyG/images.jpg'); background-size:cover; background-position:center; box-sizing:border-box;">
+          <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(232, 223, 211, 0.2); backdrop-filter:blur(1px); z-index:0; border-radius:32px;"></div>
           <div style="display:flex; align-items:center; gap:10px; position:relative; z-index:2;">
-            <img src="https://i.ibb.co/Jw8KbHVf/fmb-logo.png" style="width:76px; height:76px; border-radius:20px; object-fit:contain; background:rgba(255,251,245,0.92); padding:5px; box-shadow:0 6px 16px rgba(0,0,0,0.14); flex-shrink:0;" alt="logo" crossOrigin="anonymous">
+            <img src="https://i.ibb.co/Jw8KbHVf/fmb-logo.png" style="width:68px; height:68px; border-radius:18px; object-fit:contain; background:rgba(255,251,245,0.95); padding:4px; box-shadow:0 4px 12px rgba(0,0,0,0.12); flex-shrink:0;" alt="logo" crossOrigin="anonymous">
             <div style="text-align:left; line-height:1.2;">
-              <div style="font-family:'Playfair Display', serif; font-size:1.5rem; font-weight:800; color:#1e140c; text-shadow:0 2px 5px rgba(255,250,240,0.9); letter-spacing:0.3px; white-space:nowrap;">Chattogram</div>
+              <div style="font-family:'Playfair Display', serif; font-size:1.45rem; font-weight:800; color:#1e140c; text-shadow:0 2px 5px rgba(255,250,240,0.9); letter-spacing:0.3px; white-space:nowrap;">Chattogram</div>
               <div style="font-family:'Noto Naskh Arabic', serif; font-size:0.75rem; font-weight:600; color:#3d2b18; text-shadow:0 1px 4px rgba(255,245,230,0.9); white-space:nowrap;">الحمد لله والشكر لوليه</div>
             </div>
           </div>
         </div>
 
-        <!-- 2. Weekly Grid (Identical to 2x3 Grid in Menu Section) -->
+        <!-- 2. Weekly 2x3 Grid with shorter cards and single-line top row -->
         <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; width:100%; box-sizing:border-box;">
           ${cardsHtml}
         </div>
 
-        <!-- 3. Footer (Tiffin Guidelines with all rules in a single line) -->
-        <div style="background:#e8dfd3; border-radius:26px; padding:10px 14px; border:1px solid #dbcbb8; position:relative; overflow:hidden; background-image:url('https://i.ibb.co/hJ8d3NCk/Chat-GPT-Image-Oct-1-2026-09-01-54-PM.png'); background-size:cover; background-position:center; box-sizing:border-box;">
-          <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(232,223,211,0.2); backdrop-filter:blur(0.6px); z-index:0; border-radius:26px;"></div>
-          <div style="font-family:'Playfair Display', serif; font-size:0.95rem; font-weight:800; color:#2f2418; text-align:left; margin-bottom:6px; position:relative; z-index:2; text-shadow:0 1px 4px rgba(255,250,240,0.9); letter-spacing:0.3px;">Tiffin Guidelines</div>
-          <div style="display:flex; flex-wrap:nowrap; justify-content:space-between; align-items:center; gap:5px; position:relative; z-index:2; width:100%; box-sizing:border-box;">
-            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:4px 6px; border-radius:40px; font-size:0.65rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:3px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white; box-shadow:0 1px 2px rgba(0,0,0,0.04);">🧼 Wash & dry</span>
-            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:4px 6px; border-radius:40px; font-size:0.65rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:3px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white; box-shadow:0 1px 2px rgba(0,0,0,0.04);">🔥 <strong>Do NOT heat</strong></span>
-            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:4px 6px; border-radius:40px; font-size:0.65rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:3px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white; box-shadow:0 1px 2px rgba(0,0,0,0.04);">💳 FMB Card</span>
-            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:4px 6px; border-radius:40px; font-size:0.65rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:3px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white; box-shadow:0 1px 2px rgba(0,0,0,0.04);">⏰ Before 10:00 AM</span>
+        <!-- 3. Footer -->
+        <div style="background:#e8dfd3; border-radius:24px; padding:10px 14px; border:1px solid #dbcbb8; position:relative; overflow:hidden; background-image:url('https://i.ibb.co/hJ8d3NCk/Chat-GPT-Image-Oct-1-2026-09-01-54-PM.png'); background-size:cover; background-position:center; box-sizing:border-box;">
+          <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(232,223,211,0.2); backdrop-filter:blur(0.6px); z-index:0; border-radius:24px;"></div>
+          <div style="font-family:'Playfair Display', serif; font-size:0.90rem; font-weight:800; color:#2f2418; text-align:left; margin-bottom:4px; position:relative; z-index:2; text-shadow:0 1px 4px rgba(255,250,240,0.9); letter-spacing:0.3px;">Tiffin Guidelines</div>
+          <div style="display:flex; flex-wrap:nowrap; justify-content:space-between; align-items:center; gap:4px; position:relative; z-index:2; width:100%; box-sizing:border-box;">
+            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:3px 5px; border-radius:40px; font-size:0.62rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:2px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white;">🧼 Wash & dry</span>
+            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:3px 5px; border-radius:40px; font-size:0.62rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:2px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white;">🔥 <strong style="color:#8b5e34;">Do NOT heat</strong></span>
+            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:3px 5px; border-radius:40px; font-size:0.62rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:2px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white;">💳 FMB Card</span>
+            <span style="background:rgba(253,247,239,0.9); backdrop-filter:blur(3px); padding:3px 5px; border-radius:40px; font-size:0.62rem; font-weight:600; color:#3b2a19; display:inline-flex; align-items:center; justify-content:center; gap:2px; white-space:nowrap; flex:1 1 0; min-width:0; border:1px solid rgba(255,250,235,0.85); text-shadow:0 1px 2px white;">⏰ Before 10:00 AM</span>
           </div>
         </div>
       `;
@@ -3447,7 +3082,7 @@
       }, 'image/png', 0.95);
 
     } catch (err) {
-      alert('Unable to generate menu image: ' + err.message);
+      showAppToast('Unable to generate menu image: ' + err.message);
       shareBtns.forEach((btn, idx) => {
         btn.disabled = false;
         btn.innerHTML = origHtmls[idx] || '';
@@ -3510,7 +3145,7 @@
     copyImgDirectBtn.addEventListener('click', async () => {
       const ok = await copyShareImageToClipboard();
       if (!ok) {
-        alert('Direct image copy is not supported by your browser. Please use "Download PNG" or "Send via WhatsApp".');
+        showAppToast('Direct image copy is not supported by your browser. Please use "Download PNG".');
       }
     });
   }
@@ -3525,7 +3160,6 @@
   const uniShareImgBtn = document.getElementById('universalShareImageBtn');
   if (uniShareImgBtn) {
     uniShareImgBtn.addEventListener('click', async () => {
-      // 1. Universal OS Share Sheet: Works on Windows, Mac, Android, iOS to send file directly to WhatsApp, Telegram, Email, Messages, etc.
       if (currentShareFile && navigator.canShare && navigator.canShare({ files: [currentShareFile] })) {
         try {
           await navigator.share({
@@ -3534,11 +3168,10 @@
           });
           return;
         } catch (e) {
-          if (e.name === 'AbortError') return; // User canceled
+          if (e.name === 'AbortError') return;
         }
       }
 
-      // 2. Fallback for browsers without Web Share File API: Copy to clipboard & trigger download
       const copied = await copyShareImageToClipboard();
       if (currentShareDataUrl) {
         const a = document.createElement('a');
@@ -3550,9 +3183,9 @@
       }
 
       if (copied) {
-        showImageShareToast('✅ Image copied & downloaded! Paste (Ctrl+V) or attach into any app.');
+        showImageShareToast('✅ Image copied & downloaded! Paste (Ctrl+V) into WhatsApp.');
       } else {
-        alert('✅ Menu image downloaded! You can attach or send it to anyone via your favorite app.');
+        showAppToast('✅ Menu image downloaded!');
       }
     });
   }
@@ -3588,7 +3221,7 @@
     });
   }
 
-  // ── DUA RECITITION ───────────────────────────────────────
+  // ── DUA RECITATION ───────────────────────────────────────
   const playDuaBtn = document.getElementById('playDuaBtn');
   const duaAudio = document.getElementById('duaAudioPlayer');
 
@@ -3678,17 +3311,15 @@
         history.unshift(submissionObj);
         localStorage.setItem('chattogram_feedback_history', JSON.stringify(history));
 
-        // Submit directly to Google Form with exact entry IDs
         const gformEl = document.getElementById('gform_element');
         if (gformEl) {
           gformEl.innerHTML = '';
 
-          // Exact entry field IDs extracted from the user's Google Form
           const fields = {
-            'entry.1960044145': menuVal,                       // 1. Menu of the Day
-            'entry.1978933913': nameVal || 'Anonymous',         // 2. Name
-            'entry.7630620': 'Option 1',                        // 3. Rating (Multiple Choice)
-            'entry.1482373019': formattedReview,               // 4. Review / Notes.
+            'entry.1960044145': menuVal,
+            'entry.1978933913': nameVal || 'Anonymous',
+            'entry.7630620': 'Option 1',
+            'entry.1482373019': formattedReview,
             'fvv': '1',
             'pageHistory': '0'
           };
@@ -3953,23 +3584,12 @@
         </div>
       `;
 
-      // Speak button (if present)
-      const speakBtn = card.querySelector('.speak-btn');
-      if (speakBtn) {
-        speakBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          handleSpeakTap(i, dayVal, dateForSpeech, menuRaw, this, card, miqaatTitles);
-        });
-      }
-
-      // Flip click
       card.addEventListener('click', (e) => {
         if (e.target.closest('.speak-btn')) return;
         if (!card.classList.contains('flipped')) stopSpeaking();
         card.classList.toggle('flipped');
       });
 
-      // Keyboard enter/space to flip
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           if (e.target.closest('.speak-btn')) return;
@@ -3987,7 +3607,7 @@
     });
   }
 
-  // ── DEFAULT SEED MENU FOR INSTANT FIRST LOAD & OFFLINE ────
+  // ── DEFAULT SEED MENU ────
   const DEFAULT_MENU_DATA = [
     { day: "Saturday", month: "October", date: "3", menu: "Kheema Pulav, Soup, Vegetables", extra: "Fresh authentic kitchen preparation", menuColors: ["#000000"] },
     { day: "Sunday", month: "October", date: "4", menu: "Tandoori Pulav, Palidu, Vegetables, Roti", extra: "Warm Sunday meal", menuColors: ["#000000"] },
@@ -3997,7 +3617,7 @@
     { day: "Thursday", month: "October", date: "8", menu: "Plain Dal, Chawal, Burger, Roti", extra: "Traditional blessing", menuColors: ["#000000"] }
   ];
 
-  // ── OFFLINE / ONLINE CONNECTIVITY SYSTEM ───────────────────
+  // ── OFFLINE / ONLINE CONNECTIVITY ───────────────────
   function updateOnlineStatus() {
     const banner = document.getElementById('offlineIndicator');
     if (!banner) return;
@@ -4012,7 +3632,7 @@
   window.addEventListener('online', updateOnlineStatus);
   window.addEventListener('offline', updateOnlineStatus);
 
-  // ── INIT APP WITH INSTANT RENDERING & ULTRA-FAST LOADING ───
+  // ── INIT APP ───
   async function initializeApp() {
     updateOnlineStatus();
 
@@ -4021,7 +3641,6 @@
     const statusEl  = document.getElementById('loadingStatusMsg');
     const setStatus = msg => { if (statusEl) statusEl.innerText = msg; };
 
-    // 1. Instant Cache/Seed Loading (Zero wait time)
     let loadedFromCache = false;
     try {
       const cachedRaw = localStorage.getItem(MENU_CACHE_KEY);
@@ -4044,18 +3663,15 @@
       } catch (e) {}
     }
 
-    // Render immediately so user sees full menu in milliseconds
     renderCards(globalMenuData);
     updateTodaySpotlight(globalMenuData);
 
-    // Ultra-fast loading transition: reveal app right away
     if (overlay) {
       overlay.classList.add('hide');
       setTimeout(() => { if (overlay) overlay.style.display = 'none'; }, 180);
     }
     if (mainUi) mainUi.classList.add('visible');
 
-    // 2. Background Sync (silent, non-blocking)
     if (navigator.onLine) {
       try {
         fetchLiveWeather().catch(() => {});

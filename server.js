@@ -311,8 +311,6 @@ app.get('/api/mumineen-calendar', async (req, res) => {
       }
     }
 
-    // Determine phase: night (sunset to dawn, approx 18:00 - 05:59) vs day (06:00 - 17:59)
-    // Client can explicitly pass phase=day or phase=night
     const currentHour = dateObj.getHours();
     const isNightNow = req.query.phase ? (req.query.phase === 'night') : (currentHour >= 18 || currentHour < 6);
 
@@ -322,8 +320,7 @@ app.get('/api/mumineen-calendar', async (req, res) => {
     const hDay = ajdToHijri(ajdDay);
     const dayHijriDetail = buildHijriDetail(hDay.year, hDay.month, hDay.day, dateObj);
 
-    // Compute eve/night Hijri date (in Islamic reckoning, night belongs to the upcoming day)
-    // So Friday night (after Maghrib) is the eve of Saturday (Sabt ni Raat)
+    // Compute eve/night Hijri date
     const nextDayDate = new Date(noonDate.getTime() + 86400000);
     const ajdEve = gregorianToAJD(nextDayDate, 0);
     const hEve = ajdToHijri(ajdEve);
@@ -349,13 +346,11 @@ app.get('/api/mumineen-calendar', async (req, res) => {
     // Filter active miqaats matching the current phase
     let activeMiqaats = [];
     if (isNightNow) {
-      // At night: prioritize phase='night' miqaats of the upcoming day, plus any relevant announcements
       activeMiqaats = eveMiqaats.filter(m => m.phase === 'night' || !m.phase);
       if (!activeMiqaats.length) {
         activeMiqaats = eveMiqaats;
       }
     } else {
-      // In day: prioritize phase='day' miqaats
       activeMiqaats = dayMiqaats.filter(m => m.phase === 'day' || !m.phase);
       if (!activeMiqaats.length) {
         activeMiqaats = dayMiqaats;
@@ -386,7 +381,7 @@ app.get('/api/mumineen-calendar', async (req, res) => {
       }
     }
 
-    // Month overview: All miqaats for the current Hijri month
+    // Month overview
     const monthMiqaats = allMiqaats
       .filter(m => m.month === dayHijriDetail.month)
       .map(entry => ({
@@ -426,11 +421,11 @@ app.get('/api/mumineen-calendar', async (req, res) => {
   }
 });
 
-// Full Month Days & Miqaats for Lifetime Calendar Browser
+// Full Month Days & Miqaats
 app.get('/api/mumineen-calendar/month', async (req, res) => {
   try {
     let year = parseInt(req.query.year, 10);
-    let month = parseInt(req.query.month, 10); // 0-indexed (0 - 11)
+    let month = parseInt(req.query.month, 10);
 
     if (isNaN(year) || isNaN(month)) {
       const nowH = ajdToHijri(gregorianToAJD(new Date(), 0));
@@ -479,14 +474,14 @@ app.get('/api/mumineen-calendar/month', async (req, res) => {
   }
 });
 
-// Lifetime Bi-directional Date Converter Endpoint
+// Bi-directional Date Converter Endpoint
 app.get('/api/mumineen-calendar/convert', async (req, res) => {
   try {
     const { from, date, year, month, day } = req.query;
 
     if (from === 'hijri') {
       const hYear = parseInt(year, 10);
-      const hMonth = parseInt(month, 10); // 0-11
+      const hMonth = parseInt(month, 10);
       const hDay = parseInt(day, 10);
 
       if (isNaN(hYear) || isNaN(hMonth) || isNaN(hDay)) {
@@ -512,7 +507,6 @@ app.get('/api/mumineen-calendar/convert', async (req, res) => {
       });
     }
 
-    // Default: convert from Gregorian
     let gDate = new Date();
     if (date) {
       const parts = date.split('-');
