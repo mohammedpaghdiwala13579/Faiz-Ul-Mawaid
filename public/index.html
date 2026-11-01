@@ -896,12 +896,14 @@
 
     .day-row {
       display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap !important;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #f0e2d2;
       padding-bottom: 4px;
       margin-bottom: 4px;
-      gap: 4px;
+      gap: 3px;
       width: 100%;
       min-width: 0;
       white-space: nowrap;
@@ -911,7 +913,7 @@
 
     .day-name {
       font-family: 'Playfair Display', serif;
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 800;
       color: #8b5e34;
       white-space: nowrap;
@@ -922,17 +924,19 @@
 
     .day-date-wrap {
       display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap !important;
       align-items: center;
-      gap: 3px;
+      gap: 2.5px;
       flex-shrink: 0;
       white-space: nowrap;
     }
 
     .date-chip {
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       font-weight: 800;
       background: #f0e6db;
-      padding: 1px 5px;
+      padding: 1px 4px;
       border-radius: 14px;
       color: #7a5b3c;
       white-space: nowrap;
@@ -945,12 +949,12 @@
 
     .hijri-chip {
       font-family: 'Noto Naskh Arabic', serif;
-      font-size: 0.64rem;
+      font-size: 0.60rem;
       font-weight: 700;
       background: #faf3ea;
       border: 1px solid #eadbc8;
-      padding: 2px 9px;
-      min-width: 66px;
+      padding: 1.5px 6px;
+      min-width: auto;
       border-radius: 14px;
       color: #8a5e35;
       white-space: nowrap;
@@ -1582,9 +1586,11 @@
 
     @media (max-width: 420px) {
       .header-dots-btn { width: 36px; height: 36px; }
-      .day-name { font-size: 0.74rem; }
-      .date-chip { font-size: 0.58rem; padding: 1px 4px; }
-      .hijri-chip { font-size: 0.60rem; padding: 2px 7px; min-width: 58px; }
+      .day-row { flex-wrap: nowrap !important; gap: 2px; }
+      .day-name { font-size: 0.66rem; letter-spacing: -0.3px; }
+      .day-date-wrap { gap: 2px; flex-shrink: 0; flex-wrap: nowrap !important; }
+      .date-chip { font-size: 0.52rem; padding: 1px 2.5px; }
+      .hijri-chip { font-size: 0.54rem; padding: 1px 4px; min-width: auto; }
       .card-miqaat-chip { font-size: 0.64rem; padding: 3px 5px; }
       .rule { font-size: 0.54rem; padding: 3px 3px; gap: 2px; }
       .spotlight-day { font-size: 1.2rem; }
@@ -1594,12 +1600,13 @@
     @media (max-width: 360px) {
       body { padding: 6px 4px; }
       .header-dots-btn { width: 34px; height: 34px; }
-      .grid-2x3 { gap: 6px; }
-      .card-front, .card-back { padding: 8px 6px 6px 6px; }
-      .day-name { font-size: 0.70rem; }
-      .date-chip { font-size: 0.55rem; padding: 1px 3px; }
-      .hijri-chip { font-size: 0.56rem; padding: 2px 6px; min-width: 52px; }
-      .day-row { flex-wrap: wrap; gap: 2px 4px; }
+      .grid-2x3 { gap: 4px; }
+      .card-front, .card-back { padding: 6px 4px 5px 4px; }
+      .day-row { flex-wrap: nowrap !important; gap: 1.5px; }
+      .day-name { font-size: 0.58rem; letter-spacing: -0.35px; }
+      .day-date-wrap { gap: 1.5px; flex-shrink: 0; flex-wrap: nowrap !important; }
+      .date-chip { font-size: 0.48rem; padding: 1px 2px; }
+      .hijri-chip { font-size: 0.50rem; padding: 1px 3px; min-width: auto; }
       .menu-text { font-size: 0.78rem; }
       .chatt-micro { font-size: 1.1rem; }
       .logo-micro { width: 52px; height: 52px; border-radius: 14px; padding: 3px; }
