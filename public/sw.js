@@ -1,17 +1,17 @@
 // sw.js — Faiz-ul-Mawaid Chattogram Service Worker
 // Enables complete offline operation and lightning-fast loading
 
-const CACHE_NAME = 'chattogram-fmb-v6';
+const CACHE_NAME = 'chattogram-fmb-v7';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/miqaats.json',
+  '/miqaats.js',
   'https://i.ibb.co/Jw8KbHVf/fmb-logo.png',
   'https://i.ibb.co/kVTGskyG/images.jpg',
   'https://i.ibb.co/hJ8d3NCk/Chat-GPT-Image-Oct-1-2026-09-01-54-PM.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
 ];
 
 self.addEventListener('install', event => {

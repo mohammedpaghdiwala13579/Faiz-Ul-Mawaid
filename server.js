@@ -9,8 +9,25 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'public')));
+// High-performance static caching options with ETag and stale-while-revalidate
+const staticOptions = {
+  maxAge: '1h',
+  etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    } else if (filePath.match(/\.(png|jpg|jpeg|svg|gif|webp|ico|json)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
+    } else if (filePath.endsWith('.js') && !filePath.endsWith('sw.js')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+    } else if (filePath.endsWith('sw.js')) {
+      res.setHeader('Cache-Control', 'public, max-age=0, no-cache');
+    }
+  }
+};
+
+app.use(express.static(__dirname, staticOptions));
+app.use(express.static(path.join(__dirname, 'public'), staticOptions));
 
 // ── AUTHENTIC DAWOODI BOHRA (FATIMID / MISRI TABULAR) CALENDAR ENGINE ──
 // Mathematical cycle established by Amir ul-Mumineen Moulana Ali (AS),
@@ -185,6 +202,15 @@ function buildHijriDetail(year, month, day, dateObj) {
 // ── AUTHENTIC DAWOODI BOHRA WEBSITES DATA SOURCE ──
 let cachedMiqaats = null;
 let lastCacheTime = 0;
+
+// Warm up cache immediately on boot from local file to guarantee 0ms response time
+try {
+  const localData = await fs.readFile(path.join(__dirname, 'miqaats.json'), 'utf-8');
+  cachedMiqaats = JSON.parse(localData);
+  lastCacheTime = Date.now();
+} catch (e) {
+  // Will be fetched on demand if file read fails
+}
 
 async function fetchAuthoritativeMiqaatsData() {
   const NOW = Date.now();
@@ -394,6 +420,7 @@ app.get('/api/mumineen-calendar', async (req, res) => {
       .filter(entry => entry.miqaats.length > 0)
       .sort((a, b) => a.day - b.day);
 
+    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=3600');
     res.json({
       status: 'success',
       source: 'Mumineen Calendar (Official Dawoodi Bohra Tabular System)',

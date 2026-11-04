@@ -7,7 +7,7 @@
     "dev": "node server.js",
     "start": "node server.js",
     "lint": "node --check server.js",
-    "build": "node -e \"import('fs').then(fs => { if(!fs.existsSync('public')) fs.mkdirSync('public'); ['index.html','manifest.json','sw.js','miqaats.json'].forEach(f => { if(fs.existsSync(f)) fs.copyFileSync(f, 'public/' + f); }); });\""
+    "build": "node -e \"import('fs').then(fs => { if(!fs.existsSync('public')) fs.mkdirSync('public'); ['index.html','manifest.json','sw.js','miqaats.json','miqaats.js'].forEach(f => { if(fs.existsSync(f)) fs.copyFileSync(f, 'public/' + f); }); });\""
   },
   "dependencies": {
     "express": "^4.19.2",
